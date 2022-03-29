@@ -10,11 +10,9 @@ const LoginScreen = () => {
     const [email, setEmail] = useState('admin@admin.com');
     const [password, setPassword] = useState('admin');
     const { currentUser, setCurrentUser } = useContext(AuthContext);
-    const [isSubmit, setIsSubmit] = useState(false);
     
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setIsSubmit(true);
         try {
             const user = { email, password };
             const result = await axios.post(`http://localhost:5000/auth/login`, user);
@@ -28,12 +26,11 @@ const LoginScreen = () => {
     };
 
     useEffect(()=> {
-        if (currentUser && !isSubmit) {
+        if (localStorage.getItem('user')) {
             navigate('/');
             toast.info("User already logged in!");
         }
-        setIsSubmit(false);
-    }, [currentUser]);
+    }, []);
 
     return (
         <div className="container-fluid fullscreen-bg auth-bg">

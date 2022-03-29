@@ -7,6 +7,7 @@ const HomeScreen = () => {
 
     const navigate = useNavigate();
     const { currentUser } = useContext(AuthContext);
+    const [subPage, setSubPage] = useState('My Schedule');
 
     const formatName = () => {
         const fName = currentUser.firstName.substr(0,1).toUpperCase()+currentUser.firstName.substr(1,currentUser.firstName.length-1).toLowerCase();
@@ -15,11 +16,11 @@ const HomeScreen = () => {
     };
 
     useEffect(()=> {
-        if (!currentUser) {
+        if (!localStorage.getItem('user')) {
             navigate('/login');
             toast.info("Please Login / Register.");
         }
-    }, [currentUser, navigate]);
+    }, []);
 
     return (
     <>
@@ -27,12 +28,12 @@ const HomeScreen = () => {
     <nav className="navbar navbar-dark bg-dark">
         <div className="container justify-content-between">
             <div>
-                <button className="btn btn-sm btn-outline-light me-2" type="button">My Schedule</button>
-                <button className="btn btn-sm btn-outline-light me-2" type="button">Friends</button>
-                <button className="btn btn-sm btn-outline-light me-2" type="button">QR codes</button>
+                <button className="btn btn-sm btn-outline-light me-2" type="button" onClick={() => setSubPage('My Schedule')}>My Schedule</button>
+                <button className="btn btn-sm btn-outline-light me-2" type="button" onClick={() => setSubPage('Friends')}>Friends</button>
+                <button className="btn btn-sm btn-outline-light me-2" type="button" onClick={() => setSubPage('QR codes')}>QR codes</button>
             </div>
             <div>
-                <button className="btn btn-sm btn-outline-warning me-2" type="button">Settings</button>
+                <button className="btn btn-sm btn-outline-warning me-2" type="button" onClick={() => setSubPage('Settings')}>Settings</button>
                 <button className="btn btn-sm btn-outline-danger me-2" type="button" onClick={() => navigate('/logout')}>Logout</button>
             </div>
             

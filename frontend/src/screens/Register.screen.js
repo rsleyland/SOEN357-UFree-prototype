@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 
-const RegisterScreen = () => {
+const RegisterScreen = ( { mode } ) => {
 
     const navigate = useNavigate();
     const [firstName, setFirstName] = useState('');
@@ -19,6 +19,22 @@ const RegisterScreen = () => {
         setEmail(_email);
         setPassword(_password);
     }, [_email, _password]);
+
+    useEffect(() => {
+        const element = document.getElementById('register-form-cont').classList;
+        if (mode == 'light') {
+            if (element.contains('auth-bg-dark')){
+                element.remove('auth-bg-dark');
+            }
+            element.add('auth-bg');
+        }
+        else {
+            if (element.contains('auth-bg')){
+                element.remove('auth-bg');
+            }
+            element.add('auth-bg-dark');
+        }
+    }, [mode]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -39,10 +55,10 @@ const RegisterScreen = () => {
     };
     
     return (
-        <div className="container-fluid fullscreen-bg" id='loginRegister-bg'>
+        <div id='register-form-cont' className="container-fluid fullscreen-bg auth-bg">
             <div className="row justify-content-end">
                 <div className="col-md-6 col-sm-7 col-10 me-lg-5 me-1">
-                    <form id='register-form' onSubmit={handleSubmit}>
+                    <form id='register-form' className='auth-form' onSubmit={handleSubmit}>
                         <h3>Register</h3>
                         <label className='form-label mt-3'>First Name</label>
                         <input className='form-control' type="text" required
@@ -59,9 +75,9 @@ const RegisterScreen = () => {
                         <label className='form-label mt-2'>Confirm Password</label>
                         <input className='form-control' type="password" required
                         placeholder='********' value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}/>
-                        <button type='submit' className='btn btn-primary form-control mt-4'>Register</button>
-                        <div className='d-flex justify-content-center'>
-                            <button type='button' className='btn btn-sm btn-success w-75 mt-4'
+                        <div className='d-flex flex-column align-items-center'>
+                            <button type='submit' className='btn btn-primary form-control mt-4 w-75'>Register</button>
+                            <button type='button' className='btn btn-sm btn-success w-50 mt-4'
                             onClick={() => navigate('/login')}>Already Registered?</button>
                         </div>
                     </form>

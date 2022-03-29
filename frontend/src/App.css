@@ -1,3 +1,13 @@
 .fullscreen-bg {
     height: max(700px, 100vh);
 }
+
+#mode-selector {
+    position: absolute;
+    font-size: 22px;
+    margin-left: 10px;
+}
+
+#mode-selector:hover {
+    opacity: 0.9;
+}

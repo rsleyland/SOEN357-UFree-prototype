@@ -1,20 +1,22 @@
-#login-form {
+.auth-form {
     position: relative;
-    top: max(calc(50vh - 150px), 50px);
     background-color: rgba(107, 48, 119, 0.9);
     padding: 30px 20px;
-    border-radius: 5px;
+    border-radius: 10px;
     color: #FFF;
+}
+#login-form {
+    top: max(calc(50vh - 150px), 50px);
 }
 #register-form {
-    position: relative;
     top: max(calc(50vh - 300px), 25px);
-    background-color: rgba(107, 48, 119, 0.9);
-    padding: 30px 20px;
-    border-radius: 5px;
-    color: #FFF;
 }
-#loginRegister-bg {
+.auth-bg {
+    background-image: url('../../../public/img/clock2_inv.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.auth-bg-dark {
     background-image: url('../../../public/img/clock2.jpeg');
     background-repeat: no-repeat;
     background-size: cover;

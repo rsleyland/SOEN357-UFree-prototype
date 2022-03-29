@@ -1,27 +1,32 @@
-import { useState, useEffect } from 'react';
+import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify';
 import axios from 'axios';
+import { AuthContext } from '../services/providers/AuthContextProvider.js';
 
-const LoginScreen = ( { mode } ) => {
+const LoginScreen = () => {
 
     const navigate = useNavigate();
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [email, setEmail] = useState('admin@admin.com');
+    const [password, setPassword] = useState('admin');
+    const { setCurrentUser } = useContext(AuthContext);
     
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
             const user = { email, password };
-            await axios.post(`http://localhost:5000/auth/login`, user);
+            const result = await axios.post(`http://localhost:5000/auth/login`, user);
+            setCurrentUser(result.data);
+            localStorage.setItem('user', JSON.stringify(result.data));
             toast.success("User logged in successfully!");
+            navigate('/profile');
         } catch (error) {
             toast.error(error.response.data.error);
         }
     };
 
     return (
-        <div className={mode === 'light' ? "container-fluid fullscreen-bg auth-bg" :"container-fluid fullscreen-bg auth-bg-dark"}>
+        <div className="container-fluid fullscreen-bg auth-bg">
             <div className="row justify-content-end">
                 <div className="col-md-6 col-sm-7 col-10 me-lg-5 me-1">
                     <form id='login-form' className='auth-form' onSubmit={handleSubmit}>

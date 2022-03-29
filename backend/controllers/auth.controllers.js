@@ -28,6 +28,14 @@ const loginHandler = async (req, res) => {
     }
 };
 
+const logoutHandler = async (req, res) => {
+    try {
+        res.status(200).clearCookie("token").end();
+    } catch (error) {
+        res.status(400).json({error});
+    }
+};
+
 
 const registrationHandler = async (req, res) => {
     try {
@@ -54,4 +62,4 @@ const registrationHandler = async (req, res) => {
 };
 
 
-export { loginHandler, registrationHandler };
+export { loginHandler, registrationHandler, logoutHandler };

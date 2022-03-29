@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 
-const RegisterScreen = ( { mode } ) => {
+const RegisterScreen = () => {
 
     const navigate = useNavigate();
     const [firstName, setFirstName] = useState('');
@@ -39,7 +39,7 @@ const RegisterScreen = ( { mode } ) => {
     };
     
     return (
-        <div className={mode === 'light' ? "container-fluid fullscreen-bg auth-bg" :"container-fluid fullscreen-bg auth-bg-dark"}>
+        <div className="container-fluid fullscreen-bg auth-bg">
             <div className="row justify-content-end">
                 <div className="col-md-6 col-sm-7 col-10 me-lg-5 me-1">
                     <form id='register-form' className='auth-form' onSubmit={handleSubmit}>

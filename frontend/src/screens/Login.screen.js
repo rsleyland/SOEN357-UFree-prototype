@@ -7,9 +7,9 @@ import { AuthContext } from '../services/providers/AuthContextProvider.js';
 const LoginScreen = () => {
 
     const navigate = useNavigate();
-    const [email, setEmail] = useState('admin@admin.com');
-    const [password, setPassword] = useState('admin');
-    const { currentUser, setCurrentUser } = useContext(AuthContext);
+    const [email, setEmail] = useState('ryan@leyland.com');
+    const [password, setPassword] = useState('SecurePass123');
+    const { setCurrentUser } = useContext(AuthContext);
     
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -30,7 +30,7 @@ const LoginScreen = () => {
             navigate('/');
             toast.info("User already logged in!");
         }
-    }, []);
+    }, [navigate]);
 
     return (
         <div className="container-fluid fullscreen-bg auth-bg">

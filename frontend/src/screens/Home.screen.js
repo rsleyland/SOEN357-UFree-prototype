@@ -9,23 +9,17 @@ const HomeScreen = () => {
     const { currentUser } = useContext(AuthContext);
     const [subPage, setSubPage] = useState('My Schedule');
 
-    const formatName = () => {
-        const fName = currentUser.firstName.substr(0,1).toUpperCase()+currentUser.firstName.substr(1,currentUser.firstName.length-1).toLowerCase();
-        const lName = currentUser.lastName.substr(0,1).toUpperCase()+currentUser.lastName.substr(1,currentUser.lastName.length-1).toLowerCase();
-        return fName + ' ' + lName;
-    };
-
     useEffect(()=> {
         if (!localStorage.getItem('user')) {
             navigate('/login');
             toast.info("Please Login / Register.");
         }
-    }, []);
+    }, [navigate]);
 
     return (
     <>
     
-    <nav className="navbar navbar-dark bg-dark">
+    <nav className="navbar navbar-dark bg-dark p-3">
         <div className="container justify-content-between">
             <div>
                 <button className="btn btn-sm btn-outline-light me-2" type="button" onClick={() => setSubPage('My Schedule')}>My Schedule</button>
@@ -33,7 +27,11 @@ const HomeScreen = () => {
                 <button className="btn btn-sm btn-outline-light me-2" type="button" onClick={() => setSubPage('QR codes')}>QR codes</button>
             </div>
             <div>
-                <button className="btn btn-sm btn-outline-warning me-2" type="button" onClick={() => setSubPage('Settings')}>Settings</button>
+                <button className="btn btn-sm btn-outline-warning me-2" type="button"
+                onClick={() => setSubPage('Settings')}>
+                {currentUser && (<><small className='me-2'>{currentUser.firstName}</small>
+                    <i className="fa-regular fa-circle-user"></i></>)}
+                </button>
                 <button className="btn btn-sm btn-outline-danger me-2" type="button" onClick={() => navigate('/logout')}>Logout</button>
             </div>
             
@@ -42,7 +40,7 @@ const HomeScreen = () => {
 
     <div className="container mt-4 d-flex justify-content-center">
         {currentUser && (
-            <h3 >Welcome {formatName()}</h3>
+            <h3 >Welcome {currentUser.firstName + " " + currentUser.lastName}</h3>
         )}
     </div>
         

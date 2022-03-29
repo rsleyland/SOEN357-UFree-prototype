@@ -11,3 +11,6 @@
 #mode-selector:hover {
     opacity: 0.9;
 }
+.capitalize {
+text-transform: capitalize;
+}

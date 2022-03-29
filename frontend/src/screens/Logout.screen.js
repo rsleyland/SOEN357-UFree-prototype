@@ -22,7 +22,7 @@ const LogoutScreen = () => {
             }
         };logout();
         
-    }, []);
+    }, [setCurrentUser, navigate]);
 
     return null;
 };

@@ -1,10 +1,11 @@
 .auth-form {
     position: relative;
-    background-color: rgba(107, 48, 119, 0.9);
+    background-color: rgba(80, 23, 110, 0.8);
     padding: 30px 20px;
     border-radius: 10px;
     color: #FFF;
 }
+
 #login-form {
     top: max(calc(50vh - 180px), 50px);
 }

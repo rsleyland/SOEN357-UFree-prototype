@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useEffect, useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import axios from 'axios';
+import { AuthContext } from '../services/providers/AuthContextProvider.js';
 
 const RegisterScreen = () => {
 
@@ -11,14 +12,14 @@ const RegisterScreen = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
-
-    const {state} = useLocation();
-    const { _email, _password } = state;
-
-    useEffect(() => {
-        setEmail(_email);
-        setPassword(_password);
-    }, [_email, _password]);
+    const { currentUser } = useContext(AuthContext);
+ 
+    useEffect(()=> {
+        if (currentUser) {
+            navigate('/');
+            toast.info("User already logged in!");
+        }
+    }, [currentUser, navigate]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -60,8 +61,8 @@ const RegisterScreen = () => {
                         <input className='form-control' type="password" required
                         placeholder='********' value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}/>
                         <div className='d-flex flex-column align-items-center'>
-                            <button type='submit' className='btn btn-primary form-control mt-4 w-75'>Register</button>
-                            <button type='button' className='btn btn-sm btn-success w-50 mt-4'
+                            <button type='submit' className='btn btn-success form-control mt-4 w-75'>Register</button>
+                            <button type='button' className='btn btn-sm btn-secondary w-50 mt-4'
                             onClick={() => navigate('/login')}>Already Registered?</button>
                         </div>
                     </form>

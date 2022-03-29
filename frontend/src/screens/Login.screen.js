@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify';
 import axios from 'axios';
@@ -9,21 +9,31 @@ const LoginScreen = () => {
     const navigate = useNavigate();
     const [email, setEmail] = useState('admin@admin.com');
     const [password, setPassword] = useState('admin');
-    const { setCurrentUser } = useContext(AuthContext);
+    const { currentUser, setCurrentUser } = useContext(AuthContext);
+    const [isSubmit, setIsSubmit] = useState(false);
     
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setIsSubmit(true);
         try {
             const user = { email, password };
             const result = await axios.post(`http://localhost:5000/auth/login`, user);
             setCurrentUser(result.data);
             localStorage.setItem('user', JSON.stringify(result.data));
             toast.success("User logged in successfully!");
-            navigate('/profile');
+            navigate('/');
         } catch (error) {
             toast.error(error.response.data.error);
         }
     };
+
+    useEffect(()=> {
+        if (currentUser && !isSubmit) {
+            navigate('/');
+            toast.info("User already logged in!");
+        }
+        setIsSubmit(false);
+    }, [currentUser]);
 
     return (
         <div className="container-fluid fullscreen-bg auth-bg">
@@ -38,9 +48,9 @@ const LoginScreen = () => {
                         <input className='form-control' type="password" required
                         placeholder='********' value={password} onChange={(e) => setPassword(e.target.value)}/>
                         <div className='d-flex flex-column align-items-center'>
-                            <button type='submit' className='btn btn-primary form-control mt-4 w-75'>Login</button>
-                            <button type='button' className='btn btn-sm btn-success w-50 mt-4' 
-                            onClick={() => navigate('/register', { state: { _email: email, _password: password } })}>Register</button>
+                            <button type='submit' className='btn btn-success form-control mt-4 w-75'>Login</button>
+                            <button type='button' className='btn btn-sm btn-secondary w-50 mt-4' 
+                            onClick={() => navigate('/register')}>Register</button>
                         </div>
                     </form>
                 </div>

@@ -5,6 +5,8 @@ import './screens/css/loginRegister.screen.css';
 import App from './App';
 import { BrowserRouter } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import axios from 'axios';
+axios.defaults.withCredentials = true //auto send and recieve cookies - no need to add to every request now 
 
 ReactDOM.render(
   <BrowserRouter>

@@ -8,7 +8,7 @@
 }
 #register-form {
     position: relative;
-    top: max(calc(50vh - 220px), 25px);
+    top: max(calc(50vh - 300px), 25px);
     background-color: rgba(107, 48, 119, 0.9);
     padding: 30px 20px;
     border-radius: 5px;

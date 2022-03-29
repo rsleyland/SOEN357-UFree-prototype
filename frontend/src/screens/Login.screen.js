@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify';
 import axios from 'axios';
@@ -13,7 +13,7 @@ const LoginScreen = ( { mode } ) => {
         e.preventDefault();
         try {
             const user = { email, password };
-            const result = await axios.post(`http://localhost:5000/auth/login`, user);
+            await axios.post(`http://localhost:5000/auth/login`, user);
             toast.success("User logged in successfully!");
         } catch (error) {
             toast.error(error.response.data.error);
@@ -21,7 +21,7 @@ const LoginScreen = ( { mode } ) => {
     };
 
     return (
-        <div className="container-fluid fullscreen-bg auth-bg">
+        <div className={mode === 'light' ? "container-fluid fullscreen-bg auth-bg" :"container-fluid fullscreen-bg auth-bg-dark"}>
             <div className="row justify-content-end">
                 <div className="col-md-6 col-sm-7 col-10 me-lg-5 me-1">
                     <form id='login-form' className='auth-form' onSubmit={handleSubmit}>

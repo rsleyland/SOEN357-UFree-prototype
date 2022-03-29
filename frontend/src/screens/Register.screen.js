@@ -20,25 +20,9 @@ const RegisterScreen = ( { mode } ) => {
         setPassword(_password);
     }, [_email, _password]);
 
-    useEffect(() => {
-        const element = document.getElementById('register-form-cont').classList;
-        if (mode == 'light') {
-            if (element.contains('auth-bg-dark')){
-                element.remove('auth-bg-dark');
-            }
-            element.add('auth-bg');
-        }
-        else {
-            if (element.contains('auth-bg')){
-                element.remove('auth-bg');
-            }
-            element.add('auth-bg-dark');
-        }
-    }, [mode]);
-
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (password != confirmPassword) return toast.error("Passwords do not match");
+        if (password !== confirmPassword) return toast.error("Passwords do not match");
         try {
             const user = {
                 firstName,
@@ -46,7 +30,7 @@ const RegisterScreen = ( { mode } ) => {
                 email,
                 password
             }
-            const result = await axios.post(`http://localhost:5000/auth/register`, user);
+            await axios.post(`http://localhost:5000/auth/register`, user);
             toast.success("User registered successfully!");
             navigate('/login');
         } catch (error) {
@@ -55,7 +39,7 @@ const RegisterScreen = ( { mode } ) => {
     };
     
     return (
-        <div id='register-form-cont' className="container-fluid fullscreen-bg auth-bg">
+        <div className={mode === 'light' ? "container-fluid fullscreen-bg auth-bg" :"container-fluid fullscreen-bg auth-bg-dark"}>
             <div className="row justify-content-end">
                 <div className="col-md-6 col-sm-7 col-10 me-lg-5 me-1">
                     <form id='register-form' className='auth-form' onSubmit={handleSubmit}>

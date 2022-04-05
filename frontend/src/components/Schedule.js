@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { blankSchedule } from "./ScheduleBlank";
+import axios from 'axios';
+import { toast } from "react-toastify";
 
 const Schedule = () => {
 
@@ -7,14 +9,18 @@ const Schedule = () => {
     const [endTime, setEndTime] = useState(20);
     const [scheduleArray, setScheduleArray] = useState([]);
     const [mouseDown, setMouseDown] = useState(false);
-    let date = new Date();
-    date.setHours(startTime);
-    date.setMinutes(0);
-    date.setSeconds(0);
 
     //grab and store blank schedule
     useEffect(()=> {
-        setScheduleArray(blankSchedule);
+        const getSchedule = async() => {
+            try {
+                const response = await axios.get(`http://localhost:5000/schedule/my`);
+                if (response.data.data) setScheduleArray(response.data.data);
+                else setScheduleArray(blankSchedule);
+            } catch (error) {
+                console.log(error.message)   
+            }
+        };getSchedule();
     }, []);
 
     const checkAndUpdateIfIsTDElement = (ev) => {
@@ -34,6 +40,16 @@ const Schedule = () => {
         }
     }
 
+    const saveSchedule = async () => {
+        try {
+            const body = { schedule : scheduleArray };
+            await axios.post(`http://localhost:5000/schedule/save`, body);
+            toast.success(`Schedule saved successfully`);
+        } catch (error) {
+            console.log(error)
+            toast.error("There was an error saving your schedule - please try again");
+        } 
+    };
     //event listeners
     useEffect(()=> {
         const handleDocumentMouseOver = event => {
@@ -94,8 +110,6 @@ const Schedule = () => {
     };
 
     
-
-
     return (
         <>
         <h3>Set Your Schedule</h3>
@@ -144,7 +158,8 @@ const Schedule = () => {
                     )
                 })}
             </tbody>
-        </table></>
+        </table>
+        <button onClick={saveSchedule} className="btn btn-primary">Save</button></>
         
     )
 }

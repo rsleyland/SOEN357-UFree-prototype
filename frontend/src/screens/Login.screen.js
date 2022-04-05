@@ -18,7 +18,8 @@ const LoginScreen = () => {
             const result = await axios.post(`http://localhost:5000/auth/login`, user);
             setCurrentUser(result.data);
             localStorage.setItem('user', JSON.stringify(result.data));
-            toast.success("User logged in successfully!");
+            const name = result.data.firstName;
+            toast.success(`${name.substr(0,1).toUpperCase()}${name.substr(1,name.length-1)} logged in successfully`);
             navigate('/');
         } catch (error) {
             toast.error(error.response.data.error);

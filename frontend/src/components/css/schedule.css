@@ -1,0 +1,45 @@
+#schedule-table {
+    width: 80%;
+    text-align: center;
+    margin-top: 20px;
+}
+#schedule-table tr {
+    font-size: 10px;
+}
+#schedule-table tr:nth-child(4n) {
+    border-bottom: 1px solid black;
+}
+#schedule-table td, #schedule-table th {
+    width: 12%;
+    color: #FFF;
+    border-right: 1px solid black;
+    font-size: 8px;
+}
+#schedule-table th {
+    background-color: gray;
+    border-bottom: 1px solid black;
+    font-size: 12px;
+    user-select: none;
+}
+
+#schedule-table td {
+    background-color: lightgray;
+    color: #000;
+}
+
+#schedule-table td:hover {
+    opacity: 0.8;
+}
+.time-header {
+    width: 3%!important;
+    border-bottom: 1px solid gray!important;
+}
+.time-header div {
+    display: flex;
+    position: relative;
+    top: -25px;
+    justify-content: center;
+}
+.time-selected {
+    background-color: green!important;
+}

@@ -12,10 +12,12 @@ const LogoutScreen = () => {
     useEffect(() => {
         const logout = async () => {
             try {
+                const name = JSON.parse(localStorage.getItem('user')).firstName;
+                const formatName = name.substr(0,1).toUpperCase() + name.substr(1,name.length-1);
                 setCurrentUser(null);
                 localStorage.clear();
                 await axios.get(`http://localhost:5000/auth/logout`);
-                toast.success("User logged out successfully!");
+                toast.success(`${formatName} logged out successfully!`);
                 navigate('/login');
             } catch (error) {
                 toast.error(error.response.data.error);

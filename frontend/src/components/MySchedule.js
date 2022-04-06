@@ -131,14 +131,14 @@ const MySchedule = () => {
         <table id="schedule-table" className="mb-4">
             <thead>
                 <tr>
-                    <th className="time-header"></th>
+                    <th className="time-header" id="table-tl"></th>
                     <th>Mon</th>
                     <th>Tues</th>
                     <th>Weds</th>
                     <th>Thurs</th>
                     <th>Fri</th>
                     <th className="bg-secondary">Sat</th>
-                    <th className="bg-secondary">Sun</th>
+                    <th id="table-tr" className="bg-secondary">Sun</th>
                 </tr>
             </thead>
             <tbody>

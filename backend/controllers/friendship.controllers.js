@@ -1,5 +1,6 @@
 import { Friendship } from "../models/Friendship.model.js";
 import { User } from "../models/User.model.js";
+import crypto from "crypto";
 
 const getMyFriendships = async (req, res) => {
     try {
@@ -31,7 +32,12 @@ const createNewFriendship = async (req, res) => {
             else {
                 const friendship = await Friendship.create({
                     friend_1_id: id, friend_1_name: name, friend_2_id: friendsId, friend_2_name: `${friend.firstName} ${friend.lastName}`})
-                if (friendship) return res.status(200).json(friendship);
+                if (friendship) {
+                    const code = crypto.randomBytes(6).toString('hex'); //code is one time use - refresh it after creating a friendship
+                    friend.friendship_code = code; 
+                    friend.save(); 
+                    return res.status(200).json(friendship);
+                }
                 else return res.status(400).json("Friendship could not be created");
             }
         }

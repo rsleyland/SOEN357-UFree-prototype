@@ -2,6 +2,7 @@
     width: 80%;
     text-align: center;
     margin-top: 20px;
+    border-radius: 10px;
 }
 #schedule-table tr {
     font-size: 10px;
@@ -9,7 +10,7 @@
 #schedule-table tr:nth-child(4n) {
     border-bottom: 1px solid black;
 }
-#schedule-table td, #schedule-table th {
+#schedule-table td {
     width: 12%;
     color: #FFF;
     border-right: 1px solid black;
@@ -18,10 +19,11 @@
 #schedule-table th {
     background-color: rgba(80, 23, 110, 1);
     border-bottom: 1px solid rgba(80, 23, 110, 1);
+    border-left: 1px solid black;
     font-size: 12px;
     user-select: none;
+    color: #FFF;
 }
-
 #schedule-table td {
     background-color: lightgray;
     color: #000;
@@ -43,4 +45,11 @@
 .time-selected {
     background-color: green!important;
     color: white!important;
+}
+#table-tl {
+    border-top-left-radius: 10px;
+    border-left: none!important;
+}
+#table-tr {
+    border-top-right-radius: 10px;
 }

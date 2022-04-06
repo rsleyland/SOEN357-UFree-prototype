@@ -18,7 +18,10 @@ const MySchedule = () => {
                 setIsLoading(true);
                 const response = await axios.get(`http://localhost:5000/schedule/my`);
                 if (response.data.data) setScheduleArray(response.data.data);
-                else setScheduleArray(scheduleArrayBuilder());
+                else {
+                    setScheduleArray(scheduleArrayBuilder());
+                    toast.info('Your Schedule is empty')
+                }
                 setIsLoading(false);
             } catch (error) {
                 console.log(error.message)

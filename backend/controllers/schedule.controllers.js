@@ -44,7 +44,7 @@ const getFriendSchedule = async (req, res) => {
             }
             else res.status(200).json("Friends schedule not found"); 
         }
-        else res.status(200).json("You are not friends with that user"); 
+        else res.status(400).json("You are not friends with that user"); 
          
     } catch (error) {
         console.log(error);

@@ -17,8 +17,11 @@ const FriendSchedule = ({friend_id, friend_name, setCurrentTab}) => {
                 setIsLoading(true);
                 const body = {friend_id : friend_id}
                 const response = await axios.post(`http://localhost:5000/schedule/friend`, body);
-                if (response.data.data) setScheduleArray(response.data.data);
-                else setScheduleArray(scheduleArrayBuilder());
+                if (response.data && response.data.data) setScheduleArray(response.data.data);
+                else {
+                    setScheduleArray(scheduleArrayBuilder());
+                    toast.info('Friend\'s schedule is empty')
+                }
                 setIsLoading(false);
             } catch (error) {
                 console.log(error.message)

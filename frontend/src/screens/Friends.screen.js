@@ -20,7 +20,7 @@ const Friends = () => {
           <li className="nav-item mx-3 pointer">
             <button
               className={
-                currentTab === "My Friends" || currentTab === "Friend Schedule" ? "nav-link active" : "nav-link"
+                currentTab === "My Friends" || currentTab === "Friend Schedule" ? "nav-link btn-purple" : "nav-link"
               }
               onClick={() => setCurrentTab("My Friends")}
             >
@@ -30,7 +30,7 @@ const Friends = () => {
           <li className="nav-item mx-3 pointer">
             <button
               className={
-                currentTab === "Add Friend" ? "nav-link active" : "nav-link"
+                currentTab === "Add Friend" ? "nav-link btn-purple" : "nav-link"
               }
               onClick={() => setCurrentTab("Add Friend")}
             >
@@ -40,7 +40,7 @@ const Friends = () => {
           <li className="nav-item mx-3 pointer">
             <button
               className={
-                currentTab === "My Friend Code" ? "nav-link active" : "nav-link"
+                currentTab === "My Friend Code" ? "nav-link btn-purple" : "nav-link"
               }
               onClick={() => setCurrentTab("My Friend Code")}
             >

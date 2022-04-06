@@ -1,16 +1,17 @@
 .fullscreen-bg {
     height: max(700px, 100vh);
 }
-
-#mode-selector {
-    position: absolute;
-    font-size: 22px;
-    margin-left: 10px;
-}
-
-#mode-selector:hover {
-    opacity: 0.9;
-}
 .capitalize {
 text-transform: capitalize;
+}
+.nav-link {
+    color: #000!important;
+}
+.btn-purple {
+    background-color: rgba(51, 24, 65, 0.8)!important;
+    color: #FFF!important;
+}
+.btn-purple:hover {
+    color: white!important;
+    background-color: rgba(51, 24, 65, 0.7)!important;
 }

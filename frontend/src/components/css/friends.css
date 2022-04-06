@@ -1,6 +1,6 @@
 .list-group-item {
     border-radius: 10px!important;
-    background-color: rgba(80, 23, 110, 1)!important;
+    background-color: rgba(51, 24, 65, 0.8)!important;
     color: white!important;
     border: none!important;
     margin-bottom: 5px;
@@ -23,10 +23,19 @@
 }
 
 #friend-schedule-go-back-div button{
-    background-color: rgba(80, 23, 110, 1);
+    background-color: rgba(51, 24, 65, 0.8)!important;
     color: #FFF;
 }
 
 #friend-schedule-go-back-div button:hover{
     opacity: 0.8;
+}
+
+.nav-link:hover {
+    color: white!important;
+    background-color: rgba(51, 24, 65, 0.2)!important;
+}
+.nav-link.btn-purple:hover {
+    color: white!important;
+    background-color: rgba(51, 24, 65, 0.6)!important;
 }

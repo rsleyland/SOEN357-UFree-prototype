@@ -161,7 +161,7 @@ const MySchedule = () => {
         </table>
         <div className="schedule-btns">
             <button onClick={saveSchedule} className="btn btn-success">Save Schedule</button>
-            <button onClick={clearTable} className="btn btn-danger">Clear</button>
+            <button onClick={clearTable} className="btn btn-purple">Clear</button>
         </div></>}
         </>
         

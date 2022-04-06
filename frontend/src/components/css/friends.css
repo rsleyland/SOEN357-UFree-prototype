@@ -1,0 +1,12 @@
+.list-group-item {
+    border-radius: 10px!important;
+    background-color: rgba(80, 23, 110, 1)!important;
+    color: white!important;
+    border: none!important;
+    margin-bottom: 5px;
+}
+
+.list-group-item:hover {
+   opacity: 0.8;
+   cursor: pointer;
+}

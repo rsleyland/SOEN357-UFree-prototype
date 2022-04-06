@@ -3,6 +3,7 @@ import { toast } from 'react-toastify';
 import { AuthContext } from '../services/providers/AuthContextProvider.js';
 import { useNavigate } from 'react-router-dom';
 import { Schedule } from '../components/Schedule.js';
+import { Friends } from '../components/Friends.js';
 
 const HomeScreen = () => {
 
@@ -50,6 +51,7 @@ const HomeScreen = () => {
 
     <div className="container mt-4 d-flex flex-column align-items-center">
         {subPage === 'My Schedule' && <Schedule />}
+        {subPage === 'Friends' && <Friends />}
     </div>
 
         

@@ -16,8 +16,8 @@
     font-size: 8px;
 }
 #schedule-table th {
-    background-color: gray;
-    border-bottom: 1px solid black;
+    background-color: rgba(80, 23, 110, 1);
+    border-bottom: 1px solid rgba(80, 23, 110, 1);
     font-size: 12px;
     user-select: none;
 }
@@ -32,7 +32,7 @@
 }
 .time-header {
     width: 3%!important;
-    border-bottom: 1px solid gray!important;
+    border-bottom: 1px solid rgba(80, 23, 110, 1);
 }
 .time-header div {
     display: flex;

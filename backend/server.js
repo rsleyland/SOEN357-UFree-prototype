@@ -13,9 +13,11 @@ app.use(morgan('dev'));
 
 import { AuthRouter } from './routes/auth.routes.js';
 import { ScheduleRouter } from "./routes/schedule.routes.js";
+import { FriendshipRouter } from "./routes/friendship.routes.js";
 
 app.use("/auth", AuthRouter);
-app.use("/schedule", ScheduleRouter)
+app.use("/schedule", ScheduleRouter);
+app.use("/friendship", FriendshipRouter);
 
 
 const PORT = process.env.PORT || 5000;

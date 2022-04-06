@@ -19,7 +19,7 @@ const LoginScreen = () => {
             setCurrentUser(result.data);
             localStorage.setItem('user', JSON.stringify(result.data));
             const name = result.data.firstName;
-            toast.success(`${name.substr(0,1).toUpperCase()}${name.substr(1,name.length-1)} logged in successfully`);
+            toast.success(`${name.substr(0,1).toUpperCase()}${name.substr(1,name.length-1).toLowerCase()} logged in successfully`);
             navigate('/');
         } catch (error) {
             toast.error(error.response.data.error);

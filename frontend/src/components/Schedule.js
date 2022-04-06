@@ -11,7 +11,7 @@ const Schedule = () => {
     const [mouseDown, setMouseDown] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
 
-    //grab and store schedule, if not one in DB then use blankSchedule
+    //grab and store schedule, if not one in DB then use scheduleArrayBuilder
     useEffect(()=> {
         const getSchedule = async() => {
             try {
@@ -125,7 +125,7 @@ const Schedule = () => {
             <span className="sr-only">Loading...</span>
           </div>
         :<>
-        <table id="schedule-table" className="mb-5">
+        <table id="schedule-table" className="mb-4">
             <thead>
                 <tr>
                     <th className="time-header"></th>
@@ -158,7 +158,7 @@ const Schedule = () => {
         </table>
         <div className="d-flex flex-column align-items-center">
             <button onClick={saveSchedule} className="btn btn-primary w-100">Save Schedule</button>
-            <button onClick={clearTable} className="btn btn-danger mx-5 mt-3">Clear</button>
+            <button onClick={clearTable} className="btn btn-danger mx-5 my-3">Clear</button>
         </div></>}
         </>
         

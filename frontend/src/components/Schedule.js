@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { blankSchedule } from "./ScheduleBlank";
+import { scheduleArrayBuilder } from "./ScheduleBlank";
 import axios from 'axios';
 import { toast } from "react-toastify";
 
@@ -9,20 +9,25 @@ const Schedule = () => {
     const [endTime, setEndTime] = useState(20);
     const [scheduleArray, setScheduleArray] = useState([]);
     const [mouseDown, setMouseDown] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
-    //grab and store blank schedule
+    //grab and store schedule, if not one in DB then use blankSchedule
     useEffect(()=> {
         const getSchedule = async() => {
             try {
+                setIsLoading(true);
                 const response = await axios.get(`http://localhost:5000/schedule/my`);
                 if (response.data.data) setScheduleArray(response.data.data);
-                else setScheduleArray(blankSchedule);
+                else setScheduleArray(scheduleArrayBuilder());
+                setIsLoading(false);
             } catch (error) {
-                console.log(error.message)   
+                console.log(error.message)
+                setIsLoading(false);
             }
         };getSchedule();
     }, []);
 
+    //Drag and select helper function - checks if event happenend on a td element
     const checkAndUpdateIfIsTDElement = (ev) => {
         let day = null;
         let index = null;
@@ -40,6 +45,7 @@ const Schedule = () => {
         }
     }
 
+    //Saves schedule to DB
     const saveSchedule = async () => {
         try {
             const body = { schedule : scheduleArray };
@@ -50,7 +56,11 @@ const Schedule = () => {
             toast.error("There was an error saving your schedule - please try again");
         } 
     };
-    //event listeners
+
+    const isLastRow = () => {
+
+    }
+    //event listeners for drag select functionality
     useEffect(()=> {
         const handleDocumentMouseOver = event => {
             checkAndUpdateIfIsTDElement(event);
@@ -76,39 +86,21 @@ const Schedule = () => {
         }
     });
 
+    //Simulate the clicking of the td elements to select, negates the boolean for the date
     const handleClick = (day, index) => {
         try {
             let tempArray = [...scheduleArray];
-            switch (day){
-                case 'mon':
-                    tempArray[index].monday = !tempArray[index].monday;
-                    break
-                case 'tues':
-                    tempArray[index].tuesday = !tempArray[index].tuesday;
-                    break
-                case 'weds':
-                    tempArray[index].wednesday = !tempArray[index].wednesday;
-                    break
-                case 'thurs':
-                    tempArray[index].thursday = !tempArray[index].thursday;
-                    break
-                case 'fri':
-                    tempArray[index].friday = !tempArray[index].friday;
-                    break
-                case 'sat':
-                    tempArray[index].saturday = !tempArray[index].saturday;
-                    break
-                case 'sun':
-                    tempArray[index].sunday = !tempArray[index].sunday;
-                    break
-                default: break
-            }
+            tempArray[index][day] = !tempArray[index][day];
             setScheduleArray(tempArray);
         } catch (error) {
             console.log(error);
         }
     };
 
+    //Clears the table by setting the array to a fresh scheduleArray
+    const clearTable = () => {
+        setScheduleArray(scheduleArrayBuilder());
+    }
     
     return (
         <>
@@ -128,6 +120,11 @@ const Schedule = () => {
             </select>
             
         </div>
+        { isLoading ? 
+            <div className="spinner-border mt-4" styles={{width: "3rem", height: "3rem"}} role="status">
+            <span className="sr-only">Loading...</span>
+          </div>
+        :<>
         <table id="schedule-table" className="mb-5">
             <thead>
                 <tr>
@@ -147,19 +144,23 @@ const Schedule = () => {
                     return (
                         <tr id={"table-row-"+i} key={i} className="table-row">
                             {i%4===0 &&<th rowSpan={4} className="time-header"><div>{el.time.split(':')[0]}:{el.time.split(':')[1]}0</div></th>}
-                            <td data-day={'mon'} className={el.monday ? "time-selected" : ''}>{el.monday ? <i className="fa-solid fa-check"></i> : <i className="fa-solid fa-xmark"></i>}</td>
-                            <td data-day={'tues'} className={el.tuesday ? "time-selected" : ''}>{el.tuesday ? <i className="fa-solid fa-check"></i> : <i className="fa-solid fa-xmark"></i>}</td>
-                            <td data-day={'weds'} className={el.wednesday ? "time-selected" : ''}>{el.wednesday ? <i className="fa-solid fa-check"></i> : <i className="fa-solid fa-xmark"></i>}</td>
-                            <td data-day={'thurs'} className={el.thursday ? "time-selected" : ''}>{el.thursday ? <i className="fa-solid fa-check"></i> : <i className="fa-solid fa-xmark"></i>}</td>
-                            <td data-day={'fri'} className={el.friday ? "time-selected" : ''}>{el.friday ? <i className="fa-solid fa-check"></i> : <i className="fa-solid fa-xmark"></i>}</td>
-                            <td data-day={'sat'} className={el.saturday ? "time-selected" : ''}>{el.saturday ? <i className="fa-solid fa-check"></i> : <i className="fa-solid fa-xmark"></i>}</td>
-                            <td data-day={'sun'} className={el.sunday ? "time-selected" : ''}>{el.sunday ? <i className="fa-solid fa-check"></i> : <i className="fa-solid fa-xmark"></i>}</td>
+                            <td data-day={'monday'} className={el.monday ? "time-selected" : ''}>{el.monday ? <i className="fa-solid fa-check"></i> : <i className="fa-solid fa-xmark"></i>}</td>
+                            <td data-day={'tuesday'} className={el.tuesday ? "time-selected" : ''}>{el.tuesday ? <i className="fa-solid fa-check"></i> : <i className="fa-solid fa-xmark"></i>}</td>
+                            <td data-day={'wednesday'} className={el.wednesday ? "time-selected" : ''}>{el.wednesday ? <i className="fa-solid fa-check"></i> : <i className="fa-solid fa-xmark"></i>}</td>
+                            <td data-day={'thursday'} className={el.thursday ? "time-selected" : ''}>{el.thursday ? <i className="fa-solid fa-check"></i> : <i className="fa-solid fa-xmark"></i>}</td>
+                            <td data-day={'friday'} className={el.friday ? "time-selected" : ''}>{el.friday ? <i className="fa-solid fa-check"></i> : <i className="fa-solid fa-xmark"></i>}</td>
+                            <td data-day={'saturday'} className={el.saturday ? "time-selected" : ''}>{el.saturday ? <i className="fa-solid fa-check"></i> : <i className="fa-solid fa-xmark"></i>}</td>
+                            <td data-day={'sunday'} className={el.sunday ? "time-selected" : ''}>{el.sunday ? <i className="fa-solid fa-check"></i> : <i className="fa-solid fa-xmark"></i>}</td>
                         </tr>
                     )
                 })}
             </tbody>
         </table>
-        <button onClick={saveSchedule} className="btn btn-primary">Save</button></>
+        <div className="d-flex flex-column align-items-center">
+            <button onClick={saveSchedule} className="btn btn-primary w-100">Save Schedule</button>
+            <button onClick={clearTable} className="btn btn-danger mx-5 mt-3">Clear</button>
+        </div></>}
+        </>
         
     )
 }

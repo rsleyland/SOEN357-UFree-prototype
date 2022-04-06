@@ -21,6 +21,5 @@ const scheduleArrayBuilder = () => {
     return blankScheduleArray;
 };
     
-const blankSchedule = scheduleArrayBuilder();
 
-export { blankSchedule };
+export { scheduleArrayBuilder };

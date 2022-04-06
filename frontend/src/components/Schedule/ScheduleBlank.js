@@ -8,13 +8,13 @@ const scheduleArrayBuilder = () => {
         blankScheduleArray.push({
             id:i, 
             time: `${tempDate.getHours()}:${tempDate.getMinutes()}`,
-            monday: false,
-            tuesday: false,
-            wednesday: false,
-            thursday: false,
-            friday: false,
-            saturday: false,
-            sunday: false
+            monday: true,
+            tuesday: true,
+            wednesday: true,
+            thursday: true,
+            friday: true,
+            saturday: true,
+            sunday: true
         })
         tempDate.setMinutes(tempDate.getMinutes() + 15)
     }

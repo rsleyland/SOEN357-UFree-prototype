@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 const MyFriendCode = ({code}) => {
 
     const [canvasContent, setCanvasContent] = useState(null);
-
     
       useEffect(() => {
         const generateQR = async text => {
@@ -18,7 +17,6 @@ const MyFriendCode = ({code}) => {
             }
           };
           generateQR(code);
-
       }, []);
 
 

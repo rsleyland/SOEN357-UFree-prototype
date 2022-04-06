@@ -159,9 +159,9 @@ const MySchedule = () => {
                 })}
             </tbody>
         </table>
-        <div className="d-flex flex-column align-items-center">
-            <button onClick={saveSchedule} className="btn btn-primary w-100">Save Schedule</button>
-            <button onClick={clearTable} className="btn btn-danger mx-5 my-3">Clear</button>
+        <div className="schedule-btns">
+            <button onClick={saveSchedule} className="btn btn-success">Save Schedule</button>
+            <button onClick={clearTable} className="btn btn-danger">Clear</button>
         </div></>}
         </>
         

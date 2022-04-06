@@ -8,17 +8,20 @@
     font-size: 10px;
 }
 #schedule-table tr:nth-child(4n) {
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid white;
+}
+#schedule-table tr:nth-last-child(1) {
+    border-bottom: 1px solid gray;
 }
 #schedule-table td {
     width: 12%;
     color: #FFF;
-    border-right: 1px solid black;
+    border-left: 1px solid white;
     font-size: 8px;
 }
 #schedule-table th {
-    background-color: rgba(80, 23, 110, 1);
-    border-bottom: 1px solid rgba(80, 23, 110, 1);
+    background-color: gray;
+    border-bottom: 1px solid white;
     font-size: 12px;
     user-select: none;
     color: #FFF;
@@ -33,7 +36,7 @@
 }
 .time-header {
     width: 3%!important;
-    border-bottom: 1px solid rgba(80, 23, 110, 1);
+    border-bottom: 1px solid gray;
 }
 .time-header div {
     display: flex;
@@ -42,13 +45,23 @@
     justify-content: center;
 }
 .time-selected {
-    background-color: green!important;
+    background-color: rgba(18, 120, 18, 0.8)!important;
     color: white!important;
 }
 #table-tl {
     border-top-left-radius: 10px;
     border-left: none!important;
+    border-bottom: none!important;
 }
 #table-tr {
     border-top-right-radius: 10px;
+}
+.schedule-btns {
+    display: flex;
+    width: 50%;
+    justify-content: space-around;
+    margin: 15px 0;
+}
+.table-row th {
+    border-bottom: 1px solid gray!important;
 }

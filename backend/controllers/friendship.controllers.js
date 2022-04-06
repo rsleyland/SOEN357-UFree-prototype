@@ -23,6 +23,7 @@ const createNewFriendship = async (req, res) => {
         const name = req.body.name;
         const friendship_code = req.body.friendship_code;
         const friend = await User.findOne({friendship_code: friendship_code});
+        if (friend._id.toString() == id) return res.status(400).json("That is your temporary code, please enter a friends temporary code to add them.");
         if (friend) {
             const friendsId = friend._id;
             const friendshipExists = await Friendship.findOne({$or: [{friend_1_id: id, friend_2_id: friendsId}, {friend_1_id: friendsId, friend_2_id: id}]});

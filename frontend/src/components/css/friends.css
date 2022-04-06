@@ -10,3 +10,23 @@
    opacity: 0.8;
    cursor: pointer;
 }
+
+#friend-schedule-go-back-div{
+    position: absolute;
+    left: 20px;
+}
+
+@media screen  and (max-width: 600px) {
+    #friend-schedule-go-back-div{
+        top: 150px;
+    }
+}
+
+#friend-schedule-go-back-div button{
+    background-color: rgba(80, 23, 110, 1);
+    color: #FFF;
+}
+
+#friend-schedule-go-back-div button:hover{
+    opacity: 0.8;
+}

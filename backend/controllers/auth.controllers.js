@@ -14,7 +14,7 @@ const loginHandler = async (req, res) => {
                     httpOnly: true,
                     expires: new Date(Date.now() + parseInt(process.env.EXPIRE_TOKEN)) 
                 };
-                const code = crypto.randomBytes(12).toString('hex');
+                const code = crypto.randomBytes(6).toString('hex');
                 user.friendship_code = code;
                 user.save();
                 res.status(200).cookie('token', token, options).json({
@@ -48,7 +48,7 @@ const registrationHandler = async (req, res) => {
             throw new Error("User already exists with this email");
         };
         req.body.password = req.body.password.length > 0 ? await bcrypt.hash(req.body.password, 12) : '';   // HASHING USERS PASSWORD BEFORE STORE IN DB
-        const code = crypto.randomBytes(12).toString('hex');
+        const code = crypto.randomBytes(6).toString('hex');
         req.body.friendship_code = code;
         const newUser = await User.create(req.body);
         if (newUser) return res.status(200).json({message: `Success - new user created`});

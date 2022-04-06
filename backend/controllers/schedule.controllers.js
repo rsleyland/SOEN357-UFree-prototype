@@ -1,3 +1,4 @@
+import { Friendship } from '../models/Friendship.model.js';
 import { Schedule } from '../models/Schedule.model.js';
 
 const getMySchedule = async (req, res) => {
@@ -30,4 +31,25 @@ const saveMySchedule = async (req, res) => {
     }
 };
 
-export { getMySchedule, saveMySchedule };
+const getFriendSchedule = async (req, res) => {
+    try {
+        const id = req.body.uid;
+        const friend_id = req.body.friend_id;
+        const friendshipExists = await Friendship.findOne(
+            {$or: [{friend_1_id: id, friend_2_id: friend_id}, {friend_1_id: friend_id, friend_2_id: id}]});
+        if (friendshipExists) {
+            const friendSchedule = await Schedule.findOne({user: friend_id})
+            if (friendSchedule) {
+                res.status(200).json(friendSchedule);  
+            }
+            else res.status(200).json("Friends schedule not found"); 
+        }
+        else res.status(200).json("You are not friends with that user"); 
+         
+    } catch (error) {
+        console.log(error);
+        res.status(400).json(error);  
+    }
+}
+
+export { getMySchedule, saveMySchedule, getFriendSchedule };

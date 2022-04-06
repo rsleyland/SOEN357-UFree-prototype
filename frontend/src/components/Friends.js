@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { FriendSchedule } from "./FriendSchedule";
 
 
 const Friends = () => {
 
     const [user, setUser] = useState('');
-    const [currentTab, setCurrentTab] = useState('Friends');
+    const [friendId, setFriendId] = useState('');
+    const [friendName, setFriendName] = useState('');
+    const [currentTab, setCurrentTab] = useState('My Friends');
 
     useEffect(()=> {
         const usr = localStorage.getItem('user');
@@ -19,9 +22,9 @@ const Friends = () => {
           <li className="nav-item mx-3 pointer">
             <button
               className={
-                currentTab === "Friends" ? "nav-link active" : "nav-link"
+                currentTab === "My Friends" || currentTab === "Friend Schedule" ? "nav-link active" : "nav-link"
               }
-              onClick={() => setCurrentTab("Friends")}
+              onClick={() => setCurrentTab("My Friends")}
             >
               My Friends
             </button>
@@ -36,9 +39,24 @@ const Friends = () => {
               Add Friend
             </button>
           </li>
+          <li className="nav-item mx-3 pointer">
+            <button
+              className={
+                currentTab === "My Friend Code" ? "nav-link active" : "nav-link"
+              }
+              onClick={() => setCurrentTab("My Friend Code")}
+            >
+              My Friend Code
+            </button>
+          </li>
         </ul>
-        {currentTab === "Friends" && <MyFriends user={user}/>}
+        {currentTab === "My Friends" && <MyFriends setCurrentTab={setCurrentTab} user={user} setFriendId={setFriendId} setFriendName={setFriendName}/>}
         {currentTab === "Add Friend" && <AddFriend setCurrentTab={setCurrentTab} user={user}/>}
+        {currentTab === "My Friend Code" && 
+        <h5 className="my-4 text-center">
+            My Temporary Friend code: <br/><br/> <strong>{user.friendship_code}</strong>
+        </h5>}
+        {currentTab === "Friend Schedule" && <FriendSchedule setCurrentTab={setCurrentTab} friend_id={friendId} friend_name={friendName}/>}
 
 
     </>)
@@ -72,7 +90,7 @@ const AddFriend = ({setCurrentTab, user}) => {
     )
 }
 
-const MyFriends = ({user}) => {
+const MyFriends = ({setCurrentTab, user, setFriendId, setFriendName}) => {
 
     const [data, setData] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
@@ -83,7 +101,6 @@ const MyFriends = ({user}) => {
                 setIsLoading(true);
                 const response = await axios.get(`http://localhost:5000/friendship/my`);
                 if (response) {
-                    console.log(response)
                     setData(response.data);
                 }
                 setIsLoading(false);
@@ -95,23 +112,28 @@ const MyFriends = ({user}) => {
         
     }, []);
 
+    const handleClick = (id, name) => {
+        setFriendId(id);
+        setFriendName(name);
+        setCurrentTab('Friend Schedule');
+    };
+
     return (
         <>
-        <p className="my-2 align-self-start text-center">My Temporary Friend code: <br/> <strong>{user.friendship_code}</strong></p>
         { isLoading ? 
             <div className="spinner-border mt-4" styles={{width: "3rem", height: "3rem"}} role="status">
                 <span className="sr-only">Loading...</span>
             </div>
         :
-        <ul className="list-group w-50">
-            <h5 className="text-center">Friends</h5>
+        <ul className="list-group w-50 mt-4">
+            <h4 className="text-center mb-3">Friends</h4>
             {data && data.map((el, i)=> {
                 if (el.friend_1_id === user._id)
-                    return <li key={'friend'+i} className="list-group-item">
+                    return <li key={'friend'+i} className="list-group-item" onClick={() => handleClick(el.friend_2_id, el.friend_2_name)}>
                         <i className="fa-solid fa-user-group me-4"></i>{el.friend_2_name}
                         </li>
                 else
-                    return <li key={'friend'+i} className="list-group-item">
+                    return <li key={'friend'+i} className="list-group-item" onClick={() => handleClick(el.friend_1_id, el.friend_1_name)}>
                         <i className="fa-solid fa-user-group me-4"></i>{el.friend_1_name}
                         </li>
             })}

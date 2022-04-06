@@ -9,7 +9,7 @@
 
 `npm start`
 
-### New terminal/console
+##### New terminal/console
 `cd SOEN357-prototype/frontend`
 
 `npm install`

@@ -5,7 +5,6 @@ import crypto from "crypto";
 const getMyFriendships = async (req, res) => {
     try {
         const id = req.body.uid;
-        console.log(id)
         const friendShips = await Friendship.find({$or: [{friend_1_id: id}, {friend_2_id: id}]});
         if (friendShips) {
             res.status(200).json(friendShips);  
@@ -41,7 +40,7 @@ const createNewFriendship = async (req, res) => {
                 else return res.status(400).json("Friendship could not be created");
             }
         }
-        else return res.status(400).json("Could not find friends account"); 
+        else return res.status(400).json("Invalid code - Could not find friends account"); 
     } catch (error) {
         console.log(error);
         res.status(400).json(error);  

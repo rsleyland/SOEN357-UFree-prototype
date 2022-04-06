@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import { AuthContext } from '../services/providers/AuthContextProvider.js';
+import { formatFirstName } from '../utility/formatters.js';
 
 const LoginScreen = () => {
 
@@ -19,7 +20,7 @@ const LoginScreen = () => {
             setCurrentUser(result.data);
             localStorage.setItem('user', JSON.stringify(result.data));
             const name = result.data.firstName;
-            toast.success(`${name.substr(0,1).toUpperCase()}${name.substr(1,name.length-1).toLowerCase()} logged in successfully`);
+            toast.success(`${formatFirstName(name)} logged in successfully`);
             navigate('/');
         } catch (error) {
             toast.error(error.response.data.error);

@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify';
 import { AuthContext } from '../services/providers/AuthContextProvider.js';
 import axios from 'axios';
+import { formatFirstName } from '../utility/formatters.js';
+
 
 const LogoutScreen = () => {
 
@@ -13,7 +15,7 @@ const LogoutScreen = () => {
         const logout = async () => {
             try {
                 const name = JSON.parse(localStorage.getItem('user')).firstName;
-                const formatName = name.substr(0,1).toUpperCase() + name.substr(1,name.length-1);
+                const formatName = formatFirstName(name);
                 setCurrentUser(null);
                 localStorage.clear();
                 await axios.get(`http://localhost:5000/auth/logout`);

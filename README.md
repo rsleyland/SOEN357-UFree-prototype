@@ -1,6 +1,6 @@
 # SOEN357-prototype
 
-Setup
+### Setup
 `git clone git@github.com:rsleyland/SOEN357-prototype.git`
 
 `cd SOEN357-prototype/backend`
@@ -9,17 +9,17 @@ Setup
 
 `npm start`
 
-New terminal/console
+### New terminal/console
 `cd SOEN357-prototype/frontend`
 
 `npm install`
 
 `npm start`
 
-Configuration:
+### Configuration:
 .env variables need to be filled - i.e DB connection uri
 
-Additional:
+### Additional:
 Uses npm package nodemon to automatically update node application when changes are made.
 
 Use npm install -g nodemon to globally install nodemon package

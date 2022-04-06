@@ -4,12 +4,16 @@ Setup
 `git clone git@github.com:rsleyland/SOEN357-prototype.git`
 
 `cd SOEN357-prototype/backend`
+
 `npm install`
+
 `npm start`
 
 New terminal/console
 `cd SOEN357-prototype/frontend`
+
 `npm install`
+
 `npm start`
 
 Configuration:

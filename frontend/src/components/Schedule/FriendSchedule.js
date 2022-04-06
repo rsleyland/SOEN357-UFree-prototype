@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import { scheduleArrayBuilder } from "./ScheduleBlank";
 import axios from 'axios';
 import { toast } from "react-toastify";
-import { formatFullName } from "../../utility/formatters";
+import { formatFirstName, formatFullName } from "../../utility/formatters";
+
 
 const FriendSchedule = ({friend_id, friend_name, setCurrentTab}) => {
 
@@ -20,8 +21,8 @@ const FriendSchedule = ({friend_id, friend_name, setCurrentTab}) => {
                 const response = await axios.post(`http://localhost:5000/schedule/friend`, body);
                 if (response.data && response.data.data) setScheduleArray(response.data.data);
                 else {
-                    setScheduleArray(scheduleArrayBuilder());
-                    toast.info('Friend\'s schedule is empty')
+                    setScheduleArray(scheduleArrayBuilder(false));
+                    toast.info(`${formatFirstName(friend_name.split(" ")[0])}\'s schedule is unfilled`)
                 }
                 setIsLoading(false);
             } catch (error) {

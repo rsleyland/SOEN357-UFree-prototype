@@ -19,7 +19,7 @@ const MySchedule = () => {
                 const response = await axios.get(`http://localhost:5000/schedule/my`);
                 if (response.data.data) setScheduleArray(response.data.data);
                 else {
-                    setScheduleArray(scheduleArrayBuilder());
+                    setScheduleArray(scheduleArrayBuilder(true));
                     toast.info('Your Schedule is empty')
                 }
                 setIsLoading(false);
@@ -102,7 +102,7 @@ const MySchedule = () => {
 
     //Clears the table by setting the array to a fresh scheduleArray
     const clearTable = () => {
-        setScheduleArray(scheduleArrayBuilder());
+        setScheduleArray(scheduleArrayBuilder(true));
     }
     
     return (

@@ -38,19 +38,33 @@ const MyFriends = ({setCurrentTab, user, setFriendId, setFriendName}) => {
                 <span className="sr-only">Loading...</span>
             </div>
         :
-        <ul className="list-group w-50 mt-4">
+        <div id="friends-list" className="w-50 mt-4">
             <h4 className="text-center mb-3">Friends</h4>
             {data && data.map((el, i)=> {
                 if (el.friend_1_id === user._id)
-                    return <li key={'friend'+i} className="list-group-item" onClick={() => handleClick(el.friend_2_id, el.friend_2_name)}>
-                        <i className="fa-solid fa-user-group me-4"></i>{formatFullName(el.friend_2_name)}
-                        </li>
+                    return <div key={'friend'+i}>
+                        <div className="d-flex">
+                            <i className="fa-solid fa-user-group me-4"></i>
+                            <p>{formatFullName(el.friend_2_name)}</p>
+                        </div>
+                        <div id="friend-btns">
+                                <button onClick={() => handleClick(el.friend_2_id, el.friend_2_name)} className="btn"><i className="fa-solid fa-calendar"></i></button>
+                                <button  className="btn"><i className="fa-solid fa-trash"></i></button>
+                            </div>
+                        </div>
                 else
-                    return <li key={'friend'+i} className="list-group-item" onClick={() => handleClick(el.friend_1_id, el.friend_1_name)}>
-                        <i className="fa-solid fa-user-group me-4"></i>{formatFullName(el.friend_1_name)}
-                        </li>
+                    return <div key={'friend'+i}>
+                    <div className="d-flex">
+                        <i className="fa-solid fa-user-group me-4"></i>
+                        <p>{formatFullName(el.friend_1_name)}</p>
+                    </div>
+                    <div id="friend-btns">
+                            <button onClick={() => handleClick(el.friend_1_id, el.friend_1_name)} className="btn"><i className="fa-solid fa-calendar"></i></button>
+                            <button  className="btn"><i className="fa-solid fa-trash"></i></button>
+                        </div>
+                    </div>
             })}
-        </ul>}
+        </div>}
         
         </>
     )

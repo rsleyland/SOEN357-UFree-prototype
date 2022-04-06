@@ -8,7 +8,7 @@ const MyFriendCode = ({code}) => {
       useEffect(() => {
         const generateQR = async text => {
             try {
-                QRCode.toCanvas(`http://localhost:3000/qrcodelink/${code}`, { errorCorrectionLevel: 'H', width: 200 }, function (err, canv) {
+                QRCode.toCanvas(`http://localhost:3000/qrcodelink/${code}`, { errorCorrectionLevel: 'H', width: 300 }, function (err, canv) {
                     if (err) throw err
                     document.getElementById('canvas-cont').appendChild(canv);
                   })

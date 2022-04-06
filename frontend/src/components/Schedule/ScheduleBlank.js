@@ -1,4 +1,4 @@
-const scheduleArrayBuilder = () => {
+const scheduleArrayBuilder = (buildTrue) => {
     const tempDate = new Date()
     tempDate.setHours(0);
     tempDate.setMinutes(0);
@@ -8,13 +8,13 @@ const scheduleArrayBuilder = () => {
         blankScheduleArray.push({
             id:i, 
             time: `${tempDate.getHours()}:${tempDate.getMinutes()}`,
-            monday: true,
-            tuesday: true,
-            wednesday: true,
-            thursday: true,
-            friday: true,
-            saturday: true,
-            sunday: true
+            monday: buildTrue ? true : false,
+            tuesday: buildTrue ? true : false,
+            wednesday: buildTrue ? true : false,
+            thursday: buildTrue ? true : false,
+            friday: buildTrue ? true : false,
+            saturday: buildTrue ? true : false,
+            sunday: buildTrue ? true : false
         })
         tempDate.setMinutes(tempDate.getMinutes() + 15)
     }

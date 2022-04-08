@@ -1,6 +1,6 @@
 # SOEN357-prototype
 
-### Setup
+### Setup (via npm)
 `git clone git@github.com:rsleyland/SOEN357-prototype.git`
 
 `cd SOEN357-prototype/backend`
@@ -22,6 +22,16 @@
 ### Additional:
 Uses npm package nodemon to automatically update node application when changes are made.
 
-Use npm install -g nodemon to globally install nodemon package
 
-otherwise change ln.7 in package.json to "start" : "npm run server.js"
+### Setup (via Docker)
+
+`git clone git@github.com:rsleyland/SOEN357-prototype.git`
+
+`cd SOEN357-prototype`
+
+`make build-dev`
+
+`make run-dev`
+
+### Docker Configuration:
+Add DB connection uri to /backend/.env

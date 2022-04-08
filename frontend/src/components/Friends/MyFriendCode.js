@@ -20,9 +20,18 @@ const MyFriendCode = ({code}) => {
 
     return (<>
         <h5 className="my-4 text-center">
-            My Temporary Friend code: <br/><br/> <strong>{code}</strong>
+            <br/> <strong>{code}</strong>
         </h5>
         <div id='canvas-cont'></div>
+
+        <div className='mt-3'>
+          <h5 className='text-center'>To link your account to a friends, either:</h5>
+          <ul className='d-flex flex-column align-items-center' style={{"listStyle": "square"}}>
+            <li>Let your friend scan your QR code</li>
+            <li>Send your text code to a friend via sms/email</li>
+          </ul>
+          <p className='text-center'><small>Code will refresh after use</small></p>
+        </div>
     </>)
 };
 

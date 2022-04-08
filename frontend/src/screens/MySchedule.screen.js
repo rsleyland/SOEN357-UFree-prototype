@@ -20,7 +20,7 @@ const MySchedule = () => {
                 if (response.data.data) setScheduleArray(response.data.data);
                 else {
                     setScheduleArray(scheduleArrayBuilder(true));
-                    toast.info('Your Schedule is empty')
+                    toast.info('Please set your schedule')
                 }
                 setIsLoading(false);
             } catch (error) {
@@ -159,7 +159,7 @@ const MySchedule = () => {
         </table>
         <div className="schedule-btns">
             <button onClick={saveSchedule} className="btn btn-success">Save Schedule</button>
-            <button onClick={clearTable} className="btn btn-purple">Clear</button>
+            <button onClick={clearTable} className="btn btn-purple">Reset</button>
         </div></>}
         </>
         

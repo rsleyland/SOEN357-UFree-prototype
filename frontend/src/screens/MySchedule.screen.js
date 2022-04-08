@@ -34,16 +34,16 @@ const MySchedule = () => {
     const checkAndUpdateIfIsTDElement = (ev) => {
         let day = null;
         let index = null;
-        if (ev.path[0]['tagName'] ==='I') {
-            if (ev.path[1]['tagName'] ==='TD'){
-                day = ev.path[1].getAttribute('data-day');
-                index = ev.path[2].getAttribute('id').substr(10,2);
+        if (ev.target['nodeName'] ==='I') {
+            if (ev.target.parentElement['nodeName'] ==='TD'){
+                day = ev.target.parentElement.getAttribute('data-day');
+                index = ev.target.parentElement.parentElement.getAttribute('id').substr(10,2);
                 handleClick(day, index)
             }
         }
-        else if (ev.path[0]['tagName'] ==='TD'){
-                day = ev.path[0].getAttribute('data-day');
-                index = ev.path[1].getAttribute('id').substr(10,2);
+        else if (ev.target['nodeName'] ==='TD'){
+                day = ev.target.getAttribute('data-day');
+                index = ev.target.parentElement.getAttribute('id').substr(10,2);
                 handleClick(day, index)
         }
     }

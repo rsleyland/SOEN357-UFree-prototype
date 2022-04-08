@@ -12,7 +12,7 @@ const MyFriends = ({setCurrentTab, user, setFriendId, setFriendName}) => {
         const getData = async () => {
             try {
                 setIsLoading(true);
-                const response = await axios.get(`http://localhost:5000/friendship/my`);
+                const response = await axios.get(`/friendship/my`);
                 if (response) {
                     setData(response.data);
                 }

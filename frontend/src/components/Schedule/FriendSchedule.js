@@ -18,7 +18,7 @@ const FriendSchedule = ({friend_id, friend_name, setCurrentTab}) => {
             try {
                 setIsLoading(true);
                 const body = {friend_id : friend_id}
-                const response = await axios.post(`http://localhost:5000/schedule/friend`, body);
+                const response = await axios.post(`/schedule/friend`, body);
                 if (response.data && response.data.data) setScheduleArray(response.data.data);
                 else {
                     setScheduleArray(scheduleArrayBuilder(false));

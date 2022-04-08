@@ -14,7 +14,7 @@ const QRLinkScreen = () => {
             const createFriendShip = async () => {
                 try {
                     const body = {friendship_code: slug, name:`${currentUser.firstName} ${currentUser.lastName}`};
-                    await axios.post(`http://localhost:5000/friendship/create`, body);
+                    await axios.post(`/friendship/create`, body);
                     toast.success(`Friendship successfully created`);
                     navigate('/');
                 } catch (error) {

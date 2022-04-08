@@ -31,7 +31,7 @@ const RegisterScreen = () => {
                 email,
                 password
             }
-            await axios.post(`http://localhost:5000/auth/register`, user);
+            await axios.post(`/auth/register`, user);
             toast.success("User registered successfully!");
             navigate('/login');
         } catch (error) {

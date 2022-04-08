@@ -5,17 +5,32 @@ const scheduleArrayBuilder = (buildTrue) => {
     tempDate.setSeconds(0);
     let blankScheduleArray = [];
     for (let i=0; i<96; i++){
-        blankScheduleArray.push({
-            id:i, 
-            time: `${tempDate.getHours()}:${tempDate.getMinutes()}`,
-            monday: buildTrue ? true : false,
-            tuesday: buildTrue ? true : false,
-            wednesday: buildTrue ? true : false,
-            thursday: buildTrue ? true : false,
-            friday: buildTrue ? true : false,
-            saturday: buildTrue ? true : false,
-            sunday: buildTrue ? true : false
-        })
+        if (i >= 36 && i < 80) {
+            blankScheduleArray.push({
+                id:i, 
+                time: `${tempDate.getHours()}:${tempDate.getMinutes()}`,
+                monday: buildTrue ? true : false,
+                tuesday: buildTrue ? true : false,
+                wednesday: buildTrue ? true : false,
+                thursday: buildTrue ? true : false,
+                friday: buildTrue ? true : false,
+                saturday: buildTrue ? true : false,
+                sunday: buildTrue ? true : false
+            })
+        }
+        else {
+            blankScheduleArray.push({
+                id:i, 
+                time: `${tempDate.getHours()}:${tempDate.getMinutes()}`,
+                monday: false,
+                tuesday: false,
+                wednesday: false,
+                thursday: false,
+                friday: false,
+                saturday: false,
+                sunday: false
+            })
+        }
         tempDate.setMinutes(tempDate.getMinutes() + 15)
     }
     return blankScheduleArray;

@@ -18,7 +18,7 @@ const LogoutScreen = () => {
                 const formatName = formatFirstName(name);
                 setCurrentUser(null);
                 localStorage.clear();
-                await axios.get(`http://localhost:5000/auth/logout`);
+                await axios.get(`/auth/logout`);
                 toast.success(`${formatName} logged out successfully!`);
                 navigate('/login');
             } catch (error) {

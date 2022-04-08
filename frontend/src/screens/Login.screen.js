@@ -16,7 +16,7 @@ const LoginScreen = () => {
         e.preventDefault();
         try {
             const user = { email, password };
-            const result = await axios.post(`http://localhost:5000/auth/login`, user);
+            const result = await axios.post(`/auth/login`, user);
             setCurrentUser(result.data);
             localStorage.setItem('user', JSON.stringify(result.data));
             const name = result.data.firstName;

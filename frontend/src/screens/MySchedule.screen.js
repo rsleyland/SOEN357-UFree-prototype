@@ -16,7 +16,7 @@ const MySchedule = () => {
         const getSchedule = async() => {
             try {
                 setIsLoading(true);
-                const response = await axios.get(`http://localhost:5000/schedule/my`);
+                const response = await axios.get(`/schedule/my`);
                 if (response.data.data) setScheduleArray(response.data.data);
                 else {
                     setScheduleArray(scheduleArrayBuilder(true));
@@ -52,7 +52,7 @@ const MySchedule = () => {
     const saveSchedule = async () => {
         try {
             const body = { schedule : scheduleArray };
-            await axios.post(`http://localhost:5000/schedule/save`, body);
+            await axios.post(`/schedule/save`, body);
             toast.success(`Schedule saved successfully`);
         } catch (error) {
             console.log(error)

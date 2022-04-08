@@ -10,7 +10,7 @@ const AddFriend = ({setCurrentTab, user}) => {
         try {
             if (friendsCode === '') return toast.error("Please provide a code.");
             const body = {friendship_code: friendsCode, name:`${user.firstName} ${user.lastName}`};
-            await axios.post(`http://localhost:5000/friendship/create`, body);
+            await axios.post(`/friendship/create`, body);
             toast.success(`Friendship successfully created`);
             setCurrentTab('Friends')
         } catch (error) {

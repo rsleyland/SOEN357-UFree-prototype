@@ -59,10 +59,6 @@ const MySchedule = () => {
             toast.error("There was an error saving your schedule - please try again");
         } 
     };
-
-    const isLastRow = () => {
-
-    }
     //event listeners for drag select functionality
     useEffect(()=> {
         const handleDocumentMouseOver = event => {
@@ -113,12 +109,14 @@ const MySchedule = () => {
             <select className="me-3" value={`${startTime}`} onChange={(e) => setStartTime(e.target.value)}>
                 {[...Array(24)].map((e, i) => {
                    if (i < endTime) return <option key={"startTimeKey"+i} value={i}>{i < 10 ? "0"+i : i}:00</option>;
+                   return null;
                 })}
             </select>
             <label className="me-3" htmlFor="">To</label>
             <select className="me-3" value={`${endTime}`} onChange={(e) => setEndTime(e.target.value)}>
                 {[...Array(25)].map((e, i) => {
                     if (i > startTime) return <option key={"endTimeKey"+i} value={i}>{i < 10 ? "0"+i : i}:00</option>;
+                    return null;
                 })}
             </select>
             
@@ -155,7 +153,7 @@ const MySchedule = () => {
                             <td data-day={'saturday'} className={el.saturday ? "time-selected" : ''}>{el.saturday ? <i className="fa-solid fa-check"></i> : <i className="fa-solid fa-xmark"></i>}</td>
                             <td data-day={'sunday'} className={el.sunday ? "time-selected" : ''}>{el.sunday ? <i className="fa-solid fa-check"></i> : <i className="fa-solid fa-xmark"></i>}</td>
                         </tr>
-                    )
+                    );return null;
                 })}
             </tbody>
         </table>

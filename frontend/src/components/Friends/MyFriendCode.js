@@ -1,12 +1,10 @@
 import QRCode from 'qrcode';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 const MyFriendCode = ({code}) => {
-
-    const [canvasContent, setCanvasContent] = useState(null);
     
       useEffect(() => {
-        const generateQR = async text => {
+        const generateQR = async => {
             try {
                 QRCode.toCanvas(`http://localhost:3000/qrcodelink/${code}`, { errorCorrectionLevel: 'H', width: 300 }, function (err, canv) {
                     if (err) throw err
@@ -17,7 +15,7 @@ const MyFriendCode = ({code}) => {
             }
           };
           generateQR(code);
-      }, []);
+      }, [code]);
 
 
     return (<>

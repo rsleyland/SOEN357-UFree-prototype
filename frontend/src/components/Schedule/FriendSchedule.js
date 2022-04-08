@@ -22,7 +22,7 @@ const FriendSchedule = ({friend_id, friend_name, setCurrentTab}) => {
                 if (response.data && response.data.data) setScheduleArray(response.data.data);
                 else {
                     setScheduleArray(scheduleArrayBuilder(false));
-                    toast.info(`${formatFirstName(friend_name.split(" ")[0])}\'s schedule is unfilled`)
+                    toast.info(`${formatFirstName(friend_name.split(" ")[0])}'s schedule is unfilled`)
                 }
                 setIsLoading(false);
             } catch (error) {
@@ -30,26 +30,28 @@ const FriendSchedule = ({friend_id, friend_name, setCurrentTab}) => {
                 setIsLoading(false);
             }
         };getSchedule();
-    }, []);
+    }, [friend_id, friend_name]);
 
     
     return (
         <>
         <h3 className="mt-3">{formatFullName(friend_name)}'s Schedule</h3>
         <div id="friend-schedule-go-back-div">
-            <button className="btn btn-secondary btn-sm" onClick={() => setCurrentTab('My Friends')}><i class="fa-solid fa-circle-arrow-left me-2"></i>Go Back</button>
+            <button className="btn btn-secondary btn-sm" onClick={() => setCurrentTab('My Friends')}><i className="fa-solid fa-circle-arrow-left me-2"></i>Go Back</button>
         </div>
         <div className="mt-2">
             <label className="me-3" htmlFor="">From</label>
             <select className="me-3" value={`${startTime}`} onChange={(e) => setStartTime(e.target.value)}>
                 {[...Array(24)].map((e, i) => {
                    if (i < endTime) return <option key={"startTimeKey"+i} value={i}>{i < 10 ? "0"+i : i}:00</option>;
+                   return null;
                 })}
             </select>
             <label className="me-3" htmlFor="">To</label>
             <select className="me-3" value={`${endTime}`} onChange={(e) => setEndTime(e.target.value)}>
                 {[...Array(25)].map((e, i) => {
                     if (i > startTime) return <option key={"endTimeKey"+i} value={i}>{i < 10 ? "0"+i : i}:00</option>;
+                    return null;
                 })}
             </select>
             
@@ -86,7 +88,7 @@ const FriendSchedule = ({friend_id, friend_name, setCurrentTab}) => {
                             <td data-day={'saturday'} className={el.saturday ? "time-selected" : ''}>{el.saturday ? <i className="fa-solid fa-check"></i> : <i className="fa-solid fa-xmark"></i>}</td>
                             <td data-day={'sunday'} className={el.sunday ? "time-selected" : ''}>{el.sunday ? <i className="fa-solid fa-check"></i> : <i className="fa-solid fa-xmark"></i>}</td>
                         </tr>
-                    )
+                    );return null;
                 })}
             </tbody>
         </table>

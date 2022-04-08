@@ -25,7 +25,7 @@ const QRLinkScreen = () => {
             }; createFriendShip();
         }
         
-    }, [currentUser]);
+    }, [currentUser, slug, navigate]);
 
     return <h3>This page should redirect.</h3>;
 }

@@ -1,0 +1,31 @@
+services:
+  react-app:
+    build: ./frontend/
+    image: react-app
+    container_name: myapp-react-frontend
+    command: npm start
+    volumes:
+      - ./frontend/:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - "3000:3000"
+    networks:
+      - mern-app
+    depends_on:
+      - api-server
+
+  api-server:
+    build: ./backend/
+    image: api-server
+    container_name: myapp-node-backend
+    command: npm start
+    volumes:
+      - ./backend/:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - "5000:5000"
+    networks:
+      - mern-app
+networks:
+  mern-app:
+    driver: bridge

@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { scheduleArrayBuilder } from "./ScheduleBlank";
 import axios from 'axios';
-import { toast } from "react-toastify";
-import { formatFirstName, formatFullName, formatLastName } from "../../utility/formatters";
+import { compareLastNameThenFirstNameDescendingSchedule, formatFullName } from "../../utility/formatters";
 
 
 
@@ -38,36 +37,20 @@ const FriendScheduleCompare = () => {
     }, []);
 
     const sortOrderData = (data) => {
-        const sorted = data.sort(compareLastNameThenFirstNameDescending)
+        const sorted = data.sort(compareLastNameThenFirstNameDescendingSchedule)
         return sorted;
     }
 
-    const compareLastNameThenFirstNameDescending = (a, b) => {
-        const a_nameSplit = a.name.split(' ');
-        const a_firstName = formatFirstName(a_nameSplit[0]);
-        const a_lastName = formatLastName(a_nameSplit[1]);
-        const b_nameSplit = b.name.split(' ');
-        const b_firstName = formatFirstName(b_nameSplit[0]);
-        const b_lastName = formatLastName(b_nameSplit[1]);
 
-        if ( a_lastName < b_lastName ) return -1;
-        if ( a_lastName > b_lastName ) return 1;
-        else {
-            if ( a_firstName < b_firstName ) return -1;
-            else if ( a_firstName > b_firstName ) return 1;
-            else return 0;
-        };
-      };
-
-      const handleToggle = (id, e) => {
-        setResponseData(responseData.map((el) => {
-            if (el.user === id) {
-                el.checked = e.target.checked;
-            }
-            return el;
-        }))
-        createMergedSchedule();
-      }
+    const handleToggle = (id, e) => {
+    setResponseData(responseData.map((el) => {
+        if (el.user === id) {
+            el.checked = e.target.checked;
+        }
+        return el;
+    }))
+    createMergedSchedule();
+    }
 
     const createMergedSchedule = () => {
         setMergedSchedule(mergedSchedule.map((el, i) => {
@@ -117,7 +100,7 @@ const FriendScheduleCompare = () => {
                                 <tr key={'compare-user-'+i}>
                                     <td className="d-flex align-items-center justify-content-between">
                                     <div className="form-check form-switch">
-                                        <input className="form-check-input" defaultChecked={false} onChange={(e) => handleToggle(el.user, e)} type="checkbox" />
+                                        <input className="form-check-input" disabled={el.noSchedule} defaultChecked={false} onChange={(e) => handleToggle(el.user, e)} type="checkbox" />
                                     </div>
                                         {formatFullName(el.name)} <i className={el.noSchedule ? "ms-3 fa-solid fa-calendar-xmark" : "ms-3 fa-solid fa-calendar-xmark invisible"} title="Friend has not set a schedule."></i>
                                     </td>
@@ -161,46 +144,60 @@ const FriendScheduleCompare = () => {
                             <th className="bg-secondary" id="table-tr">Sun</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="schedule-compare-body">
                         { mergedSchedule && mergedSchedule.map((el, i) => {
                             if (parseInt(el.time.split(':')[0]) >= parseInt(startTime) && parseInt(el.time.split(':')[0]) < parseInt(endTime)) 
                             return (
                                 <tr id={"table-row-"+i} key={i} className="table-row">
                                     {i%4===0 &&<th rowSpan={4} className="time-header"><div>{el.time.split(':')[0]}:{el.time.split(':')[1]}0</div><div>{el.time.split(':')[0]}:30</div></th>}
-                                    <td data-day={'monday'} className={el.mon_count ? "time-selected" : ''}>
-                                        {el.mon_count > 0 ? [...Array(el.mon_count)].map((e, i) => (
-                                            <i key={'checkmark-mon-'+i} className="fa-solid fa-check mx-1"></i>
-                                        )): <i className="fa-solid fa-xmark"></i>}
+                                    <td className={el.mon_count ? "time-selected" : ''}>
+                                        {!el.mon_count ? <i className="fa-solid fa-xmark"></i> :
+                                            el.mon_count > 3 ? <i className={`fa-solid fa-${el.mon_count}`}></i> :
+                                         [...Array(el.mon_count)].map((e, i) => (
+                                            <i key={'checkmark-mon-'+i} className="fa-solid fa-check"></i>
+                                        ))}
                                     </td>
-                                    <td data-day={'tuesday'} className={el.mon_count ? "time-selected" : ''}>
-                                        {el.mon_count > 0 ? [...Array(el.mon_count)].map((e, i) => (
-                                            <i key={'checkmark-mon-'+i} className="fa-solid fa-check mx-1"></i>
-                                        )): <i className="fa-solid fa-xmark"></i>}
+                                    <td className={el.tues_count ? "time-selected" : ''}>
+                                        {!el.tues_count ? <i className="fa-solid fa-xmark"></i> :
+                                        el.tues_count > 3 ? <i className={`fa-solid fa-${el.tues_count}`}></i> :
+                                        [...Array(el.tues_count)].map((e, i) => (
+                                            <i key={'checkmark-tues-'+i} className="fa-solid fa-check"></i>
+                                        ))}
                                     </td>
-                                    <td data-day={'wednesday'} className={el.mon_count ? "time-selected" : ''}>
-                                        {el.mon_count > 0 ? [...Array(el.mon_count)].map((e, i) => (
-                                            <i key={'checkmark-mon-'+i} className="fa-solid fa-check mx-1"></i>
-                                        )): <i className="fa-solid fa-xmark"></i>}
+                                    <td  className={el.weds_count ? "time-selected" : ''}>
+                                        {!el.weds_count ? <i className="fa-solid fa-xmark"></i> : 
+                                        el.weds_count > 3 ? <i className={`fa-solid fa-${el.weds_count}`}></i> :
+                                        [...Array(el.weds_count)].map((e, i) => (
+                                            <i key={'checkmark-weds-'+i} className="fa-solid fa-check"></i>
+                                        ))}
                                     </td>
-                                    <td data-day={'thursday'} className={el.mon_count ? "time-selected" : ''}>
-                                        {el.mon_count > 0 ? [...Array(el.mon_count)].map((e, i) => (
-                                            <i key={'checkmark-mon-'+i} className="fa-solid fa-check mx-1"></i>
-                                        )): <i className="fa-solid fa-xmark"></i>}
+                                    <td className={el.thurs_count ? "time-selected" : ''}>
+                                        {!el.thurs_count ? <i className="fa-solid fa-xmark"></i> :
+                                        el.thurs_count > 3 ? <i className={`fa-solid fa-${el.thurs_count}`}></i> :
+                                        [...Array(el.thurs_count)].map((e, i) => (
+                                            <i key={'checkmark-thurs-'+i} className="fa-solid fa-check"></i>
+                                        ))}
                                     </td>
-                                    <td data-day={'friday'} className={el.mon_count ? "time-selected" : ''}>
-                                        {el.mon_count > 0 ? [...Array(el.mon_count)].map((e, i) => (
-                                            <i key={'checkmark-mon-'+i} className="fa-solid fa-check mx-1"></i>
-                                        )): <i className="fa-solid fa-xmark"></i>}
+                                    <td className={el.fri_count ? "time-selected" : ''}>
+                                        {!el.fri_count ? <i className="fa-solid fa-xmark"></i> :
+                                        el.fri_count > 3 ? <i className={`fa-solid fa-${el.fri_count}`}></i> :
+                                        [...Array(el.fri_count)].map((e, i) => (
+                                            <i key={'checkmark-fri-'+i} className="fa-solid fa-check"></i>
+                                        ))}
                                     </td>
-                                    <td data-day={'saturday'} className={el.mon_count ? "time-selected" : ''}>
-                                        {el.mon_count > 0 ? [...Array(el.mon_count)].map((e, i) => (
-                                            <i key={'checkmark-mon-'+i} className="fa-solid fa-check mx-1"></i>
-                                        )): <i className="fa-solid fa-xmark"></i>}
+                                    <td className={el.sat_count ? "time-selected" : ''}>
+                                        {!el.sat_count ? <i className="fa-solid fa-xmark"></i> :
+                                        el.sat_count > 3 ? <i className={`fa-solid fa-${el.sat_count}`}></i> :
+                                        [...Array(el.sat_count)].map((e, i) => (
+                                            <i key={'checkmark-sat-'+i} className="fa-solid fa-check"></i>
+                                        ))}
                                     </td>
-                                    <td data-day={'sunday'} className={el.mon_count ? "time-selected" : ''}>
-                                        {el.mon_count > 0 ? [...Array(el.mon_count)].map((e, i) => (
-                                            <i key={'checkmark-mon-'+i} className="fa-solid fa-check mx-1"></i>
-                                        )): <i className="fa-solid fa-xmark"></i>}
+                                    <td className={el.sun_count ? "time-selected" : ''}>
+                                        {!el.sun_count ? <i className="fa-solid fa-xmark"></i> :
+                                        el.sun_count > 3 ? <i className={`fa-solid fa-${el.sun_count}`}></i> :
+                                        [...Array(el.sun_count)].map((e, i) => (
+                                            <i key={'checkmark-sun-'+i} className="fa-solid fa-check"></i>
+                                        ))}
                                     </td>
                                 </tr>
                             );return null;

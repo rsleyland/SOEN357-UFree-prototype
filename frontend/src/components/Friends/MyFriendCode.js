@@ -25,8 +25,8 @@ const MyFriendCode = ({code}) => {
         <div id='canvas-cont'></div>
 
         <div className='mt-3'>
-          <h5 className='text-center'>To link your account to a friends, either:</h5>
-          <ul className='d-flex flex-column align-items-center' style={{"listStyle": "square"}}>
+          <h5 className='text-center'>To link your account to a friend's, either:</h5>
+          <ul className='d-flex flex-column align-items-start' style={{"listStyle": "square"}}>
             <li>Let your friend scan your QR code</li>
             <li>Send your text code to a friend via sms/email</li>
           </ul>

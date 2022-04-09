@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
-import { formatFullName } from '../../utility/formatters.js'
+import { compareLastNameThenFirstNameDescending, formatFullName } from '../../utility/formatters.js'
 
 const MyFriends = ({setCurrentTab, user, setFriendId, setFriendName}) => {
 
@@ -14,7 +14,7 @@ const MyFriends = ({setCurrentTab, user, setFriendId, setFriendName}) => {
                 setIsLoading(true);
                 const response = await axios.get(`/friendship/my`);
                 if (response) {
-                    setData(response.data);
+                    setData(reOrderData(response.data));
                 }
                 setIsLoading(false);
             } catch (error) {
@@ -41,6 +41,21 @@ const MyFriends = ({setCurrentTab, user, setFriendId, setFriendName}) => {
             toast.error(error.response.data);
         }
     };
+
+    const reOrderData = (input) => {
+        console.log(input)
+        let names = [];
+        for (let i in input) {
+            if (input[i].friend_1_id === user._id) names.push(input[i].friend_2_name);
+            else names.push(input[i].friend_1_name);
+        }
+        names.sort(compareLastNameThenFirstNameDescending);
+        let output = []
+        for (let i in names){
+            output.push(input.find(el => el.friend_1_name === names[i] || el.friend_2_name === names[i]))
+        }
+        return output;
+    }
 
     return (
         <>

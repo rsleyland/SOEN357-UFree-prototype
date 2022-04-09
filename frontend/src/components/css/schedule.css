@@ -78,3 +78,7 @@
 .table-row th {
     border-bottom: 1px solid gray!important;
 }
+
+.table-row i {
+    margin: 0 2px;
+}

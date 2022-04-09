@@ -16,6 +16,7 @@ function App() {
       <ToastContainer autoClose={1500}/>
       <Routes>
         <Route path="/login" element={<LoginScreen/>} />
+        <Route path="/login/qrcodelink/:slug" element={<LoginScreen isRedirectFromQR={true}/>} />
         <Route path="/logout" element={<LogoutScreen/>} />
         <Route path="/register" element={<RegisterScreen/>} />
         <Route path="/" element={<HomeScreen/>} />

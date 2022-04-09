@@ -24,10 +24,11 @@ const QRLinkScreen = () => {
                 }
             }; createFriendShip();
         }
+        else toast.error("Could not retrieve your details - please login again.");
         
-    }, [currentUser, slug, navigate]);
+    }, []);
 
-    return <h3>This page should redirect.</h3>;
+    return <h3 className="mt-4 text-center">This page will redirect.</h3>;
 }
 
 export { QRLinkScreen };

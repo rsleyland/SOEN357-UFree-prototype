@@ -31,6 +31,17 @@ const MyFriends = ({setCurrentTab, user, setFriendId, setFriendName}) => {
         setCurrentTab('Friend Schedule');
     };
 
+    const handleDelete = async (id, name) => {
+        console.log("Deleting")
+        try {
+            await axios.delete(`/friendship/remove`, {data: {friend_id: id}});
+            setData(data.filter(el => el.friend_1_id !== id && el.friend_2_id !== id));
+            toast.success(`${name} removed from friends`);
+        } catch (error) {
+            toast.error(error.response.data);
+        }
+    };
+
     return (
         <>
         { isLoading ? 
@@ -49,7 +60,7 @@ const MyFriends = ({setCurrentTab, user, setFriendId, setFriendName}) => {
                         </div>
                         <div id="friend-btns">
                                 <button onClick={() => handleClick(el.friend_2_id, el.friend_2_name)} className="btn"><i className="fa-solid fa-calendar"></i></button>
-                                <button  className="btn"><i className="fa-solid fa-trash"></i></button>
+                                <button onClick={() => handleDelete(el.friend_2_id, el.friend_2_name)} className="btn"><i className="fa-solid fa-trash"></i></button>
                             </div>
                         </div>
                 else
@@ -60,12 +71,11 @@ const MyFriends = ({setCurrentTab, user, setFriendId, setFriendName}) => {
                     </div>
                     <div id="friend-btns">
                             <button onClick={() => handleClick(el.friend_1_id, el.friend_1_name)} className="btn"><i className="fa-solid fa-calendar"></i></button>
-                            <button  className="btn"><i className="fa-solid fa-trash"></i></button>
+                            <button onClick={() => handleDelete(el.friend_1_id, el.friend_1_name)} className="btn"><i className="fa-solid fa-trash"></i></button>
                         </div>
                     </div>
             })}
         </div>}
-        
         </>
     )
 };

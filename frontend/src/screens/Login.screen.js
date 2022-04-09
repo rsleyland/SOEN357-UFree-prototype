@@ -1,16 +1,17 @@
 import { useState, useContext, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import { AuthContext } from '../services/providers/AuthContextProvider.js';
 import { formatFirstName } from '../utility/formatters.js';
 
-const LoginScreen = () => {
+const LoginScreen = ({isRedirectFromQR = false}) => {
 
     const navigate = useNavigate();
     const [email, setEmail] = useState('ryan@leyland.com');
     const [password, setPassword] = useState('SecurePass123');
     const { setCurrentUser } = useContext(AuthContext);
+    const { slug } = useParams();
     
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -21,6 +22,7 @@ const LoginScreen = () => {
             localStorage.setItem('user', JSON.stringify(result.data));
             const name = result.data.firstName;
             toast.success(`${formatFirstName(name)} logged in successfully`);
+            if (isRedirectFromQR) return navigate(`/qrcodelink/${slug}`); 
             navigate('/');
         } catch (error) {
             toast.error(error.response.data.error);
@@ -29,8 +31,9 @@ const LoginScreen = () => {
 
     useEffect(()=> {
         if (localStorage.getItem('user')) {
-            navigate('/');
-            toast.info("User already logged in!");
+            if (isRedirectFromQR) return navigate(`/qrcodelink/${slug}`); 
+            else navigate('/');
+            toast.info("User already logged in");
         }
     }, [navigate]);
 

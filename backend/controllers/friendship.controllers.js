@@ -47,4 +47,17 @@ const createNewFriendship = async (req, res) => {
     }
 };
 
-export { getMyFriendships, createNewFriendship };
+const removeFriendship = async (req, res) => {
+    try {
+        const id = req.body.uid;
+        const friendsId = req.body.friend_id;
+        const friendship = await Friendship.findOneAndDelete({$or: [{friend_1_id: id, friend_2_id: friendsId}, {friend_1_id: friendsId, friend_2_id: id}]})
+        if (friendship) return res.status(200).json("Friendship removed");
+        else return res.status(400).json("Could not find friendship"); 
+    } catch (error) {
+        console.log(error);
+        res.status(400).json(error);  
+    }
+}
+
+export { getMyFriendships, createNewFriendship, removeFriendship };

@@ -1,26 +1,28 @@
 import { useEffect, useState } from "react";
-import { scheduleArrayBuilder } from "../components/Schedule/ScheduleBlank.js";
+import { scheduleArrayBuilder } from "./ScheduleBlank";
 import axios from 'axios';
 import { toast } from "react-toastify";
+import { formatFirstName, formatFullName } from "../../utility/formatters";
 
-const MySchedule = () => {
+
+const FriendScheduleCompare = ({friend_ids, setCurrentTab}) => {
 
     const [startTime, setStartTime] = useState(9);
     const [endTime, setEndTime] = useState(20);
     const [scheduleArray, setScheduleArray] = useState([]);
-    const [mouseDown, setMouseDown] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
 
-    //grab and store schedule, if not one in DB then use scheduleArrayBuilder
+    //grab and store schedule
     useEffect(()=> {
-        const getSchedule = async() => {
+        const getSchedule = async () => {
             try {
                 setIsLoading(true);
-                const response = await axios.get(`/schedule/my`);
-                if (response.data.data) setScheduleArray(response.data.data);
+                const body = {friend_ids : friend_ids}
+                const response = await axios.post(`/schedule/friend/compare`, body);
+                console.log(response.data)
+                if (response.data) setScheduleArray(response.data[0].data);
                 else {
-                    setScheduleArray(scheduleArrayBuilder(true));
-                    toast.info('Please set your schedule')
+                    setScheduleArray(scheduleArrayBuilder(false));
                 }
                 setIsLoading(false);
             } catch (error) {
@@ -28,82 +30,15 @@ const MySchedule = () => {
                 setIsLoading(false);
             }
         };getSchedule();
-    }, []);
+    }, [friend_ids]);
 
-    //Drag and select helper function - checks if event happenend on a td element
-    const checkAndUpdateIfIsTDElement = (ev) => {
-        let day = null;
-        let index = null;
-        if (ev.target['nodeName'] ==='I') {
-            if (ev.target.parentElement['nodeName'] ==='TD'){
-                day = ev.target.parentElement.getAttribute('data-day');
-                index = ev.target.parentElement.parentElement.getAttribute('id').substr(10,2);
-                handleClick(day, index)
-            }
-        }
-        else if (ev.target['nodeName'] ==='TD'){
-                day = ev.target.getAttribute('data-day');
-                index = ev.target.parentElement.getAttribute('id').substr(10,2);
-                handleClick(day, index)
-        }
-    }
-
-    //Saves schedule to DB
-    const saveSchedule = async () => {
-        try {
-            const body = { schedule : scheduleArray };
-            await axios.post(`/schedule/save`, body);
-            toast.success(`Schedule saved successfully`);
-        } catch (error) {
-            console.log(error)
-            toast.error("There was an error saving your schedule - please try again");
-        } 
-    };
-    //event listeners for drag select functionality
-    useEffect(()=> {
-        const handleDocumentMouseOver = event => {
-            checkAndUpdateIfIsTDElement(event);
-        };
-        // mouse down = add mouseover event
-        const handleDocumentMouseDown = event => {
-            checkAndUpdateIfIsTDElement(event);
-            document.addEventListener('mouseover', handleDocumentMouseOver);
-            setMouseDown(true);
-        };
-        // mouse up = remove mouseover event
-        const handleDocumentMouseUp = event => {
-            document.removeEventListener('mouseover', handleDocumentMouseOver);
-            setMouseDown(false);
-        };
-        document.addEventListener('mousedown', handleDocumentMouseDown);
-        document.addEventListener('mouseup', handleDocumentMouseUp);
-        if (mouseDown) document.addEventListener('mouseover', handleDocumentMouseOver); //Need to re-add the event listener for each render cycle (as will be removed when first event is fired and rerenders the component)
-        return () => {
-            document.removeEventListener('mousedown', handleDocumentMouseDown);
-            document.removeEventListener('mouseup', handleDocumentMouseUp);
-            document.removeEventListener('mouseover', handleDocumentMouseOver);
-        }
-    });
-
-    //Simulate the clicking of the td elements to select, negates the boolean for the date
-    const handleClick = (day, index) => {
-        try {
-            let tempArray = [...scheduleArray];
-            tempArray[index][day] = !tempArray[index][day];
-            setScheduleArray(tempArray);
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
-    //Clears the table by setting the array to a fresh scheduleArray
-    const clearTable = () => {
-        setScheduleArray(scheduleArrayBuilder(true));
-    }
     
     return (
         <>
-        <h3>Set Your Schedule</h3>
+        <h3 className="mt-3">Compare Schedules</h3>
+        <div id="friend-schedule-go-back-div">
+            <button className="btn btn-secondary btn-sm" onClick={() => setCurrentTab('My Friends')}><i className="fa-solid fa-circle-arrow-left me-2"></i>Go Back</button>
+        </div>
         <div className="mt-2">
             <label className="me-3" htmlFor="">From</label>
             <select className="me-3" value={`${startTime}`} onChange={(e) => setStartTime(e.target.value)}>
@@ -136,7 +71,7 @@ const MySchedule = () => {
                     <th>Thurs</th>
                     <th>Fri</th>
                     <th className="bg-secondary">Sat</th>
-                    <th id="table-tr" className="bg-secondary">Sun</th>
+                    <th className="bg-secondary" id="table-tr">Sun</th>
                 </tr>
             </thead>
             <tbody>
@@ -157,13 +92,10 @@ const MySchedule = () => {
                 })}
             </tbody>
         </table>
-        <div className="schedule-btns">
-            <button onClick={saveSchedule} className="btn btn-success">Save Schedule</button>
-            <button onClick={clearTable} className="btn btn-purple">Reset</button>
-        </div></>}
+        </>}
         </>
         
     )
 }
 
-export { MySchedule };
+export { FriendScheduleCompare };

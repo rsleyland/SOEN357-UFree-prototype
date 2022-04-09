@@ -30,7 +30,7 @@ const MyFriendCode = ({code}) => {
             <li>Let your friend scan your QR code</li>
             <li>Send your text code to a friend via sms/email</li>
           </ul>
-          <p className='text-center'><small>Code will refresh after use</small></p>
+          <p className='text-center'><small>Code will refresh at login</small></p>
         </div>
     </>)
 };

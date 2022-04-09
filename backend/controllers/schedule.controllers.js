@@ -52,4 +52,25 @@ const getFriendSchedule = async (req, res) => {
     }
 }
 
-export { getMySchedule, saveMySchedule, getFriendSchedule };
+const getFriendScheduleCompare = async (req, res) => {
+    try {
+        const id = req.body.uid;
+        const friend_ids = req.body.friend_ids;
+        const schedules = [];
+        for (let i in friend_ids) {
+            const friendshipExists = await Friendship.findOne(
+                {$or: [{friend_1_id: id, friend_2_id: friend_ids[i]}, {friend_1_id: friend_ids[i], friend_2_id: id}]});
+            if (friendshipExists) {
+                const friendSchedule = await Schedule.findOne({user: friend_ids[i]})
+                if (friendSchedule) schedules.push(friendSchedule);
+                else schedules.push({user: friend_ids[i], noSchedule: true});
+            }
+        }
+        res.status(200).json(schedules);
+    } catch (error) {
+        console.log(error);
+        res.status(400).json(error);  
+    }
+}
+
+export { getMySchedule, saveMySchedule, getFriendSchedule, getFriendScheduleCompare };

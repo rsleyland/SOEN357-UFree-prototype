@@ -4,12 +4,14 @@ import { AddFriend } from '../components/Friends/AddFriend.js';
 import { MyFriends } from '../components/Friends/MyFriends.js';
 import { MyFriendCode } from "../components/Friends/MyFriendCode.js";
 import { AuthContext } from "../services/providers/AuthContextProvider.js";
+import { FriendScheduleCompare } from "../components/Schedule/FriendScheduleCompare.js";
 
 
 const Friends = () => {
 
     const { currentUser } = useContext(AuthContext);
     const [friendId, setFriendId] = useState('');
+    const [friendIds, setFriendIds] = useState([]);
     const [friendName, setFriendName] = useState('');
     const [currentTab, setCurrentTab] = useState('My Friends');
 
@@ -48,10 +50,11 @@ const Friends = () => {
             </button>
           </li>
         </ul>
-        {currentTab === "My Friends" && <MyFriends setCurrentTab={setCurrentTab} user={currentUser} setFriendId={setFriendId} setFriendName={setFriendName}/>}
+        {currentTab === "My Friends" && <MyFriends setCurrentTab={setCurrentTab} user={currentUser} setFriendId={setFriendId} setFriendName={setFriendName} setFriendIds={setFriendIds}/>}
         {currentTab === "Add Friend" && <AddFriend setCurrentTab={setCurrentTab} user={currentUser}/>}
         {currentTab === "My Friend Code" && <MyFriendCode code={currentUser.friendship_code}/>}
         {currentTab === "Friend Schedule" && <FriendSchedule setCurrentTab={setCurrentTab} friend_id={friendId} friend_name={friendName}/>}
+        {currentTab === "Friend Schedule Compare" && <FriendScheduleCompare setCurrentTab={setCurrentTab} friend_ids={friendIds}/>}
 
 
     </>)

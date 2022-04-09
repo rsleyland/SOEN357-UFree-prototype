@@ -7,6 +7,10 @@
 #schedule-table tr {
     font-size: 10px;
 }
+#schedule-table tr:nth-child(2n) {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+}
+
 #schedule-table tr:nth-child(4n) {
     border-bottom: 1px solid white;
 }
@@ -42,8 +46,16 @@
 .time-header div {
     display: flex;
     position: relative;
-    top: -25px;
+    top: -15px;
     justify-content: center;
+}
+
+.time-header div:nth-child(2) {
+    display: flex;
+    top: -10px;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 10px;
 }
 .time-selected {
     background-color: rgba(18, 120, 18, 0.6)!important;

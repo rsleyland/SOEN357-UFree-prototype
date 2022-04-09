@@ -107,8 +107,36 @@
     background-color: rgba(18, 120, 18, 1)!important;
     color: white!important;
 }
-
 .green-text {
     color: rgba(18, 120, 18, 1)!important;
     font-weight: bold;
+}
+.form-check-input {
+    background-color: rgba(51, 24, 65, 0.8)!important;
+    color: white!important;
+    border: none!important;
+    opacity: 0.7;
+}
+.form-switch .form-check-input {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='white'/%3e%3c/svg%3e")!important;
+}
+.form-switch .form-check-input:checked {
+    border: none!important;
+    opacity: 1;
+}
+.no-schedule:after {
+    opacity: 0;
+    content: "";
+}
+.no-schedule:hover:after {
+    position: absolute;
+    opacity: 1;
+    transition: opacity linear 0.2s;
+    content: "Friend has not set a schedule.";
+    line-height: 120%;
+    font-weight: normal;
+    max-width: 15ch;
+    margin-left: 10px;
+    font-size: 10px;
+    font-family: var(--bs-body-font-family);
 }

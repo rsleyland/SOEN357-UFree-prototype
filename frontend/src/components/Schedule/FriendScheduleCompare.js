@@ -12,7 +12,7 @@ const FriendScheduleCompare = () => {
     const [mergedSchedule, setMergedSchedule] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
 
-    //grab and store schedule
+    //grab and store schedules
     useEffect(()=> {
         const getSchedules = async () => {
             try {
@@ -116,15 +116,14 @@ const FriendScheduleCompare = () => {
                 index = ev.target.parentElement.getAttribute('id').substr(10,2);
                 handleHover(day, index)
         }
-        else handleHover('', -1)
     }
 
     
     return (<>
-        <h3 className="my-3">Compare Schedules</h3>
-
+        <h3 className="mt-3">Compare Schedules</h3>
+        <p>Toggle friends to compare</p>
         { isLoading ? 
-                <div className="spinner-border mt-4" styles={{width: "3rem", height: "3rem"}} role="status">
+                <div className="spinner-border mt-3" styles={{width: "3rem", height: "3rem"}} role="status">
                     <span className="sr-only">Loading...</span>
                 </div>
 
@@ -139,12 +138,12 @@ const FriendScheduleCompare = () => {
                     {responseData && 
                         <tbody>
                             { responseData.map((el, i) => (
-                                <tr className={el.current ? "green-text" : ""} key={'compare-user-'+i}>
+                                <tr className={el.current ? "green-text friends-list" : "friends-list"} key={'compare-user-'+i}>
                                     <td className="d-flex align-items-center justify-content-between">
                                     <div className="form-check form-switch">
                                         <input className="form-check-input" disabled={el.noSchedule} defaultChecked={false} onChange={(e) => handleToggle(el.user, e)} type="checkbox" />
                                     </div>
-                                        {formatFullName(el.name)} <i className={el.noSchedule ? "ms-3 fa-solid fa-calendar-xmark" : "ms-3 fa-solid fa-calendar-xmark invisible"} title="Friend has not set a schedule."></i>
+                                        {formatFullName(el.name)} <i className={el.noSchedule ? "no-schedule ms-3 fa-solid fa-calendar-xmark" : "ms-3 fa-solid fa-calendar-xmark invisible"}></i>
                                     </td>
                                     </tr>
                             ))}

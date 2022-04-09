@@ -11,7 +11,6 @@ const Friends = () => {
 
     const { currentUser } = useContext(AuthContext);
     const [friendId, setFriendId] = useState('');
-    const [friendIds, setFriendIds] = useState([]);
     const [friendName, setFriendName] = useState('');
     const [currentTab, setCurrentTab] = useState('My Friends');
 
@@ -19,17 +18,27 @@ const Friends = () => {
     return (<>
 
         <ul className="nav nav-pills justify-content-center">
-          <li className="nav-item mx-3 pointer">
+          <li className="nav-item mx-3 pointer my-2">
             <button
               className={
-                currentTab === "My Friends" || currentTab === "Friend Schedule" ? "nav-link btn-purple" : "nav-link"
+                currentTab === "My Friends" || currentTab === "Friend Schedule" || currentTab === "Friend Schedule Compare" ? "nav-link btn-purple" : "nav-link"
               }
               onClick={() => setCurrentTab("My Friends")}
             >
               My Friends
             </button>
           </li>
-          <li className="nav-item mx-3 pointer">
+          <li className="nav-item mx-3 pointer my-2">
+            <button
+              className={
+                currentTab === "Compare Schedules" ? "nav-link btn-purple" : "nav-link"
+              }
+              onClick={() => setCurrentTab("Compare Schedules")}
+            >
+              Compare Schedules
+            </button>
+          </li>
+          <li className="nav-item mx-3 pointer my-2">
             <button
               className={
                 currentTab === "Add Friend" ? "nav-link btn-purple" : "nav-link"
@@ -39,7 +48,7 @@ const Friends = () => {
               Add Friend
             </button>
           </li>
-          <li className="nav-item mx-3 pointer">
+          <li className="nav-item mx-3 pointer my-2">
             <button
               className={
                 currentTab === "My Friend Code" ? "nav-link btn-purple" : "nav-link"
@@ -50,11 +59,11 @@ const Friends = () => {
             </button>
           </li>
         </ul>
-        {currentTab === "My Friends" && <MyFriends setCurrentTab={setCurrentTab} user={currentUser} setFriendId={setFriendId} setFriendName={setFriendName} setFriendIds={setFriendIds}/>}
+        {currentTab === "My Friends" && <MyFriends setCurrentTab={setCurrentTab} user={currentUser} setFriendId={setFriendId} setFriendName={setFriendName}/>}
         {currentTab === "Add Friend" && <AddFriend setCurrentTab={setCurrentTab} user={currentUser}/>}
         {currentTab === "My Friend Code" && <MyFriendCode code={currentUser.friendship_code}/>}
         {currentTab === "Friend Schedule" && <FriendSchedule setCurrentTab={setCurrentTab} friend_id={friendId} friend_name={friendName}/>}
-        {currentTab === "Friend Schedule Compare" && <FriendScheduleCompare setCurrentTab={setCurrentTab} friend_ids={friendIds}/>}
+        {currentTab === "Compare Schedules" && <FriendScheduleCompare/>}
 
 
     </>)

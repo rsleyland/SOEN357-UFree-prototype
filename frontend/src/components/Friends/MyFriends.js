@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { formatFullName } from '../../utility/formatters.js'
 
-const MyFriends = ({setCurrentTab, user, setFriendId, setFriendName, setFriendIds}) => {
+const MyFriends = ({setCurrentTab, user, setFriendId, setFriendName}) => {
 
     const [data, setData] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
@@ -14,7 +14,6 @@ const MyFriends = ({setCurrentTab, user, setFriendId, setFriendName, setFriendId
                 setIsLoading(true);
                 const response = await axios.get(`/friendship/my`);
                 if (response) {
-                    response.data.map((el) => el.checked = false)
                     setData(response.data);
                 }
                 setIsLoading(false);
@@ -43,31 +42,6 @@ const MyFriends = ({setCurrentTab, user, setFriendId, setFriendName, setFriendId
         }
     };
 
-    const handleToggle = (id) => {
-        data.map((el) => {
-            if (el.friend_1_id === id || el.friend_2_id === id) {
-                el.checked = !el.checked;
-            }
-            return el;
-        })
-    };
-
-    const handleCompareButton = () => {
-        const friend_ids = [];
-        data.map((el) => {
-            if (el.checked) {
-                if (el.friend_1_id !== user._id) friend_ids.push(el.friend_1_id);
-                else friend_ids.push(el.friend_2_id);
-            }
-            return el;
-        })
-        if (friend_ids.length === 0) toast.error("No friends selected");
-        else {
-            setFriendIds(friend_ids);
-            setCurrentTab('Friend Schedule Compare');
-        }
-    };
-
     return (
         <>
         { isLoading ? 
@@ -80,10 +54,7 @@ const MyFriends = ({setCurrentTab, user, setFriendId, setFriendName, setFriendId
             {data && data.map((el, i)=> {
                 if (el.friend_1_id === user._id)
                     return <div key={'friend'+i}>
-                            <div className="d-flex align-items-center">
-                                <div className="form-check form-switch">
-                                    <input className="form-check-input" defaultChecked={false} onChange={() => handleToggle(el.friend_2_id)} type="checkbox"/>
-                                </div>
+                            <div className="d-flex">
                                 <i className="fa-solid fa-user-group me-4"></i>
                                 <p>{formatFullName(el.friend_2_name)}</p>
                             </div>
@@ -95,10 +66,7 @@ const MyFriends = ({setCurrentTab, user, setFriendId, setFriendName, setFriendId
                         </div>
                 else
                     return <div key={'friend'+i}>
-                    <div className="d-flex align-items-center">
-                        <div className="form-check form-switch">
-                            <input className="form-check-input" defaultChecked={false} onChange={() => handleToggle(el.friend_1_id)} type="checkbox"/>
-                        </div>
+                    <div className="d-flex">
                         <i className="fa-solid fa-user-group me-4"></i>
                         <p>{formatFullName(el.friend_1_name)}</p>
                     </div>
@@ -108,9 +76,6 @@ const MyFriends = ({setCurrentTab, user, setFriendId, setFriendName, setFriendId
                         </div>
                     </div>
             })}
-        </div>
-        <div>
-            <button className="btn btn-purple mt-5" onClick={handleCompareButton}>Compare Selected Friend's Schedules</button>
         </div>
         </>}
         </>

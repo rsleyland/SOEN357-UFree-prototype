@@ -55,18 +55,21 @@ const getFriendSchedule = async (req, res) => {
 const getFriendScheduleCompare = async (req, res) => {
     try {
         const id = req.body.uid;
-        const friend_ids = req.body.friend_ids;
-        const schedules = [];
-        for (let i in friend_ids) {
-            const friendshipExists = await Friendship.findOne(
-                {$or: [{friend_1_id: id, friend_2_id: friend_ids[i]}, {friend_1_id: friend_ids[i], friend_2_id: id}]});
-            if (friendshipExists) {
-                const friendSchedule = await Schedule.findOne({user: friend_ids[i]})
-                if (friendSchedule) schedules.push(friendSchedule);
-                else schedules.push({user: friend_ids[i], noSchedule: true});
+        const returnSchedules = [];
+        const friends = await Friendship.find({$or: [{friend_1_id: id}, {friend_2_id: id}]});
+
+        for (let i in friends) {
+            const friend_1_id = friends[i].friend_1_id.toString();
+            const friend_2_id = friends[i].friend_2_id.toString();
+            const friend_id = friend_1_id === id ? friend_2_id : friend_1_id;
+            const friend_name = friend_1_id === id ? friends[i].friend_2_name : friends[i].friend_1_name;
+            const friendSchedule = await Schedule.findOne({user: friend_id})
+            if (friendSchedule) {
+                returnSchedules.push({...friendSchedule._doc, name: friend_name});
             }
+            else returnSchedules.push({user: friend_id, name: friend_name,  noSchedule: true});
         }
-        res.status(200).json(schedules);
+        res.status(200).json(returnSchedules);
     } catch (error) {
         console.log(error);
         res.status(400).json(error);  

@@ -107,3 +107,8 @@
     background-color: rgba(18, 120, 18, 1)!important;
     color: white!important;
 }
+
+.green-text {
+    color: rgba(18, 120, 18, 1)!important;
+    font-weight: bold;
+}

@@ -32,7 +32,6 @@ const MyFriends = ({setCurrentTab, user, setFriendId, setFriendName}) => {
     };
 
     const handleDelete = async (id, name) => {
-        console.log("Deleting")
         try {
             await axios.delete(`/friendship/remove`, {data: {friend_id: id}});
             setData(data.filter(el => el.friend_1_id !== id && el.friend_2_id !== id));
@@ -43,7 +42,6 @@ const MyFriends = ({setCurrentTab, user, setFriendId, setFriendName}) => {
     };
 
     const reOrderData = (input) => {
-        console.log(input)
         let names = [];
         for (let i in input) {
             if (input[i].friend_1_id === user._id) names.push(input[i].friend_2_name);

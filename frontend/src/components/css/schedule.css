@@ -82,3 +82,28 @@
 .table-row i {
     margin: 0 2px;
 }
+
+.compare-lvl-1 {
+    background-color: rgba(18, 120, 18, 0.5)!important;
+    color: white!important;
+}
+.compare-lvl-2 {
+    background-color: rgba(18, 120, 18, 0.6)!important;
+    color: white!important;
+}
+.compare-lvl-3 {
+    background-color: rgba(18, 120, 18, 0.7)!important;
+    color: white!important;
+}
+.compare-lvl-4 {
+    background-color: rgba(18, 120, 18, 0.8)!important;
+    color: white!important;
+}
+.compare-lvl-5 {
+    background-color: rgba(18, 120, 18, 0.9)!important;
+    color: white!important;
+}
+.compare-lvl-6 {
+    background-color: rgba(18, 120, 18, 1)!important;
+    color: white!important;
+}

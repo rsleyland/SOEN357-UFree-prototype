@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
-import { compareLastNameThenFirstNameDescending, formatFullName } from '../../utility/formatters.js'
+import { compareLNameFNameDesc, formatFullName } from '../../utility/formatters.js'
 
 const MyFriends = ({setCurrentTab, user, setFriendId, setFriendName}) => {
 
@@ -49,7 +49,7 @@ const MyFriends = ({setCurrentTab, user, setFriendId, setFriendName}) => {
             if (input[i].friend_1_id === user._id) names.push(input[i].friend_2_name);
             else names.push(input[i].friend_1_name);
         }
-        names.sort(compareLastNameThenFirstNameDescending);
+        names.sort(compareLNameFNameDesc);
         let output = []
         for (let i in names){
             output.push(input.find(el => el.friend_1_name === names[i] || el.friend_2_name === names[i]))

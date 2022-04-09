@@ -13,7 +13,7 @@ const formatFullName = (name) => {
     return `${fname} ${lname}`;
 };
 
-const compareLastNameThenFirstNameDescendingSchedule = (a, b) => {
+const compareLNameFNameDescSched = (a, b) => {
     const a_nameSplit = a.name.split(' ');
     const a_firstName = formatFirstName(a_nameSplit[0]);
     const a_lastName = formatLastName(a_nameSplit[1]);
@@ -30,7 +30,7 @@ const compareLastNameThenFirstNameDescendingSchedule = (a, b) => {
     };
   };
 
-  const compareLastNameThenFirstNameDescending = (a, b) => {
+  const compareLNameFNameDesc = (a, b) => {
     const a_nameSplit = a.split(' ');
     const a_firstName = formatFirstName(a_nameSplit[0]);
     const a_lastName = formatLastName(a_nameSplit[1]);
@@ -47,4 +47,4 @@ const compareLastNameThenFirstNameDescendingSchedule = (a, b) => {
     };
   };
 
-export { formatFirstName, formatLastName, formatFullName, compareLastNameThenFirstNameDescendingSchedule, compareLastNameThenFirstNameDescending };
+export { formatFirstName, formatLastName, formatFullName, compareLNameFNameDesc, compareLNameFNameDescSched };

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { scheduleArrayBuilder } from "./ScheduleBlank";
 import axios from 'axios';
-import { compareLastNameThenFirstNameDescendingSchedule, formatFullName } from "../../utility/formatters";
+import { compareLNameFNameDescSched, formatFullName } from "../../utility/formatters";
 
 
 
@@ -37,7 +37,7 @@ const FriendScheduleCompare = () => {
     }, []);
 
     const sortOrderData = (data) => {
-        const sorted = data.sort(compareLastNameThenFirstNameDescendingSchedule)
+        const sorted = data.sort(compareLNameFNameDescSched)
         return sorted;
     }
 
@@ -150,49 +150,49 @@ const FriendScheduleCompare = () => {
                             return (
                                 <tr id={"table-row-"+i} key={i} className="table-row">
                                     {i%4===0 &&<th rowSpan={4} className="time-header"><div>{el.time.split(':')[0]}:{el.time.split(':')[1]}0</div><div>{el.time.split(':')[0]}:30</div></th>}
-                                    <td className={el.mon_count ? "time-selected" : ''}>
+                                    <td className={el.mon_count && el.mon_count > 5 ? `compare-lvl-6` : `compare-lvl-${el.mon_count}`}>
                                         {!el.mon_count ? <i className="fa-solid fa-xmark"></i> :
                                             el.mon_count > 3 ? <i className={`fa-solid fa-${el.mon_count}`}></i> :
                                          [...Array(el.mon_count)].map((e, i) => (
                                             <i key={'checkmark-mon-'+i} className="fa-solid fa-check"></i>
                                         ))}
                                     </td>
-                                    <td className={el.tues_count ? "time-selected" : ''}>
+                                    <td className={el.tues_count && el.tues_count > 5 ? `compare-lvl-6` : `compare-lvl-${el.tues_count}`}>
                                         {!el.tues_count ? <i className="fa-solid fa-xmark"></i> :
                                         el.tues_count > 3 ? <i className={`fa-solid fa-${el.tues_count}`}></i> :
                                         [...Array(el.tues_count)].map((e, i) => (
                                             <i key={'checkmark-tues-'+i} className="fa-solid fa-check"></i>
                                         ))}
                                     </td>
-                                    <td  className={el.weds_count ? "time-selected" : ''}>
+                                    <td  className={el.weds_count && el.weds_count > 5 ? `compare-lvl-6` : `compare-lvl-${el.weds_count}`}>
                                         {!el.weds_count ? <i className="fa-solid fa-xmark"></i> : 
                                         el.weds_count > 3 ? <i className={`fa-solid fa-${el.weds_count}`}></i> :
                                         [...Array(el.weds_count)].map((e, i) => (
                                             <i key={'checkmark-weds-'+i} className="fa-solid fa-check"></i>
                                         ))}
                                     </td>
-                                    <td className={el.thurs_count ? "time-selected" : ''}>
+                                    <td className={el.thurs_count && el.thurs_count > 5 ? `compare-lvl-6` : `compare-lvl-${el.thurs_count}`}>
                                         {!el.thurs_count ? <i className="fa-solid fa-xmark"></i> :
                                         el.thurs_count > 3 ? <i className={`fa-solid fa-${el.thurs_count}`}></i> :
                                         [...Array(el.thurs_count)].map((e, i) => (
                                             <i key={'checkmark-thurs-'+i} className="fa-solid fa-check"></i>
                                         ))}
                                     </td>
-                                    <td className={el.fri_count ? "time-selected" : ''}>
+                                    <td className={el.fri_count && el.fri_count > 5 ? `compare-lvl-6` : `compare-lvl-${el.fri_count}`}>
                                         {!el.fri_count ? <i className="fa-solid fa-xmark"></i> :
                                         el.fri_count > 3 ? <i className={`fa-solid fa-${el.fri_count}`}></i> :
                                         [...Array(el.fri_count)].map((e, i) => (
                                             <i key={'checkmark-fri-'+i} className="fa-solid fa-check"></i>
                                         ))}
                                     </td>
-                                    <td className={el.sat_count ? "time-selected" : ''}>
+                                    <td className={el.sat_count && el.sat_count > 5 ? `compare-lvl-6` : `compare-lvl-${el.sat_count}`}>
                                         {!el.sat_count ? <i className="fa-solid fa-xmark"></i> :
                                         el.sat_count > 3 ? <i className={`fa-solid fa-${el.sat_count}`}></i> :
                                         [...Array(el.sat_count)].map((e, i) => (
                                             <i key={'checkmark-sat-'+i} className="fa-solid fa-check"></i>
                                         ))}
                                     </td>
-                                    <td className={el.sun_count ? "time-selected" : ''}>
+                                    <td className={el.sun_count && el.sun_count > 5 ? `compare-lvl-6` : `compare-lvl-${el.sun_count}`}>
                                         {!el.sun_count ? <i className="fa-solid fa-xmark"></i> :
                                         el.sun_count > 3 ? <i className={`fa-solid fa-${el.sun_count}`}></i> :
                                         [...Array(el.sun_count)].map((e, i) => (

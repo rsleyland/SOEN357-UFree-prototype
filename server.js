@@ -4,13 +4,10 @@ import './db_connect.js';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 const app = express();
-import path from 'path';
-const __dirname = path.resolve();
 
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors({origin: 'https://soen357-ufree.herokuapp.com', credentials: true}));
-app.use(express.static(path.join(__dirname, "frontend", "build")));
+app.use(cors({origin: 'http://localhost:3000', credentials: true}));
 
 import { AuthRouter } from './routes/auth.routes.js';
 import { ScheduleRouter } from "./routes/schedule.routes.js";
@@ -20,9 +17,6 @@ app.use("/auth", AuthRouter);
 app.use("/schedule", ScheduleRouter);
 app.use("/friendship", FriendshipRouter);
 
-app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "frontend", "build", "index.html"));
-});
 
 
 const PORT = process.env.PORT || 5000;

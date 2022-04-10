@@ -11,7 +11,7 @@ import { BrowserRouter } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 axios.defaults.withCredentials = true //auto send and recieve cookies - no need to add to every request now
-axios.defaults.baseURL = 'https://soen357-ufree.herokuapp.com';
+axios.defaults.baseURL = 'http://localhost:5000';
 
 ReactDOM.render(
   <BrowserRouter>

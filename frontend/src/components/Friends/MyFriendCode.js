@@ -6,7 +6,7 @@ const MyFriendCode = ({code}) => {
       useEffect(() => {
         const generateQR = async => {
             try {
-                QRCode.toCanvas(`https://soen357-ufree.herokuapp.com/login/qrcodelink/${code}`, { errorCorrectionLevel: 'H', width: 300 }, function (err, canv) {
+                QRCode.toCanvas(`http://localhost:3000/login/qrcodelink/${code}`, { errorCorrectionLevel: 'H', width: 300 }, function (err, canv) {
                     if (err) throw err
                     document.getElementById('canvas-cont').appendChild(canv);
                   })

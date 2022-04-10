@@ -37,7 +37,7 @@ const FriendSchedule = ({friend_id, friend_name, setCurrentTab}) => {
         <>
         <h3 className="mt-3">{formatFullName(friend_name)}'s Schedule</h3>
         <div id="friend-schedule-go-back-div">
-            <button className="btn btn-secondary btn-sm" onClick={() => setCurrentTab('My Friends')}><i className="fa-solid fa-circle-arrow-left me-2"></i>Go Back</button>
+            <button onClick={() => setCurrentTab('My Friends')}><i className="fa-solid fa-circle-arrow-left me-2"></i>Go Back</button>
         </div>
         <div className="mt-2">
             <label className="me-3" htmlFor="">From</label>

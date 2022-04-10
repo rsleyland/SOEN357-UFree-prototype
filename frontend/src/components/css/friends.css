@@ -3,15 +3,24 @@
     left: 20px;
 }
 
-@media screen  and (max-width: 600px) {
+@media screen  and (max-width: 992px) {
     #friend-schedule-go-back-div{
         top: 150px;
+    }
+}
+@media screen  and (max-width: 768px) {
+    #friend-schedule-go-back-div{
+        top: 200px;
     }
 }
 
 #friend-schedule-go-back-div button{
     background-color: rgba(51, 24, 65, 0.8)!important;
     color: #FFF;
+    border-radius: 5px;
+    padding: 3px 6px;
+    font-size: 12px;
+    border: none;
 }
 
 #friend-schedule-go-back-div button:hover{

@@ -19,7 +19,7 @@ const LogoutScreen = () => {
                 setCurrentUser(null);
                 localStorage.clear();
                 await axios.get(`/auth/logout`);
-                toast.success(`${formatName} logged out successfully!`);
+                // toast.success(`${formatName} logged out successfully!`);
                 navigate('/login');
             } catch (error) {
                 toast.error(error.response.data.error);

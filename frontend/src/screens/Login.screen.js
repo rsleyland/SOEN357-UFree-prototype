@@ -21,7 +21,7 @@ const LoginScreen = ({isRedirectFromQR = false}) => {
             setCurrentUser(result.data);
             localStorage.setItem('user', JSON.stringify(result.data));
             const name = result.data.firstName;
-            toast.success(`${formatFirstName(name)} logged in successfully`);
+            // toast.success(`${formatFirstName(name)} logged in successfully`);
             if (isRedirectFromQR) return navigate(`/qrcodelink/${slug}`); 
             navigate('/');
         } catch (error) {

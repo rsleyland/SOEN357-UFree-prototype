@@ -163,21 +163,26 @@ const FriendScheduleCompare = ({user}) => {
                 </table>: <h5 className="text-center p-2 mt-2">No friends to compare</h5>}
             </div>
             <div className="col-lg-8 col-12 d-flex flex-column align-items-center text-white bg-light rounded-2 my-3 mx-1">
-                <div className="mt-2">
-                    <label className="me-3" htmlFor="">From</label>
-                    <select className="me-3" value={`${startTime}`} onChange={(e) => setStartTime(e.target.value)}>
-                        {[...Array(24)].map((e, i) => {
-                        if (i < endTime) return <option key={"startTimeKey"+i} value={i}>{i < 10 ? "0"+i : i}:00</option>;
-                        return null;
-                        })}
-                    </select>
-                    <label className="me-3" htmlFor="">To</label>
-                    <select className="me-3" value={`${endTime}`} onChange={(e) => setEndTime(e.target.value)}>
-                        {[...Array(25)].map((e, i) => {
-                            if (i > startTime) return <option key={"endTimeKey"+i} value={i}>{i < 10 ? "0"+i : i}:00</option>;
+                <div className="d-flex justify-content-evenly mt-2">
+                    <div className="d-flex justify-content-evenly">
+                        <label htmlFor="">From</label>
+                        <select value={`${startTime}`} onChange={(e) => setStartTime(e.target.value)}>
+                            {[...Array(24)].map((e, i) => {
+                            if (i < endTime) return <option key={"startTimeKey"+i} value={i}>{i < 10 ? "0"+i : i}:00</option>;
                             return null;
-                        })}
-                    </select>
+                            })}
+                        </select>
+                    </div>
+                    <div className="d-flex justify-content-evenly">
+                        <label htmlFor="">To</label>
+                        <select value={`${endTime}`} onChange={(e) => setEndTime(e.target.value)}>
+                            {[...Array(25)].map((e, i) => {
+                                if (i > startTime) return <option key={"endTimeKey"+i} value={i}>{i < 10 ? "0"+i : i}:00</option>;
+                                return null;
+                            })}
+                        </select>
+                    </div>
+                    
                 </div>
                 <table id="schedule-table" className="mb-4">
                     <thead>

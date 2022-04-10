@@ -35,6 +35,17 @@ const FriendScheduleCompare = () => {
         setMergedSchedule(scheduleArrayBuilder(false));
     }, []);
 
+      //event listeners for highlight reset functionality (click off table)
+      useEffect(()=> {
+        const handleDocumentClick = event => {
+            checkAndUpdateIfIsTDElement(event);
+        };
+        document.addEventListener('click', handleDocumentClick);
+        return () => {
+            document.removeEventListener('click', handleDocumentClick);
+        }
+    });
+
     const sortOrderData = (data) => {
         const sorted = data.sort(compareLNameFNameDescSched)
         return sorted;
@@ -75,7 +86,7 @@ const FriendScheduleCompare = () => {
         }))
     }
 
-    const handleHover = (day, index) => {
+    const handleClick = (day, index) => {
         let copyDate = [...responseData];
         if (index === -1) {
             for (let i in copyDate) {
@@ -96,32 +107,32 @@ const FriendScheduleCompare = () => {
         setResponseData(copyDate);
     }
 
-    const handleMouseLeaveTable = () => {
-        handleHover('', -1);
-    }
-
     const checkAndUpdateIfIsTDElement = (ev) => {
-        ev.preventDefault();
-        let day = null;
-        let index = null;
-        if (ev.target['nodeName'] ==='I') {
-            if (ev.target.parentElement['nodeName'] ==='TD'){
-                day = ev.target.parentElement.getAttribute('data-day');
-                index = ev.target.parentElement.parentElement.getAttribute('id').substr(10,2);
-                handleHover(day, index)
+        try {
+            let day = null;
+            let index = null;
+            if (ev.target['nodeName'] ==='I') {
+                if (ev.target.parentElement['nodeName'] ==='TD'){
+                    day = ev.target.parentElement.getAttribute('data-day');
+                    index = ev.target.parentElement.parentElement.getAttribute('id').substr(10,2);
+                    handleClick(day, index)
+                }
             }
-        }
-        else if (ev.target['nodeName'] ==='TD'){
-                day = ev.target.getAttribute('data-day');
-                index = ev.target.parentElement.getAttribute('id').substr(10,2);
-                handleHover(day, index)
+            else if (ev.target['nodeName'] ==='TD'){
+                    day = ev.target.getAttribute('data-day');
+                    index = ev.target.parentElement.getAttribute('id').substr(10,2);
+                    handleClick(day, index)
+            }
+            else handleClick('', -1);
+        } catch (error) {
+            handleClick('', -1);
         }
     }
 
     
     return (<>
         <h3 className="mt-3">Compare Schedules</h3>
-        <p>Toggle friends to compare</p>
+        <p className="text-center">1) Toggle friends to add to the schedule<br/>2) Click on time slot to highlight available friends</p>
         { isLoading ? 
                 <div className="spinner-border mt-3" styles={{width: "3rem", height: "3rem"}} role="status">
                     <span className="sr-only">Loading...</span>
@@ -169,7 +180,7 @@ const FriendScheduleCompare = () => {
                 </div>
                 <table id="schedule-table" className="mb-4">
                     <thead>
-                        <tr onMouseOver={handleMouseLeaveTable}>
+                        <tr>
                             <th className="time-header" id="table-tl"></th>
                             <th>Mon</th>
                             <th>Tues</th>
@@ -185,50 +196,50 @@ const FriendScheduleCompare = () => {
                             if (parseInt(el.time.split(':')[0]) >= parseInt(startTime) && parseInt(el.time.split(':')[0]) < parseInt(endTime)) 
                             return (
                                 <tr id={"table-row-"+i} key={i} className="table-row">
-                                    {i%4===0 &&<th onMouseOver={handleMouseLeaveTable} rowSpan={4} className="time-header"><div>{el.time.split(':')[0]}:{el.time.split(':')[1]}0</div><div>{el.time.split(':')[0]}:30</div></th>}
-                                    <td data-day={'monday'} onMouseOver={checkAndUpdateIfIsTDElement} className={el.mon_count && el.mon_count > 5 ? `compare-lvl-6` : `compare-lvl-${el.mon_count}`}>
+                                    {i%4===0 &&<th rowSpan={4} className="time-header"><div>{el.time.split(':')[0]}:{el.time.split(':')[1]}0</div><div>{el.time.split(':')[0]}:30</div></th>}
+                                    <td data-day={'monday'} onClick={checkAndUpdateIfIsTDElement} className={el.mon_count && el.mon_count > 5 ? `compare-lvl-6` : `compare-lvl-${el.mon_count}`}>
                                         {!el.mon_count ? <i className="fa-solid fa-xmark"></i> :
                                             el.mon_count > 3 ? <i className={`fa-solid fa-${el.mon_count}`}></i> :
                                          [...Array(el.mon_count)].map((e, i) => (
                                             <i key={'checkmark-mon-'+i} className="fa-solid fa-check"></i>
                                         ))}
                                     </td>
-                                    <td data-day={'tuesday'} onMouseOver={checkAndUpdateIfIsTDElement} className={el.tues_count && el.tues_count > 5 ? `compare-lvl-6` : `compare-lvl-${el.tues_count}`}>
+                                    <td data-day={'tuesday'} onClick={checkAndUpdateIfIsTDElement} className={el.tues_count && el.tues_count > 5 ? `compare-lvl-6` : `compare-lvl-${el.tues_count}`}>
                                         {!el.tues_count ? <i className="fa-solid fa-xmark"></i> :
                                         el.tues_count > 3 ? <i className={`fa-solid fa-${el.tues_count}`}></i> :
                                         [...Array(el.tues_count)].map((e, i) => (
                                             <i key={'checkmark-tues-'+i} className="fa-solid fa-check"></i>
                                         ))}
                                     </td>
-                                    <td data-day={'wednesday'} onMouseOver={checkAndUpdateIfIsTDElement} className={el.weds_count && el.weds_count > 5 ? `compare-lvl-6` : `compare-lvl-${el.weds_count}`}>
+                                    <td data-day={'wednesday'} onClick={checkAndUpdateIfIsTDElement} className={el.weds_count && el.weds_count > 5 ? `compare-lvl-6` : `compare-lvl-${el.weds_count}`}>
                                         {!el.weds_count ? <i className="fa-solid fa-xmark"></i> : 
                                         el.weds_count > 3 ? <i className={`fa-solid fa-${el.weds_count}`}></i> :
                                         [...Array(el.weds_count)].map((e, i) => (
                                             <i key={'checkmark-weds-'+i} className="fa-solid fa-check"></i>
                                         ))}
                                     </td>
-                                    <td data-day={'thursday'} onMouseOver={checkAndUpdateIfIsTDElement} className={el.thurs_count && el.thurs_count > 5 ? `compare-lvl-6` : `compare-lvl-${el.thurs_count}`}>
+                                    <td data-day={'thursday'} onClick={checkAndUpdateIfIsTDElement} className={el.thurs_count && el.thurs_count > 5 ? `compare-lvl-6` : `compare-lvl-${el.thurs_count}`}>
                                         {!el.thurs_count ? <i className="fa-solid fa-xmark"></i> :
                                         el.thurs_count > 3 ? <i className={`fa-solid fa-${el.thurs_count}`}></i> :
                                         [...Array(el.thurs_count)].map((e, i) => (
                                             <i key={'checkmark-thurs-'+i} className="fa-solid fa-check"></i>
                                         ))}
                                     </td>
-                                    <td data-day={'friday'} onMouseOver={checkAndUpdateIfIsTDElement} className={el.fri_count && el.fri_count > 5 ? `compare-lvl-6` : `compare-lvl-${el.fri_count}`}>
+                                    <td data-day={'friday'} onClick={checkAndUpdateIfIsTDElement} className={el.fri_count && el.fri_count > 5 ? `compare-lvl-6` : `compare-lvl-${el.fri_count}`}>
                                         {!el.fri_count ? <i className="fa-solid fa-xmark"></i> :
                                         el.fri_count > 3 ? <i className={`fa-solid fa-${el.fri_count}`}></i> :
                                         [...Array(el.fri_count)].map((e, i) => (
                                             <i key={'checkmark-fri-'+i} className="fa-solid fa-check"></i>
                                         ))}
                                     </td>
-                                    <td data-day={'saturday'} onMouseOver={checkAndUpdateIfIsTDElement} className={el.sat_count && el.sat_count > 5 ? `compare-lvl-6` : `compare-lvl-${el.sat_count}`}>
+                                    <td data-day={'saturday'} onClick={checkAndUpdateIfIsTDElement} className={el.sat_count && el.sat_count > 5 ? `compare-lvl-6` : `compare-lvl-${el.sat_count}`}>
                                         {!el.sat_count ? <i className="fa-solid fa-xmark"></i> :
                                         el.sat_count > 3 ? <i className={`fa-solid fa-${el.sat_count}`}></i> :
                                         [...Array(el.sat_count)].map((e, i) => (
                                             <i key={'checkmark-sat-'+i} className="fa-solid fa-check"></i>
                                         ))}
                                     </td>
-                                    <td data-day={'sunday'} onMouseOver={checkAndUpdateIfIsTDElement} className={el.sun_count && el.sun_count > 5 ? `compare-lvl-6` : `compare-lvl-${el.sun_count}`}>
+                                    <td data-day={'sunday'} onClick={checkAndUpdateIfIsTDElement} className={el.sun_count && el.sun_count > 5 ? `compare-lvl-6` : `compare-lvl-${el.sun_count}`}>
                                         {!el.sun_count ? <i className="fa-solid fa-xmark"></i> :
                                         el.sun_count > 3 ? <i className={`fa-solid fa-${el.sun_count}`}></i> :
                                         [...Array(el.sun_count)].map((e, i) => (

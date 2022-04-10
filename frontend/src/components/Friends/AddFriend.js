@@ -24,7 +24,7 @@ const AddFriend = ({setCurrentTab, user}) => {
                 <h4 className="text-center mb-3">Add friend</h4>
                 <label className="form-label">Friends code</label>
                 <input className="form-control" placeholder="Enter friends code" required value={friendsCode} onChange={(e)=> setFriendsCode(e.target.value)} type="text" />
-                <div className="d-flex justify-content-center"><button className="btn btn-purple form-control mt-3" onClick={clickHandler} type="submit">Add</button></div>
+                <div className="d-flex justify-content-center"><button className="btn btn-success form-control w-75 mt-3" onClick={clickHandler} type="submit">Add</button></div>
             </div>
     )
 }

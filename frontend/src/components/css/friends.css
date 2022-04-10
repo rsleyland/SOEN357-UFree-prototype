@@ -27,53 +27,33 @@
     background-color: rgba(51, 24, 65, 0.6)!important;
 }
 
-#friends-list {
-    display: flex;
-    flex-direction: column;
-    min-width: 400px;
-}
-
-#friends-list > div {
-    display: flex;
-    border: 1px solid black;
-    border-radius: 5px;
-    background-color:rgba(51, 24, 65, 0.8);
-    color: white;
-    padding: 10px;
-    align-items: center;
-    justify-content: space-between;
-    border: none;
-    margin-bottom: 5px;
-}
-
-#friends-list div > i {
-    font-size: 32px;
-    margin: 0 15px;
-}
-
-#friends-list p {
-    font-size: 22px;
-    margin: 0 20px;
-}
-
-#friends-list button {
+#friend-btns button {
     width: 100%;
     margin: 0 10px;
-    background-color:rgba(18, 120, 18, 0.6);
+    background-color:rgba(18, 120, 18, 0.7);
     color: white;
     padding:  5px 10px;
     border-radius: 5px;
 }
 
-#friends-list button:nth-last-child(1) {
-    background-color:red;
+#friend-btns button:nth-last-child(1) {
+    background-color:rgb(255, 0, 0, 0.7);
     color: white;
 }
 
-#friends-list button:hover {
+#friend-btns button:hover {
     opacity: 0.8;
 }
 
 #friend-btns {
     display: flex;
+}
+
+#friends-table-body tr {
+    display: flex;
+    justify-content: space-between;
+}
+
+#friends-table-body tr {
+    font-size: 22px;
 }

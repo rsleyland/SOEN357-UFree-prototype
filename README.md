@@ -6,7 +6,7 @@
 
 `cd SOEN357-prototype`
 
-##### Add DB connection uri to .env
+##### Add MongoDB connection uri to .env
 
 `npm install`
 

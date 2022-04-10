@@ -4,7 +4,7 @@
 
 `git clone git@github.com:rsleyland/SOEN357-prototype.git`
 
-`cd SOEN357-prototype/backend`
+`cd SOEN357-prototype`
 
 ##### Add DB connection uri to .env
 
@@ -23,7 +23,7 @@
 Uses npm package nodemon to automatically update node application when changes are made.
 
 
-### Setup (via Docker)
+<!-- ### Setup (via Docker)
 
 
 `git clone git@github.com:rsleyland/SOEN357-prototype.git`
@@ -34,5 +34,5 @@ Uses npm package nodemon to automatically update node application when changes a
 
 `make build-dev`
 
-`make run-dev`
+`make run-dev` -->
 

@@ -23,20 +23,20 @@ const HomeScreen = () => {
     return (
     <>
     
-    <nav className="navbar navbar-dark bg-dark p-3">
-        <div className="container justify-content-around">
+    <nav className="navbar navbar-dark bg-dark p-2">
+        <div className="container-fluid justify-content-around">
             <div>
-                <button className="btn btn-sm btn-outline-light me-2 header-btn" type="button" onClick={() => setSubPage('My Schedule')}>My Schedule</button>
-                <button className="btn btn-sm btn-outline-light me-2 header-btn" type="button" onClick={() => setSubPage('Friends')}>Friends</button>
+                <button className="btn btn-sm btn-outline-light header-btn" type="button" onClick={() => setSubPage('My Schedule')}>My Schedule</button>
+                <button className="btn btn-sm btn-outline-light header-btn" type="button" onClick={() => setSubPage('Friends')}>Friends</button>
                 {/* <button className="btn btn-sm btn-outline-light me-2" type="button" onClick={() => setSubPage('QR codes')}>QR codes</button> */}
             </div>
             <div>
-                <button className="btn btn-sm btn-outline-warning me-2 header-btn" type="button"
+                <button className="btn btn-sm btn-outline-warning header-btn" type="button"
                 onClick={() => setSubPage('Settings')}>
-                {currentUser && (<><small className='me-2'>{formatFirstName(currentUser.firstName)}</small>
+                {currentUser && (<><small className='me-2'>{currentUser.firstName.substr(0,1).toUpperCase()+" "+currentUser.lastName.substr(0,1).toUpperCase()}</small>
                     <i className="fa-regular fa-circle-user"></i></>)}
                 </button>
-                <button className="btn btn-sm btn-outline-danger me-2 header-btn" type="button" onClick={() => navigate('/logout')}>Logout</button>
+                <button className="btn btn-sm btn-outline-danger header-btn" type="button" onClick={() => navigate('/logout')}>Logout</button>
             </div>
         </div>
     </nav>

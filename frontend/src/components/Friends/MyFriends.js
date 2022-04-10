@@ -86,7 +86,7 @@ const MyFriends = ({setCurrentTab, user, setFriendId, setFriendName}) => {
                         else return (
                             <tr key={'list-friends-'+i}>
                                 <td>
-                                    <i className="fa-solid fa-user-group me-4"></i>
+                                    <i className="fa-solid fa-user-group mx-3"></i>
                                     <p>{formatFullName(el.friend_1_name)}</p>
                                     <div id="friend-btns">
                                         <button onClick={() => handleClick(el.friend_1_id, el.friend_1_name)} className="btn"><i className="fa-solid fa-calendar"></i></button>

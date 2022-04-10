@@ -155,7 +155,7 @@ const FriendScheduleCompare = ({user}) => {
                                     <input className="form-check-input" disabled={el.noSchedule} checked={el.checked} onChange={(e) => handleToggle(el.user, e)} type="checkbox" />
                                 </div>
                                     {formatFullName(el.name)} 
-                                    <i className={el.owner ? "owner-icon ms-3 fa-solid fa-user" : el.noSchedule ?  "no-schedule ms-3 fa-solid fa-calendar-xmark" : "ms-3 fa-solid fa-calendar-xmark invisible"}></i>
+                                    <i className={el.owner ? "owner-icon fa-solid fa-user" : el.noSchedule ?  "no-schedule fa-solid fa-calendar-xmark" : "fa-solid fa-calendar-xmark invisible"}></i>
                                 </td>
                                 </tr>
                         ))}

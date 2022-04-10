@@ -51,7 +51,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 22px;
+    font-size: 18px;
 }
 
 @media screen  and (max-width: 992px) {
@@ -73,4 +73,8 @@
     #friends-table-body td {
         font-size: 16px;
     }
+}
+
+.friends-list {
+    font-size: 15px;
 }

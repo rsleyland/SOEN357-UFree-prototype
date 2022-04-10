@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import './screens/css/loginRegister.screen.css';
+import './screens/css/myschedule.screen.css';
+import './screens/css/home.screen.css';
 import './components/css/schedule.css';
 import './components/css/friends.css';
 import App from './App';

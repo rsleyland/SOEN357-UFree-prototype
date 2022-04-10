@@ -57,8 +57,10 @@ const getFriendScheduleCompare = async (req, res) => {
         const id = req.body.uid;
         const returnSchedules = [];
         const friends = await Friendship.find({$or: [{friend_1_id: id}, {friend_2_id: id}]});
+        let myName = '';
 
         for (let i in friends) {
+            if (i==0) myName = friends[0].friend_1_id.toString() === id ? friends[0].friend_1_name : friends[0].friend_2_name;
             const friend_1_id = friends[i].friend_1_id.toString();
             const friend_2_id = friends[i].friend_2_id.toString();
             const friend_id = friend_1_id === id ? friend_2_id : friend_1_id;
@@ -69,6 +71,9 @@ const getFriendScheduleCompare = async (req, res) => {
             }
             else returnSchedules.push({user: friend_id, name: friend_name,  noSchedule: true});
         }
+        const mySchedule = await Schedule.findOne({user: id})
+        if (mySchedule) returnSchedules.push({...mySchedule._doc, name: myName});
+        else returnSchedules.push({user: id, name: myName,  noSchedule: true});
         res.status(200).json(returnSchedules);
     } catch (error) {
         console.log(error);

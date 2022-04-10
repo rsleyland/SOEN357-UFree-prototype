@@ -17,8 +17,8 @@ const Friends = () => {
 
     return (<>
 
-        <ul className="nav nav-pills justify-content-center">
-          <li className="nav-item mx-3 pointer my-2">
+        <ul className="nav nav-pills w-100 justify-content-evenly">
+          <li className="nav-item pointer my-2">
             <button
               className={
                 currentTab === "My Friends" || currentTab === "Friend Schedule" || currentTab === "Friend Schedule Compare" ? "nav-link btn-purple" : "nav-link"
@@ -28,7 +28,7 @@ const Friends = () => {
               My Friends
             </button>
           </li>
-          <li className="nav-item mx-3 pointer my-2">
+          <li className="nav-item pointer my-2">
             <button
               className={
                 currentTab === "Compare Schedules" ? "nav-link btn-purple" : "nav-link"
@@ -38,7 +38,7 @@ const Friends = () => {
               Compare Schedules
             </button>
           </li>
-          <li className="nav-item mx-3 pointer my-2">
+          <li className="nav-item pointer my-2">
             <button
               className={
                 currentTab === "Add Friend" ? "nav-link btn-purple" : "nav-link"
@@ -48,7 +48,7 @@ const Friends = () => {
               Add Friend
             </button>
           </li>
-          <li className="nav-item mx-3 pointer my-2">
+          <li className="nav-item pointer my-2">
             <button
               className={
                 currentTab === "My Friend Code" ? "nav-link btn-purple" : "nav-link"
@@ -63,7 +63,7 @@ const Friends = () => {
         {currentTab === "Add Friend" && <AddFriend setCurrentTab={setCurrentTab} user={currentUser}/>}
         {currentTab === "My Friend Code" && <MyFriendCode code={currentUser.friendship_code}/>}
         {currentTab === "Friend Schedule" && <FriendSchedule setCurrentTab={setCurrentTab} friend_id={friendId} friend_name={friendName}/>}
-        {currentTab === "Compare Schedules" && <FriendScheduleCompare/>}
+        {currentTab === "Compare Schedules" && <FriendScheduleCompare  user={currentUser}/>}
 
 
     </>)

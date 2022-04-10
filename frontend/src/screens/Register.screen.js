@@ -47,19 +47,19 @@ const RegisterScreen = () => {
                         <h3>Register</h3>
                         <label className='form-label mt-3'>First Name</label>
                         <input className='form-control' type="text" required
-                        placeholder='Joe' value={firstName} onChange={(e) => setFirstName(e.target.value)}/>
+                        value={firstName} onChange={(e) => setFirstName(e.target.value)}/>
                         <label className='form-label mt-2'>Last Name</label>
                         <input className='form-control' type="text" required
-                        placeholder='Bloggs' value={lastName} onChange={(e) => setLastName(e.target.value)}/>
+                        alue={lastName} onChange={(e) => setLastName(e.target.value)}/>
                         <label className='form-label mt-2'>Email</label>
                         <input className='form-control' type="email" required
-                        placeholder='joe@bloggs.com' value={email} onChange={(e) => setEmail(e.target.value)}/>
+                        value={email} onChange={(e) => setEmail(e.target.value)}/>
                         <label className='form-label mt-2'>Password</label>
                         <input className='form-control' type="password" required
-                        placeholder='********' value={password} onChange={(e) => setPassword(e.target.value)}/>
+                        value={password} onChange={(e) => setPassword(e.target.value)}/>
                         <label className='form-label mt-2'>Confirm Password</label>
                         <input className='form-control' type="password" required
-                        placeholder='********' value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}/>
+                        value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}/>
                         <div className='d-flex flex-column align-items-center'>
                             <button type='submit' className='btn btn-success form-control mt-4 w-75'>Register</button>
                             <button type='button' className='btn btn-sm btn-secondary w-50 mt-4'

@@ -3,17 +3,6 @@
     left: 20px;
 }
 
-@media screen  and (max-width: 992px) {
-    #friend-schedule-go-back-div{
-        top: 150px;
-    }
-}
-@media screen  and (max-width: 768px) {
-    #friend-schedule-go-back-div{
-        top: 200px;
-    }
-}
-
 #friend-schedule-go-back-div button{
     background-color: rgba(51, 24, 65, 0.8)!important;
     color: #FFF;
@@ -58,11 +47,30 @@
     display: flex;
 }
 
-#friends-table-body tr {
+#friends-table-body td {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    font-size: 22px;
 }
 
-#friends-table-body tr {
-    font-size: 22px;
+@media screen  and (max-width: 992px) {
+    #friend-schedule-go-back-div{
+        top: 150px;
+    }
+}
+@media screen  and (max-width: 768px) {
+    #friend-schedule-go-back-div{
+        top: 200px;
+    }
+    #friends-table-body td {
+        font-size: 18px;
+    }
+    .nav-link{
+        font-size: 12px;
+        padding: 4px 8px!important;
+    }
+    #friends-table-body td {
+        font-size: 16px;
+    }
 }

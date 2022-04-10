@@ -64,41 +64,41 @@ const MyFriends = ({setCurrentTab, user, setFriendId, setFriendName}) => {
         :
         <>
         <div className="col-10 bg-light rounded mt-3">
+        {data && data.length > 0 ? 
             <table className="table">
                 <thead>
                     <tr><th className="text-center">Friends</th></tr>
                 </thead>
-                {data && 
-                    <tbody id="friends-table-body">
-                        
-                        { data.map((el, i) => {
-                            if (el.friend_1_id === user._id) 
-                            return (
-                            <tr key={'list-friends-'+i}>
+                <tbody id="friends-table-body">
+                    { data.map((el, i) => {
+                        if (el.friend_1_id === user._id) 
+                        return (
+                        <tr key={'list-friends-'+i}>
+                            <td>
                                 <i className="fa-solid fa-user-group mx-3"></i>
                                 <div>{formatFullName(el.friend_2_name)}</div>
                                 <div id="friend-btns">
                                     <button onClick={() => handleClick(el.friend_2_id, el.friend_2_name)} className="btn"><i className="fa-solid fa-calendar"></i></button>
                                     <button onClick={() => handleDelete(el.friend_2_id, el.friend_2_name)} className="btn"><i className="fa-solid fa-trash"></i></button>
                                 </div>
-                            </tr>)
-                            else return (
-                                <tr key={'list-friends-'+i}>
-                                    <div className="d-flex">
-                                        <i className="fa-solid fa-user-group me-4"></i>
-                                        <p>{formatFullName(el.friend_1_name)}</p>
-                                    </div>
+                            </td>
+                        </tr>)
+                        else return (
+                            <tr key={'list-friends-'+i}>
+                                <td>
+                                    <i className="fa-solid fa-user-group me-4"></i>
+                                    <p>{formatFullName(el.friend_1_name)}</p>
                                     <div id="friend-btns">
                                         <button onClick={() => handleClick(el.friend_1_id, el.friend_1_name)} className="btn"><i className="fa-solid fa-calendar"></i></button>
                                         <button onClick={() => handleDelete(el.friend_1_id, el.friend_1_name)} className="btn"><i className="fa-solid fa-trash"></i></button>
                                     </div>
-                                </tr>
-                            )}
-                        )}
-                    </tbody>}
+                                </td>
+                            </tr>
+                        )})}
+                </tbody>
             </table>
+            : <h3 className="text-center p-3">No friends to display</h3>}
         </div>
-        
         </>}
         </>
     )

@@ -33,3 +33,13 @@
     background-repeat: no-repeat;
     background-size: cover;
 }
+
+.auth-form input {
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+.auth-form input:focus {
+    background-color: rgba(255, 255, 255, 1);
+    box-shadow: none;
+    background-color: rgba(255, 255, 255, 1);
+}

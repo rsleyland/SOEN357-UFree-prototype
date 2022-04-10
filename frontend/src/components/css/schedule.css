@@ -69,12 +69,6 @@
 #table-tr {
     border-top-right-radius: 10px;
 }
-.schedule-btns {
-    display: flex;
-    width: 50%;
-    justify-content: space-around;
-    margin: 15px 0;
-}
 .table-row th {
     border-bottom: 1px solid gray!important;
 }
@@ -111,6 +105,9 @@
     color: rgba(18, 120, 18, 1)!important;
     font-weight: bold;
 }
+.owner-text {
+    color: rgb(199, 102, 37);
+}
 .form-check-input {
     background-color: rgba(51, 24, 65, 0.8)!important;
     color: white!important;
@@ -133,10 +130,37 @@
     opacity: 1;
     transition: opacity linear 0.2s;
     content: "Friend has not set a schedule.";
-    line-height: 120%;
+    line-height: 140%;
     font-weight: normal;
     max-width: 15ch;
     margin-left: 10px;
+    text-align: center;
     font-size: 10px;
     font-family: var(--bs-body-font-family);
+}
+
+.owner-icon:after {
+    opacity: 0;
+    content: "";
+}
+.owner-icon:hover:after {
+    position: absolute;
+    opacity: 1;
+    transition: opacity linear 0.2s;
+    content: "This is your account";
+    line-height: 140%;
+    font-weight: normal;
+    max-width: 15ch;
+    text-align: center;
+    font-size: 10px;
+    font-family: var(--bs-body-font-family);
+}
+
+#compare-sched-helptext {
+    color: rgb(68, 68, 68);
+}
+@media screen  and (max-width: 667px) {
+    #compare-sched-helptext{
+        font-size: 13px;
+    }
 }

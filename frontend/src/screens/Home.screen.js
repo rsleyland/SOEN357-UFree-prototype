@@ -24,19 +24,19 @@ const HomeScreen = () => {
     <>
     
     <nav className="navbar navbar-dark bg-dark p-3">
-        <div className="container justify-content-between">
+        <div className="container justify-content-around">
             <div>
-                <button className="btn btn-sm btn-outline-light me-2" type="button" onClick={() => setSubPage('My Schedule')}>My Schedule</button>
-                <button className="btn btn-sm btn-outline-light me-2" type="button" onClick={() => setSubPage('Friends')}>Friends</button>
+                <button className="btn btn-sm btn-outline-light me-2 header-btn" type="button" onClick={() => setSubPage('My Schedule')}>My Schedule</button>
+                <button className="btn btn-sm btn-outline-light me-2 header-btn" type="button" onClick={() => setSubPage('Friends')}>Friends</button>
                 {/* <button className="btn btn-sm btn-outline-light me-2" type="button" onClick={() => setSubPage('QR codes')}>QR codes</button> */}
             </div>
             <div>
-                <button className="btn btn-sm btn-outline-warning me-2" type="button"
+                <button className="btn btn-sm btn-outline-warning me-2 header-btn" type="button"
                 onClick={() => setSubPage('Settings')}>
                 {currentUser && (<><small className='me-2'>{formatFirstName(currentUser.firstName)}</small>
                     <i className="fa-regular fa-circle-user"></i></>)}
                 </button>
-                <button className="btn btn-sm btn-outline-danger me-2" type="button" onClick={() => navigate('/logout')}>Logout</button>
+                <button className="btn btn-sm btn-outline-danger me-2 header-btn" type="button" onClick={() => navigate('/logout')}>Logout</button>
             </div>
         </div>
     </nav>

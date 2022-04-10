@@ -8,8 +8,8 @@ import { formatFirstName } from '../utility/formatters.js';
 const LoginScreen = ({isRedirectFromQR = false}) => {
 
     const navigate = useNavigate();
-    const [email, setEmail] = useState('ryan@leyland.com');
-    const [password, setPassword] = useState('SecurePass123');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     const { setCurrentUser } = useContext(AuthContext);
     const { slug } = useParams();
     
@@ -45,10 +45,10 @@ const LoginScreen = ({isRedirectFromQR = false}) => {
                         <h3>Login</h3>
                         <label className='form-label mt-3'>Email</label>
                         <input className='form-control' type="email" required
-                        placeholder='joe@bloggs.com' value={email} onChange={(e) => setEmail(e.target.value)}/>
+                        value={email} onChange={(e) => setEmail(e.target.value)}/>
                         <label className='form-label mt-2'>Password</label>
                         <input className='form-control' type="password" required
-                        placeholder='********' value={password} onChange={(e) => setPassword(e.target.value)}/>
+                        value={password} onChange={(e) => setPassword(e.target.value)}/>
                         <div className='d-flex flex-column align-items-center'>
                             <button type='submit' className='btn btn-success form-control mt-4 w-75'>Login</button>
                             <button type='button' className='btn btn-sm btn-secondary w-50 mt-4' 

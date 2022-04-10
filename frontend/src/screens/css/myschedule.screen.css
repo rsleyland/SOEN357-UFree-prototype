@@ -1,0 +1,12 @@
+.schedule-btns {
+    display: flex;
+    width: 80%;
+    justify-content: space-evenly;
+    margin: 15px 0;
+}
+
+@media screen  and (max-width: 600px) {
+    .schedule-btns button{
+        font-size: 14px!important;
+    }
+}

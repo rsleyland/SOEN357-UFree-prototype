@@ -4,7 +4,7 @@ import axios from 'axios';
 import { compareLNameFNameDescSched, formatFullName } from "../../utility/formatters";
 
 
-const FriendScheduleCompare = () => {
+const FriendScheduleCompare = ({user}) => {
 
     const [startTime, setStartTime] = useState(9);
     const [endTime, setEndTime] = useState(20);
@@ -14,25 +14,27 @@ const FriendScheduleCompare = () => {
 
     //grab and store schedules
     useEffect(()=> {
-        const getSchedules = async () => {
+        const getAndSetSchedules = async () => {
             try {
                 setIsLoading(true);
                 const response = await axios.post(`/schedule/friend/compare`);
                 if (response) {
                     response.data.map((el) => {
+                        if (el.user === user._id) el.owner = true;
                         el.checked = false;
                         el.current = false;
                         return el;
                     })
                     setResponseData(sortOrderData(response.data));
+                    // const currentUser = response.data.find(el => el.user === user._id)
+                    setMergedSchedule(scheduleArrayBuilder(false));
                 }
                 setIsLoading(false);
             } catch (error) {
                 console.log(error.message)
                 setIsLoading(false);
             }
-        };getSchedules();
-        setMergedSchedule(scheduleArrayBuilder(false));
+        };getAndSetSchedules();
     }, []);
 
       //event listeners for highlight reset functionality (click off table)
@@ -53,13 +55,13 @@ const FriendScheduleCompare = () => {
 
 
     const handleToggle = (id, e) => {
-    setResponseData(responseData.map((el) => {
-        if (el.user === id) {
-            el.checked = e.target.checked;
-        }
-        return el;
-    }))
-    createMergedSchedule();
+        setResponseData(responseData.map((el) => {
+            if (el.user === id) {
+                el.checked = e.target.checked;
+            }
+            return el;
+        }))
+        createMergedSchedule();
     }
 
     const createMergedSchedule = () => {
@@ -132,7 +134,7 @@ const FriendScheduleCompare = () => {
     
     return (<>
         <h3 className="mt-3">Compare Schedules</h3>
-        <p className="text-center">1) Toggle friends to add to the schedule<br/>2) Click on time slot to highlight available friends</p>
+        <p id="compare-sched-helptext" className="text-center">1) Toggle friends to add to the schedule<br/>2) Click on time slot to highlight available friends</p>
         { isLoading ? 
                 <div className="spinner-border mt-3" styles={{width: "3rem", height: "3rem"}} role="status">
                     <span className="sr-only">Loading...</span>
@@ -140,28 +142,27 @@ const FriendScheduleCompare = () => {
 
                 :
 
-        <div className="row mt-2 w-100 justify-content-evenly">
+        <div className="row w-100 justify-content-evenly">
             <div className="col-lg-3 col-10 bg-light my-3 rounded-2 mx-1">
+
+            {responseData && responseData.length > 0 ?
                 <table className="table">
-                    <thead>
-                        <tr><th className="text-center">Friends</th></tr>
-                    </thead>
-                    {responseData && 
-                        <tbody>
-                            { responseData.map((el, i) => (
-                                <tr className={el.current ? "green-text friends-list" : "friends-list"} key={'compare-user-'+i}>
-                                    <td className="d-flex align-items-center justify-content-between">
-                                    <div className="form-check form-switch">
-                                        <input className="form-check-input" disabled={el.noSchedule} defaultChecked={false} onChange={(e) => handleToggle(el.user, e)} type="checkbox" />
-                                    </div>
-                                        {formatFullName(el.name)} <i className={el.noSchedule ? "no-schedule ms-3 fa-solid fa-calendar-xmark" : "ms-3 fa-solid fa-calendar-xmark invisible"}></i>
-                                    </td>
-                                    </tr>
-                            ))}
-                        </tbody>}
-                </table>
+                    <tbody>
+                        { responseData.map((el, i) => (
+                            <tr className={el.current ? "green-text friends-list" : el.owner ? "owner-text friends-list" : "friends-list"} key={'compare-user-'+i}>
+                                <td className="d-flex align-items-center justify-content-between">
+                                <div className="form-check form-switch">
+                                    <input className="form-check-input" disabled={el.noSchedule} checked={el.checked} onChange={(e) => handleToggle(el.user, e)} type="checkbox" />
+                                </div>
+                                    {formatFullName(el.name)} 
+                                    <i className={el.owner ? "owner-icon ms-3 fa-solid fa-user" : el.noSchedule ?  "no-schedule ms-3 fa-solid fa-calendar-xmark" : "ms-3 fa-solid fa-calendar-xmark invisible"}></i>
+                                </td>
+                                </tr>
+                        ))}
+                    </tbody>
+                </table>: <h5 className="text-center p-2 mt-2">No friends to compare</h5>}
             </div>
-            <div className="col-lg-8 col-10 d-flex flex-column align-items-center text-white bg-light rounded-2 my-3 mx-1">
+            <div className="col-lg-8 col-12 d-flex flex-column align-items-center text-white bg-light rounded-2 my-3 mx-1">
                 <div className="mt-2">
                     <label className="me-3" htmlFor="">From</label>
                     <select className="me-3" value={`${startTime}`} onChange={(e) => setStartTime(e.target.value)}>

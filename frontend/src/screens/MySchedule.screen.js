@@ -21,7 +21,7 @@ const MySchedule = () => {
                 if (response.data.data) setScheduleArray(response.data.data);
                 else {
                     setScheduleArray(scheduleArrayBuilder(true));
-                    // toast.info('Please set your schedule')
+                    toast.info('Please set your schedule')
                 }
                 setIsLoading(false);
             } catch (error) {

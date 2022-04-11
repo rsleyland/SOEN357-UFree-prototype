@@ -158,7 +158,7 @@ const FriendScheduleCompare = ({user}) => {
             <div className="col-lg-3 col-10 bg-light my-3 rounded-2">
 
             {responseData && responseData.length > 0 ?
-                <table className="">
+                <table className="table">
                     <tbody>
                         { responseData.map((el, i) => (
                             <tr className={el.current ? "green-text friends-list" : el.owner ? "owner-text friends-list" : "friends-list"} key={'compare-user-'+i}>

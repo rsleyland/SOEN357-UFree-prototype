@@ -4,7 +4,6 @@ import { AuthContext } from '../services/providers/AuthContextProvider.js';
 import { useNavigate } from 'react-router-dom';
 import { MySchedule } from './MySchedule.screen.js';
 import { Friends } from './Friends.screen';
-import { formatFirstName } from '../utility/formatters.js';
 
 
 const HomeScreen = () => {
@@ -25,7 +24,7 @@ const HomeScreen = () => {
     
     <nav className="navbar navbar-dark bg-dark p-2">
         <div className="container-fluid justify-content-around">
-            <div className='nav-logo'><img src="/img/logo.png" /></div>
+            <div className='nav-logo'><img src="/img/logo.png" alt='logo'/></div>
             <div>
                 <button className="btn btn-sm btn-outline-light header-btn" type="button" onClick={() => setSubPage('My Schedule')}>My Schedule</button>
                 <button className="btn btn-sm btn-outline-light header-btn" type="button" onClick={() => setSubPage('Friends')}>Friends</button>

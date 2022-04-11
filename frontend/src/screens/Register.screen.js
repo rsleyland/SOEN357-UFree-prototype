@@ -41,6 +41,7 @@ const RegisterScreen = () => {
     
     return (
         <div className="container-fluid fullscreen-bg auth-bg">
+            <div className='logo-login-register'><img src="/img/logo.png" /></div>
             <div className="row justify-content-end">
                 <div className="col-md-6 col-sm-7 col-10 me-lg-5 me-1">
                     <form id='register-form' className='auth-form' onSubmit={handleSubmit}>

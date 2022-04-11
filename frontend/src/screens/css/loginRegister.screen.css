@@ -43,3 +43,15 @@
     box-shadow: none;
     background-color: rgba(255, 255, 255, 1);
 }
+
+.logo-login-register {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    z-index: 100;
+}
+
+.logo-login-register img {
+    width: 150px;
+    height: 150px;
+}

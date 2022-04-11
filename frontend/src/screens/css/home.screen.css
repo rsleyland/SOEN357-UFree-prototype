@@ -4,7 +4,20 @@
         padding: 2px 4px!important;
         margin: 10px 5px!important;
     }
+    .nav-logo {
+        display: none;
+    }
 }
 .header-btn {
     margin: 0 5px;
+}
+
+.nav-logo {
+    position: absolute;
+    left: 10px;
+}
+
+.nav-logo img {
+    width: 50px;
+    height: 50px;
 }

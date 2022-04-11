@@ -25,6 +25,7 @@ const HomeScreen = () => {
     
     <nav className="navbar navbar-dark bg-dark p-2">
         <div className="container-fluid justify-content-around">
+            <div className='nav-logo'><img src="/img/logo.png" /></div>
             <div>
                 <button className="btn btn-sm btn-outline-light header-btn" type="button" onClick={() => setSubPage('My Schedule')}>My Schedule</button>
                 <button className="btn btn-sm btn-outline-light header-btn" type="button" onClick={() => setSubPage('Friends')}>Friends</button>

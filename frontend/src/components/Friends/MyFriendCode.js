@@ -18,7 +18,7 @@ const MyFriendCode = ({code}) => {
           setFirstLoad(false);
         }
         try {
-            QRCode.toCanvas(`http://localhost:3000/login/qrcodelink/${codeValue}`, { errorCorrectionLevel: 'H', width: 300 }, function (err, canv) {
+            QRCode.toCanvas(`https://soen357-ufree.herokuapp.com/login/qrcodelink/${codeValue}`, { errorCorrectionLevel: 'H', width: 300 }, function (err, canv) {
                 if (err) throw err
                 let cont = document.getElementById('canvas-cont');
                 if(cont.hasChildNodes()) {

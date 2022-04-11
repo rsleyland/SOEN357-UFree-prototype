@@ -9,6 +9,7 @@ const MySchedule = () => {
     const [endTime, setEndTime] = useState(20);
     const [scheduleArray, setScheduleArray] = useState([]);
     const [mouseDown, setMouseDown] = useState(false);
+    const [touchDown, setTouchDown] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [smallScreen, setSmallScreen] = useState(false);
 
@@ -29,9 +30,7 @@ const MySchedule = () => {
                 setIsLoading(false);
             }
         };getSchedule();
-    }, []);
 
-    useEffect(() => {
         if (window.innerWidth < 672) setSmallScreen(true);
         function handleResize() {
           const width = window.innerWidth;
@@ -40,7 +39,7 @@ const MySchedule = () => {
         }
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
-      }, []);
+    }, []);
 
     //Drag and select helper function - checks if event happenend on a td element
     const checkAndUpdateIfIsTDElement = (ev) => {
@@ -50,14 +49,37 @@ const MySchedule = () => {
             if (ev.target.parentElement['nodeName'] ==='TD'){
                 day = ev.target.parentElement.getAttribute('data-day');
                 index = ev.target.parentElement.parentElement.getAttribute('id').substr(10,2);
-                handleClick(day, index)
+                handleClick(day, index);
+                return true;
             }
         }
         else if (ev.target['nodeName'] ==='TD'){
                 day = ev.target.getAttribute('data-day');
                 index = ev.target.parentElement.getAttribute('id').substr(10,2);
-                handleClick(day, index)
+                handleClick(day, index);
+                return true;
         }
+        else return false;
+    }
+
+    const checkAndUpdateIfIsTDElementMobile = (target) => {
+        let day = null;
+        let index = null;
+        if (target['nodeName'] ==='I') {
+            if (target.parentElement['nodeName'] ==='TD'){
+                day = target.parentElement.getAttribute('data-day');
+                index = target.parentElement.parentElement.getAttribute('id').substr(10,2);
+                handleClick(day, index);
+                return true;
+            }
+        }
+        else if (target['nodeName'] ==='TD'){
+                day = target.getAttribute('data-day');
+                index = target.parentElement.getAttribute('id').substr(10,2);
+                handleClick(day, index);
+                return true;
+        }
+        else return false;
     }
 
     //Saves schedule to DB
@@ -71,10 +93,11 @@ const MySchedule = () => {
             toast.error("There was an error saving your schedule - please try again");
         } 
     };
-    //event listeners for drag select functionality
+
+    // event listeners for drag select functionality
     useEffect(()=> {
         const handleDocumentMouseOver = event => {
-            checkAndUpdateIfIsTDElement(event);
+            if (!touchDown && mouseDown) checkAndUpdateIfIsTDElement(event);
         };
         // mouse down = add mouseover event
         const handleDocumentMouseDown = event => {
@@ -94,6 +117,37 @@ const MySchedule = () => {
             document.removeEventListener('mousedown', handleDocumentMouseDown);
             document.removeEventListener('mouseup', handleDocumentMouseUp);
             document.removeEventListener('mouseover', handleDocumentMouseOver);
+        }
+    });
+
+    //event listeners for drag select functionality (MOBILE)
+    useEffect(()=> {
+        const handleDocumentTouchMove = event => {
+            event.preventDefault();
+            const target = document.elementFromPoint(event.changedTouches[0].clientX, event.changedTouches[0].clientY)
+            if (mouseDown) setMouseDown(false);
+            checkAndUpdateIfIsTDElementMobile(target);
+        };
+        const handleDocumentTouchDown = event => {
+            const result = checkAndUpdateIfIsTDElement(event);
+            if (result) {
+                console.log("TRUE")
+                event.preventDefault();
+                document.addEventListener('touchmove', handleDocumentTouchMove);
+                setTouchDown(true);
+            }
+        };
+        const handleDocumentTouchUp = event => {
+            document.removeEventListener('touchmove', handleDocumentTouchMove);
+            setTouchDown(false);
+        };
+        document.addEventListener('touchstart', handleDocumentTouchDown, { passive: false });
+        document.addEventListener('touchend', handleDocumentTouchUp, { passive: false });
+        if (touchDown) document.addEventListener('touchmove', handleDocumentTouchMove, { passive: false }); //Need to re-add the event listener for each render cycle (as will be removed when first event is fired and rerenders the component)
+        return () => {
+            document.removeEventListener('touchstart', handleDocumentTouchDown);
+            document.removeEventListener('touchend', handleDocumentTouchUp);
+            document.removeEventListener('touchmove', handleDocumentTouchMove);
         }
     });
 
@@ -117,14 +171,14 @@ const MySchedule = () => {
         <>
         <h3>Set Your Schedule</h3>
         <div className="mt-2">
-            <label className="me-3" htmlFor="">From</label>
+            <label className="me-3" htmlFor="">From:</label>
             <select className="me-3" value={`${startTime}`} onChange={(e) => setStartTime(e.target.value)}>
                 {[...Array(24)].map((e, i) => {
                    if (i < endTime) return <option key={"startTimeKey"+i} value={i}>{i < 10 ? "0"+i : i}:00</option>;
                    return null;
                 })}
             </select>
-            <label className="me-3" htmlFor="">To</label>
+            <label className="me-3" htmlFor="">To:</label>
             <select className="me-3" value={`${endTime}`} onChange={(e) => setEndTime(e.target.value)}>
                 {[...Array(25)].map((e, i) => {
                     if (i > startTime) return <option key={"endTimeKey"+i} value={i}>{i < 10 ? "0"+i : i}:00</option>;

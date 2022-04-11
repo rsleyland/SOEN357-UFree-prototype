@@ -52,14 +52,14 @@ const FriendSchedule = ({friend_id, friend_name, setCurrentTab}) => {
             <button onClick={() => setCurrentTab('My Friends')}><i className="fa-solid fa-circle-arrow-left me-2"></i>Go Back</button>
         </div> */}
         <div className="mt-2">
-            <label className="me-3" htmlFor="">From</label>
+            <label className="me-3" htmlFor="">From:</label>
             <select className="me-3" value={`${startTime}`} onChange={(e) => setStartTime(e.target.value)}>
                 {[...Array(24)].map((e, i) => {
                    if (i < endTime) return <option key={"startTimeKey"+i} value={i}>{i < 10 ? "0"+i : i}:00</option>;
                    return null;
                 })}
             </select>
-            <label className="me-3" htmlFor="">To</label>
+            <label className="me-3" htmlFor="">To:</label>
             <select className="me-3" value={`${endTime}`} onChange={(e) => setEndTime(e.target.value)}>
                 {[...Array(25)].map((e, i) => {
                     if (i > startTime) return <option key={"endTimeKey"+i} value={i}>{i < 10 ? "0"+i : i}:00</option>;

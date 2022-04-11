@@ -3,7 +3,6 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import { AuthContext } from '../services/providers/AuthContextProvider.js';
-import { formatFirstName } from '../utility/formatters.js';
 
 const LoginScreen = ({isRedirectFromQR = false}) => {
 
@@ -20,7 +19,7 @@ const LoginScreen = ({isRedirectFromQR = false}) => {
             const result = await axios.post(`/auth/login`, user);
             setCurrentUser(result.data);
             localStorage.setItem('user', JSON.stringify(result.data));
-            const name = result.data.firstName;
+            // const name = result.data.firstName;
             // toast.success(`${formatFirstName(name)} logged in successfully`);
             if (isRedirectFromQR) return navigate(`/qrcodelink/${slug}`); 
             navigate('/');
@@ -34,11 +33,12 @@ const LoginScreen = ({isRedirectFromQR = false}) => {
             if (isRedirectFromQR) return navigate(`/qrcodelink/${slug}`); 
             else navigate('/');
             toast.info("User already logged in");
-        }
+        }// eslint-disable-next-line
     }, [navigate]);
 
     return (
         <div className="container-fluid fullscreen-bg auth-bg">
+            <div className='logo-login-register'><img src="/img/logo.png" alt='logo' /></div>
             <div className="row justify-content-end">
                 <div className="col-md-6 col-sm-7 col-10 me-lg-5 me-1">
                     <form id='login-form' className='auth-form' onSubmit={handleSubmit}>

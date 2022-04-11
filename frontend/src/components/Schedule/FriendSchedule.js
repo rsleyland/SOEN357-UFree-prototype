@@ -11,6 +11,7 @@ const FriendSchedule = ({friend_id, friend_name, setCurrentTab}) => {
     const [endTime, setEndTime] = useState(20);
     const [scheduleArray, setScheduleArray] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
+    const [smallScreen, setSmallScreen] = useState(false);
 
     //grab and store schedule
     useEffect(()=> {
@@ -31,6 +32,17 @@ const FriendSchedule = ({friend_id, friend_name, setCurrentTab}) => {
             }
         };getSchedule();
     }, [friend_id, friend_name]);
+
+    useEffect(() => {
+        if (window.innerWidth < 672) setSmallScreen(true);
+        function handleResize() {
+          const width = window.innerWidth;
+          if (window.innerWidth < 672) setSmallScreen(true);
+          else setSmallScreen(false);
+        }
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+      }, []);
 
     
     return (
@@ -64,14 +76,14 @@ const FriendSchedule = ({friend_id, friend_name, setCurrentTab}) => {
         <table id="schedule-table" className="mb-4">
             <thead>
                 <tr>
-                    <th className="time-header" id="table-tl"></th>
-                    <th>Mon</th>
-                    <th>Tues</th>
-                    <th>Weds</th>
-                    <th>Thurs</th>
-                    <th>Fri</th>
-                    <th className="bg-secondary">Sat</th>
-                    <th className="bg-secondary" id="table-tr">Sun</th>
+                <th className="time-header" id="table-tl"></th>
+                    <th>{smallScreen ? 'M' : 'Monday'}</th>
+                    <th>{smallScreen ? 'T' : 'Tues'}</th>
+                    <th>{smallScreen ? 'W' : 'Weds'}</th>
+                    <th>{smallScreen ? 'T' : 'Thurs'}</th>
+                    <th>{smallScreen ? 'F' : 'Fri'}</th>
+                    <th className="bg-secondary">{smallScreen ? 'S' : 'Sat'}</th>
+                    <th className="bg-secondary">{smallScreen ? 'S' : 'Sun'}</th>
                 </tr>
             </thead>
             <tbody>

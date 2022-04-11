@@ -10,6 +10,7 @@ const MySchedule = () => {
     const [scheduleArray, setScheduleArray] = useState([]);
     const [mouseDown, setMouseDown] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const [smallScreen, setSmallScreen] = useState(false);
 
     //grab and store schedule, if not one in DB then use scheduleArrayBuilder
     useEffect(()=> {
@@ -29,6 +30,17 @@ const MySchedule = () => {
             }
         };getSchedule();
     }, []);
+
+    useEffect(() => {
+        if (window.innerWidth < 672) setSmallScreen(true);
+        function handleResize() {
+          const width = window.innerWidth;
+          if (window.innerWidth < 672) setSmallScreen(true);
+          else setSmallScreen(false);
+        }
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+      }, []);
 
     //Drag and select helper function - checks if event happenend on a td element
     const checkAndUpdateIfIsTDElement = (ev) => {
@@ -130,13 +142,13 @@ const MySchedule = () => {
             <thead>
                 <tr>
                     <th className="time-header" id="table-tl"></th>
-                    <th>Mon</th>
-                    <th>Tues</th>
-                    <th>Weds</th>
-                    <th>Thurs</th>
-                    <th>Fri</th>
-                    <th className="bg-secondary">Sat</th>
-                    <th id="table-tr" className="bg-secondary">Sun</th>
+                    <th>{smallScreen ? 'M' : 'Monday'}</th>
+                    <th>{smallScreen ? 'T' : 'Tues'}</th>
+                    <th>{smallScreen ? 'W' : 'Weds'}</th>
+                    <th>{smallScreen ? 'T' : 'Thurs'}</th>
+                    <th>{smallScreen ? 'F' : 'Fri'}</th>
+                    <th className="bg-secondary">{smallScreen ? 'S' : 'Sat'}</th>
+                    <th id="table-tr" className="bg-secondary">{smallScreen ? 'S' : 'Sun'}</th>
                 </tr>
             </thead>
             <tbody>

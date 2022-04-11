@@ -11,6 +11,7 @@ const FriendScheduleCompare = ({user}) => {
     const [responseData, setResponseData] = useState([]);
     const [mergedSchedule, setMergedSchedule] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
+    const [smallScreen, setSmallScreen] = useState(false);
 
     //grab and store schedules
     useEffect(()=> {
@@ -36,6 +37,17 @@ const FriendScheduleCompare = ({user}) => {
             }
         };getAndSetSchedules();
     }, []);
+
+    useEffect(() => {
+        if (window.innerWidth < 672) setSmallScreen(true);
+        function handleResize() {
+          const width = window.innerWidth;
+          if (window.innerWidth < 672) setSmallScreen(true);
+          else setSmallScreen(false);
+        }
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+      }, []);
 
       //event listeners for highlight reset functionality (click off table)
       useEffect(()=> {
@@ -143,10 +155,10 @@ const FriendScheduleCompare = ({user}) => {
                 :
 
         <div className="row w-100 justify-content-evenly">
-            <div className="col-lg-3 col-10 bg-light my-3 rounded-2 mx-1">
+            <div className="col-lg-3 col-10 bg-light my-3 rounded-2">
 
             {responseData && responseData.length > 0 ?
-                <table className="table">
+                <table className="">
                     <tbody>
                         { responseData.map((el, i) => (
                             <tr className={el.current ? "green-text friends-list" : el.owner ? "owner-text friends-list" : "friends-list"} key={'compare-user-'+i}>
@@ -162,7 +174,7 @@ const FriendScheduleCompare = ({user}) => {
                     </tbody>
                 </table>: <h5 className="text-center p-2 mt-2">No friends to compare</h5>}
             </div>
-            <div className="col-lg-8 col-12 d-flex flex-column align-items-center text-white bg-light rounded-2 my-3 mx-1">
+            <div className="col-lg-8 col-12 d-flex flex-column align-items-center text-white bg-light rounded-2 my-3">
                 <div className="d-flex justify-content-evenly mt-2">
                     <div className="d-flex justify-content-evenly">
                         <label htmlFor="">From</label>
@@ -188,13 +200,13 @@ const FriendScheduleCompare = ({user}) => {
                     <thead>
                         <tr>
                             <th className="time-header" id="table-tl"></th>
-                            <th>Mon</th>
-                            <th>Tues</th>
-                            <th>Weds</th>
-                            <th>Thurs</th>
-                            <th>Fri</th>
-                            <th className="bg-secondary">Sat</th>
-                            <th className="bg-secondary" id="table-tr">Sun</th>
+                            <th>{smallScreen ? 'M' : 'Monday'}</th>
+                            <th>{smallScreen ? 'T' : 'Tues'}</th>
+                            <th>{smallScreen ? 'W' : 'Weds'}</th>
+                            <th>{smallScreen ? 'T' : 'Thurs'}</th>
+                            <th>{smallScreen ? 'F' : 'Fri'}</th>
+                            <th className="bg-secondary">{smallScreen ? 'S' : 'Sat'}</th>
+                            <th className="bg-secondary">{smallScreen ? 'S' : 'Sun'}</th>
                         </tr>
                     </thead>
                     <tbody id="schedule-compare-body">
@@ -205,49 +217,49 @@ const FriendScheduleCompare = ({user}) => {
                                     {i%4===0 &&<th rowSpan={4} className="time-header"><div>{el.time.split(':')[0]}:{el.time.split(':')[1]}0</div><div>{el.time.split(':')[0]}:30</div></th>}
                                     <td data-day={'monday'} onClick={checkAndUpdateIfIsTDElement} className={el.mon_count && el.mon_count > 5 ? `compare-lvl-6` : `compare-lvl-${el.mon_count}`}>
                                         {!el.mon_count ? <i className="fa-solid fa-xmark"></i> :
-                                            el.mon_count > 3 ? <i className={`fa-solid fa-${el.mon_count}`}></i> :
+                                            (el.mon_count!== 1 && smallScreen) || el.mon_count > 3 ? <i className={`fa-solid fa-${el.mon_count}`}></i> :
                                          [...Array(el.mon_count)].map((e, i) => (
                                             <i key={'checkmark-mon-'+i} className="fa-solid fa-check"></i>
                                         ))}
                                     </td>
                                     <td data-day={'tuesday'} onClick={checkAndUpdateIfIsTDElement} className={el.tues_count && el.tues_count > 5 ? `compare-lvl-6` : `compare-lvl-${el.tues_count}`}>
                                         {!el.tues_count ? <i className="fa-solid fa-xmark"></i> :
-                                        el.tues_count > 3 ? <i className={`fa-solid fa-${el.tues_count}`}></i> :
+                                        (el.tues_count!== 1 && smallScreen) || el.tues_count > 3 ? <i className={`fa-solid fa-${el.tues_count}`}></i> :
                                         [...Array(el.tues_count)].map((e, i) => (
                                             <i key={'checkmark-tues-'+i} className="fa-solid fa-check"></i>
                                         ))}
                                     </td>
                                     <td data-day={'wednesday'} onClick={checkAndUpdateIfIsTDElement} className={el.weds_count && el.weds_count > 5 ? `compare-lvl-6` : `compare-lvl-${el.weds_count}`}>
                                         {!el.weds_count ? <i className="fa-solid fa-xmark"></i> : 
-                                        el.weds_count > 3 ? <i className={`fa-solid fa-${el.weds_count}`}></i> :
+                                        (el.weds_count!== 1 && smallScreen) || el.weds_count > 3 ? <i className={`fa-solid fa-${el.weds_count}`}></i> :
                                         [...Array(el.weds_count)].map((e, i) => (
                                             <i key={'checkmark-weds-'+i} className="fa-solid fa-check"></i>
                                         ))}
                                     </td>
                                     <td data-day={'thursday'} onClick={checkAndUpdateIfIsTDElement} className={el.thurs_count && el.thurs_count > 5 ? `compare-lvl-6` : `compare-lvl-${el.thurs_count}`}>
                                         {!el.thurs_count ? <i className="fa-solid fa-xmark"></i> :
-                                        el.thurs_count > 3 ? <i className={`fa-solid fa-${el.thurs_count}`}></i> :
+                                        (el.thurs_count!== 1 && smallScreen) || el.thurs_count > 3 ? <i className={`fa-solid fa-${el.thurs_count}`}></i> :
                                         [...Array(el.thurs_count)].map((e, i) => (
                                             <i key={'checkmark-thurs-'+i} className="fa-solid fa-check"></i>
                                         ))}
                                     </td>
                                     <td data-day={'friday'} onClick={checkAndUpdateIfIsTDElement} className={el.fri_count && el.fri_count > 5 ? `compare-lvl-6` : `compare-lvl-${el.fri_count}`}>
                                         {!el.fri_count ? <i className="fa-solid fa-xmark"></i> :
-                                        el.fri_count > 3 ? <i className={`fa-solid fa-${el.fri_count}`}></i> :
+                                        (el.fri_count!== 1 && smallScreen) || el.fri_count > 3 ? <i className={`fa-solid fa-${el.fri_count}`}></i> :
                                         [...Array(el.fri_count)].map((e, i) => (
                                             <i key={'checkmark-fri-'+i} className="fa-solid fa-check"></i>
                                         ))}
                                     </td>
                                     <td data-day={'saturday'} onClick={checkAndUpdateIfIsTDElement} className={el.sat_count && el.sat_count > 5 ? `compare-lvl-6` : `compare-lvl-${el.sat_count}`}>
                                         {!el.sat_count ? <i className="fa-solid fa-xmark"></i> :
-                                        el.sat_count > 3 ? <i className={`fa-solid fa-${el.sat_count}`}></i> :
+                                        (el.sat_count!== 1 && smallScreen) || el.sat_count > 3 ? <i className={`fa-solid fa-${el.sat_count}`}></i> :
                                         [...Array(el.sat_count)].map((e, i) => (
                                             <i key={'checkmark-sat-'+i} className="fa-solid fa-check"></i>
                                         ))}
                                     </td>
                                     <td data-day={'sunday'} onClick={checkAndUpdateIfIsTDElement} className={el.sun_count && el.sun_count > 5 ? `compare-lvl-6` : `compare-lvl-${el.sun_count}`}>
                                         {!el.sun_count ? <i className="fa-solid fa-xmark"></i> :
-                                        el.sun_count > 3 ? <i className={`fa-solid fa-${el.sun_count}`}></i> :
+                                        (el.sun_count!== 1 && smallScreen) || el.sun_count > 3 ? <i className={`fa-solid fa-${el.sun_count}`}></i> :
                                         [...Array(el.sun_count)].map((e, i) => (
                                             <i key={'checkmark-sun-'+i} className="fa-solid fa-check"></i>
                                         ))}

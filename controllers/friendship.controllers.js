@@ -31,10 +31,7 @@ const createNewFriendship = async (req, res) => {
             else {
                 const friendship = await Friendship.create({
                     friend_1_id: id, friend_1_name: name, friend_2_id: friendsId, friend_2_name: `${friend.firstName} ${friend.lastName}`})
-                if (friendship) {
-                    const code = crypto.randomBytes(6).toString('hex'); //code is one time use - refresh it after creating a friendship
-                    friend.friendship_code = code; 
-                    friend.save(); 
+                if (friendship) { 
                     return res.status(200).json(friendship);
                 }
                 else return res.status(400).json("Friendship could not be created");
@@ -60,4 +57,20 @@ const removeFriendship = async (req, res) => {
     }
 }
 
-export { getMyFriendships, createNewFriendship, removeFriendship };
+const refreshFriendshipCode = async (req, res) => {
+    try {
+        const id = req.body.uid;
+        const user = await User.findById(id);
+        if (user) {
+            const code = crypto.randomBytes(6).toString('hex');
+            user.friendship_code = code;
+            user.save();
+            return res.status(200).json(user.friendship_code);
+        }
+        else return res.status(400).json("Could not find user"); 
+    } catch (error) {
+        res.status(400).json(error);  
+    }
+}
+
+export { getMyFriendships, createNewFriendship, removeFriendship, refreshFriendshipCode };

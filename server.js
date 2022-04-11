@@ -7,7 +7,7 @@ const app = express();
 
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors({origin: 'http://192.168.0.121:3000', credentials: true}));
+app.use(cors({origin: 'http://localhost:3000', credentials: true}));
 
 import { AuthRouter } from './routes/auth.routes.js';
 import { ScheduleRouter } from "./routes/schedule.routes.js";

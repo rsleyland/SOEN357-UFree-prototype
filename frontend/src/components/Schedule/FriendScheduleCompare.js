@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { scheduleArrayBuilder } from "./ScheduleBlank";
 import axios from 'axios';
+import { toast } from "react-toastify";
 import { compareLNameFNameDescSched, formatFullName } from "../../utility/formatters";
+
 
 
 const FriendScheduleCompare = ({user}) => {
@@ -21,7 +23,10 @@ const FriendScheduleCompare = ({user}) => {
                 const response = await axios.post(`/schedule/friend/compare`);
                 if (response) {
                     response.data.map((el) => {
-                        if (el.user === user._id) el.owner = true;
+                        if (el.user === user._id) {
+                            el.owner = true;
+                            if (el.noSchedule) toast.info("You have not set your schedule yet.")
+                        }
                         el.checked = false;
                         el.current = false;
                         return el;
@@ -163,11 +168,12 @@ const FriendScheduleCompare = ({user}) => {
                         { responseData.map((el, i) => (
                             <tr className={el.current ? "green-text friends-list" : el.owner ? "owner-text friends-list" : "friends-list"} key={'compare-user-'+i}>
                                 <td className="d-flex align-items-center justify-content-between">
-                                    <div className="form-check form-switch">
-                                        <input className="form-check-input" disabled={el.noSchedule} checked={el.checked} onChange={(e) => handleToggle(el.user, e)} type="checkbox" />
-                                    </div>
+                                <div className="form-check form-switch">
+                                    <input className="form-check-input" disabled={el.noSchedule} checked={el.checked} onChange={(e) => handleToggle(el.user, e)} type="checkbox" />
+                                </div>
                                     {formatFullName(el.name)} 
-                                    <i className={el.owner ? "owner-icon fa-solid fa-user" : el.noSchedule ?  "no-schedule fa-solid fa-calendar-xmark" : "fa-solid fa-calendar-xmark invisible"}></i>
+                                    {el.owner &&<i className="owner-icon fa-solid fa-user"></i>}
+                                    <i className={el.noSchedule ?  "no-schedule fa-solid fa-calendar-xmark" : "fa-solid fa-calendar-xmark invisible"}></i>
                                 </td>
                                 </tr>
                         ))}

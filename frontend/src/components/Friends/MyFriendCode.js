@@ -59,7 +59,7 @@ const MyFriendCode = ({code}) => {
             <li>Send your text code to a friend via sms/email</li>
           </ul>
           <p className='text-center'><small>Code will refresh at login or refresh below</small></p>
-          <button className='btn btn-sm btn-secondary' onClick={handleRefreshButton}>Refresh code</button>
+          <button className='btn btn-sm btn-secondary mb-3' onClick={handleRefreshButton}>Refresh code</button>
         </div>
     </>)
 };

@@ -158,14 +158,14 @@ const FriendScheduleCompare = ({user}) => {
             <div className="col-lg-3 col-10 bg-light my-3 rounded-2">
 
             {responseData && responseData.length > 0 ?
-                <table className="">
+                <table className="table">
                     <tbody>
                         { responseData.map((el, i) => (
                             <tr className={el.current ? "green-text friends-list" : el.owner ? "owner-text friends-list" : "friends-list"} key={'compare-user-'+i}>
                                 <td className="d-flex align-items-center justify-content-between">
-                                <div className="form-check form-switch">
-                                    <input className="form-check-input" disabled={el.noSchedule} checked={el.checked} onChange={(e) => handleToggle(el.user, e)} type="checkbox" />
-                                </div>
+                                    <div className="form-check form-switch">
+                                        <input className="form-check-input" disabled={el.noSchedule} checked={el.checked} onChange={(e) => handleToggle(el.user, e)} type="checkbox" />
+                                    </div>
                                     {formatFullName(el.name)} 
                                     <i className={el.owner ? "owner-icon fa-solid fa-user" : el.noSchedule ?  "no-schedule fa-solid fa-calendar-xmark" : "fa-solid fa-calendar-xmark invisible"}></i>
                                 </td>

@@ -2,12 +2,30 @@
 
 https://soen357-ufree.herokuapp.com/
 
+### Tech Stack
+
+**Frontend**:
+* ReactJS
+* Axios
+* Bootstrap
+* QRCode
+* Toastify
+
+**Backend**:
+* NodeJS
+* ExpressJS
+* Mongoose
+
+**Database**:
+* MongoDB Atlas
+
+
 ### Setup (via npm)
 `git clone git@github.com:rsleyland/SOEN357-prototype.git`
 
 `cd SOEN357-prototype`
 
-##### Add DB connection uri to .env
+##### Add MongoDB connection uri to .env
 `npm install`
 
 `npm start`

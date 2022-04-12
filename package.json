@@ -1,7 +1,7 @@
 {
   "name": "soen357-prototype",
   "version": "1.0.0",
-  "description": "",
+  "description": "Schedule sharing platform",
   "main": "server.js",
   "scripts": {
     "start": "nodemon server.js",
@@ -9,14 +9,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/rsleyland/SOEN357-prototype.git"
+    "url": "git+https://github.com/rsleyland/SOEN357-UFree-prototype.git"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Ryan Leyland",
   "bugs": {
-    "url": "https://github.com/rsleyland/SOEN357-prototype/issues"
+    "url": "https://github.com/rsleyland/SOEN357-UFree-prototype/issues"
   },
-  "homepage": "https://github.com/rsleyland/SOEN357-prototype#readme",
+  "homepage": "https://github.com/rsleyland/SOEN357-UFree-prototype#readme",
   "dependencies": {
     "bcrypt": "^5.0.1",
     "cookie-parser": "^1.4.6",

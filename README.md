@@ -1,5 +1,7 @@
 # SOEN357-prototype
 
+https://soen357-ufree.herokuapp.com/
+
 ### Setup (via npm)
 `git clone git@github.com:rsleyland/SOEN357-prototype.git`
 

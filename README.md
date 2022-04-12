@@ -1,6 +1,7 @@
 # SOEN357-prototype
 
-https://soen357-ufree.herokuapp.com/
+https://soen357-ufree.herokuapp.com/ 
+##### Test Account: email: test@account.com, password: pass
 
 ### Tech Stack
 

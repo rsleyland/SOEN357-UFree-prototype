@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { compareLNameFNameDesc, formatFullName } from '../../utility/formatters.js'
 
+// Component to display list of current users friends (users can view schedules or remove friend via buttons)
 const MyFriends = ({setCurrentTab, user, setFriendId, setFriendName}) => {
 
     const [data, setData] = useState(null);

@@ -1,6 +1,7 @@
 import { Friendship } from '../models/Friendship.model.js';
 import { Schedule } from '../models/Schedule.model.js';
 
+// Returns schedule from user sending request. req.body.uid is updated by middleware with users id which is stored inside the token cookie from the request.
 const getMySchedule = async (req, res) => {
     try {
         const id = req.body.uid;
@@ -16,6 +17,7 @@ const getMySchedule = async (req, res) => {
 
 };
 
+// Save the passed schedule to the requesting user
 const saveMySchedule = async (req, res) => {
     try {
         const id = req.body.uid;
@@ -31,6 +33,7 @@ const saveMySchedule = async (req, res) => {
     }
 };
 
+// Returns friend's schedule matching friend_id. (has to be friend of requesting user)
 const getFriendSchedule = async (req, res) => {
     try {
         const id = req.body.uid;
@@ -52,6 +55,7 @@ const getFriendSchedule = async (req, res) => {
     }
 }
 
+// Returns all friends schedules from user sending request.
 const getFriendScheduleCompare = async (req, res) => {
     try {
         const id = req.body.uid;

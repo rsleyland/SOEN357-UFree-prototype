@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { toast } from "react-toastify";
 
+// Component to generate and display QR and text friend code.
 const MyFriendCode = ({code}) => {
 
     const [codeValue, setCodeValue] = useState(null);

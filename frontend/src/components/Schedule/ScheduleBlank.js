@@ -1,3 +1,4 @@
+// Function to generate array with schedule table values. Schedule is seperated into 15 minute timeslots. 24x4 = 96 rows [{mon-sun},...]
 const scheduleArrayBuilder = (buildTrue) => {
     const tempDate = new Date()
     tempDate.setHours(0);

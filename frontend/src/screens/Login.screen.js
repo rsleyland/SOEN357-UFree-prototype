@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 import axios from 'axios';
 import { AuthContext } from '../services/providers/AuthContextProvider.js';
 
+// Login screen with basic login form
 const LoginScreen = ({isRedirectFromQR = false}) => {
 
     const navigate = useNavigate();

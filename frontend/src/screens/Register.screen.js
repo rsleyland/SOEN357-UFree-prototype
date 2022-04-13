@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 import axios from 'axios';
 import { AuthContext } from '../services/providers/AuthContextProvider.js';
 
+// Register screen with basic register form
 const RegisterScreen = () => {
 
     const navigate = useNavigate();

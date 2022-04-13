@@ -3,6 +3,7 @@ import { scheduleArrayBuilder } from "../components/Schedule/ScheduleBlank.js";
 import axios from 'axios';
 import { toast } from "react-toastify";
 
+// Screen which will display current users saved schedule or a fresh schedule using the scheduleArrayBuilders returned array.
 const MySchedule = () => {
 
     const [startTime, setStartTime] = useState(9);

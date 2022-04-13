@@ -3,6 +3,7 @@ import { createNewFriendship, getMyFriendships, removeFriendship, refreshFriends
 import { userRoute } from "../middlewares/userAccess.middleware.js";
 const FriendshipRouter = express.Router();
 
+// Friendship routes
 FriendshipRouter.get('/my', userRoute, getMyFriendships);
 FriendshipRouter.post('/create', userRoute, createNewFriendship);
 FriendshipRouter.delete('/remove', userRoute, removeFriendship);

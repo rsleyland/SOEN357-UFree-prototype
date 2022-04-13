@@ -6,7 +6,7 @@ import { MyFriendCode } from "../components/Friends/MyFriendCode.js";
 import { AuthContext } from "../services/providers/AuthContextProvider.js";
 import { FriendScheduleCompare } from "../components/Schedule/FriendScheduleCompare.js";
 
-
+// Screen which contains all friend components
 const Friends = () => {
 
     const { currentUser } = useContext(AuthContext);

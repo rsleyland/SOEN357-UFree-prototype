@@ -4,7 +4,7 @@ import axios from 'axios';
 import { toast } from "react-toastify";
 import { formatFirstName, formatFullName } from "../../utility/formatters";
 
-
+// Component which gets and displays friends schedule which corresponds to passed friend_id
 const FriendSchedule = ({friend_id, friend_name, setCurrentTab}) => {
 
     const [startTime, setStartTime] = useState(9);

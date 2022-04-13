@@ -5,7 +5,7 @@ import { AuthContext } from '../services/providers/AuthContextProvider.js';
 import axios from 'axios';
 import { formatFirstName } from '../utility/formatters.js';
 
-
+// Logout screen to make sure logout request sent to server in order to delete the cookie from the clients browser
 const LogoutScreen = () => {
 
     const navigate = useNavigate();

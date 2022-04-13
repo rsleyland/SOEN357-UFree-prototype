@@ -2,6 +2,7 @@ import { Friendship } from "../models/Friendship.model.js";
 import { User } from "../models/User.model.js";
 import crypto from "crypto";
 
+// Returns all friendships from user sending request. req.body.uid is updated by middleware with users id which is stored inside the token cookie from the request.
 const getMyFriendships = async (req, res) => {
     try {
         const id = req.body.uid;
@@ -14,9 +15,9 @@ const getMyFriendships = async (req, res) => {
         console.log(error);
         res.status(400).json(error);  
     }
-
 };
 
+// Creates a new friendship between the user requesting and the user whom the friendship code belongs to 
 const createNewFriendship = async (req, res) => {
     try {
         const id = req.body.uid;
@@ -44,6 +45,7 @@ const createNewFriendship = async (req, res) => {
     }
 };
 
+// Removes the friendship between requesting user and the user belonging to passed friend_id
 const removeFriendship = async (req, res) => {
     try {
         const id = req.body.uid;
@@ -57,6 +59,7 @@ const removeFriendship = async (req, res) => {
     }
 }
 
+// Refreshes friendship code for requesting user, this give functionality to the refresh button on my friend code page.
 const refreshFriendshipCode = async (req, res) => {
     try {
         const id = req.body.uid;

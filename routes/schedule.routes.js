@@ -3,6 +3,7 @@ import { getMySchedule, saveMySchedule, getFriendSchedule, getFriendScheduleComp
 import { userRoute } from "../middlewares/userAccess.middleware.js";
 const ScheduleRouter = express.Router();
 
+// Schedule routes
 ScheduleRouter.get('/my', userRoute, getMySchedule);
 ScheduleRouter.post('/friend', userRoute, getFriendSchedule);
 ScheduleRouter.post('/friend/compare', userRoute, getFriendScheduleCompare);

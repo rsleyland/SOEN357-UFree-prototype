@@ -5,7 +5,8 @@ import { toast } from "react-toastify";
 import { compareLNameFNameDescSched, formatFullName } from "../../utility/formatters";
 
 
-
+// Component to compare all currents user's friend's schedules. Lists friends names which are toggleable, 
+// once toggled their schedule will be added to the schedule table. 
 const FriendScheduleCompare = ({user}) => {
 
     const [startTime, setStartTime] = useState(9);

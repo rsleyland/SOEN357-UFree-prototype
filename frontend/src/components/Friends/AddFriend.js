@@ -2,6 +2,8 @@ import axios from "axios";
 import { useState } from "react";
 import { toast } from "react-toastify";
 
+
+// Component to add friend via text code provided on my friend code page
 const AddFriend = ({setCurrentTab, user}) => {
 
     const [friendsCode, setFriendsCode] = useState('');

@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import { AuthContext } from "../services/providers/AuthContextProvider.js";
 import axios from "axios";
 
+// Screen which is used to create a friendship and redirect the user once they have scanned a friends QR code.
 const QRLinkScreen = () => {
     const navigate = useNavigate();
     const { currentUser } = useContext(AuthContext);

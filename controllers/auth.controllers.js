@@ -3,7 +3,8 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import crypto from "crypto";
 
-
+// Handler for login post request. Uses JWT token inside of http only cookie (We use this cookie in middlewares to verify the user for secure routes)
+// Users friendship code is refreshed at login (used to add friends. Refreshes to prevent it from being 'leaked')
 const loginHandler = async (req, res) => {
     try {
         const user = await User.findOne({email: req.body.email});
@@ -33,6 +34,7 @@ const loginHandler = async (req, res) => {
     }
 };
 
+// Handler for logout get request. Serves purpose of removing cookie from client. (Cleanup)
 const logoutHandler = async (req, res) => {
     try {
         res.status(200).clearCookie("token").end();
@@ -41,7 +43,7 @@ const logoutHandler = async (req, res) => {
     }
 };
 
-
+// Handler for registering new user. Checks that email is not currently registered. Uses bcrypt to hash users password for storing in MongoDB 
 const registrationHandler = async (req, res) => {
     try {
         if (await User.count({email: req.body.email}) > 0) {

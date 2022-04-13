@@ -5,6 +5,8 @@ import { useNavigate } from 'react-router-dom';
 import { MySchedule } from './MySchedule.screen.js';
 import { Friends } from './Friends.screen';
 
+// Home screen where user will be redirected to after login. First subscreen will be set to Current users schedule (My Schedule page)
+// Contains My Schedule, Friends and Settings screens
 
 const HomeScreen = () => {
 

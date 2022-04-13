@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import { User } from "../models/User.model.js";
 
-
+// Middleware to grab http only cookie, verify JWT token and set the req.body.uid to the user id from the JWT result.
 const userRoute = async (req, res, next) => {
     try {
         const result = jwt.verify(req.cookies.token, process.env.JWT_SECRET);

@@ -1,6 +1,6 @@
 # SOEN357-prototype
 
-https://soen357-ufree.herokuapp.com/ 
+https://soen357-ufree.herokuapp.com/  (site will idle after 30min inactivity, will take ~30s to boot)
 ##### Test Account: email: test@account.com, password: pass
 
 ### Tech Stack
